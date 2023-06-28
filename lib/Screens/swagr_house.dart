@@ -1,0 +1,70 @@
+import 'package:bloody/Screens/search_screen.dart';
+import 'package:bloody/Widgets/explore_screen_widgets/app_bar.dart';
+
+import '../main.dart';
+import 'package:flutter/material.dart';
+
+import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
+
+import 'explore_screen.dart';
+
+//import 'style_upload_screen.dart';
+//import 'loundry_upload_screen.dart';
+import 'tryout.dart';
+import 'upload_type_select_screen.dart';
+import 'notification_screen.dart';
+import 'profile_screen.dart';
+import 'sign_up_in_out_screen.dart';
+
+final palette = Palette();
+
+class SwagrHouse extends StatefulWidget {
+  const SwagrHouse({super.key});
+
+  @override
+  State<SwagrHouse> createState() => SwagrHouseState();
+}
+
+class SwagrHouseState extends State<SwagrHouse> {
+  int selectedPageIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //  appBar: appbar(context),
+      backgroundColor: palette.white,
+      body: const [
+        Center(
+            child: //ExploreScreenWidget(),
+                InfoScreen()),
+        Center(child: SearchResultScreen()),
+        Center(child: NotificationScreen()),
+        Center(child: ProfileScreen()),
+      ][selectedPageIndex],
+
+      bottomNavigationBar: NavigationBar(
+          backgroundColor: palette.white,
+          selectedIndex: selectedPageIndex,
+          onDestinationSelected: (int index) => setState(() {
+                selectedPageIndex = index;
+              }),
+          destinations: const <NavigationDestination>[
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              label: 'home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.search),
+              label: 'expore',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.notifications_outlined),
+              label: 'notify',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.auto_awesome_mosaic_outlined),
+              label: 'profile',
+            ),
+          ]),
+    );
+  }
+}

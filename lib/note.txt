@@ -1,0 +1,147 @@
+                                              | next screen
+                                              | 
+style upload picture format                   |      
+> sign name     <text field>                              |   details of creators
+> style name    <text field>                  |   extra information to write
+> collection or album name
+
+laundry upload format
+> name : phone number      <text field>                   |
+>  type of cloth : how many for each  <dropdown menu>
+> white or not       <dropdown menu>
+> price
+
+dress making upload format                    |  measurement of client
+> name      <text field>
+> type of dress to be made    <dropdown menu> 
+> type of material to be sewn  <dropdown menu>
+> price  <text field>
+
+/////
+from top to botttom
+>fullname
+
+>phone number
+
+>address
+
+>what material to use>> select from 
+\\camera  \\picture  \\browse materials picture to buy from online
+
+>what style to sew or use>> select from
+\\camera  \\picture  \\browse styles online to sew from
+
+>what measurement to use>> select from
+\\generic(one for all measurement) \\specific(measure for only one cloth)
+
+
+>other informations
+
+
+
+add camera plugin (https://pub.dev/packages/camera)
+add picker file plugin
+how custompainter saves to image format
+hatunnel
+
+
+
+
+
+///<<<<<<<<<<<<<<< style Upload Form
+
+extension StyleUploadFormWidget on StyleUploadScreenState {
+  Widget styleUploadForm(BuildContext context) {
+    return (Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        SizedBox(
+          width: 300,
+          child: TextField(
+            onChanged: (value) => setState(() {
+              styleTeleportData.styleName = value;
+            }),
+            decoration: const InputDecoration(hintText: 'unique style name'),
+          ),
+        ),
+        const SizedBox(width: 20),
+        SizedBox(
+          width: 300,
+          height: 400,
+          child: TextField(
+            onChanged: (value) => setState(() {
+              styleTeleportData.signName = value;
+              debugPrint(styleTeleportData.signName);
+            }),
+            decoration: const InputDecoration(hintText: 'signed name'),
+          ),
+        ),
+        const SizedBox(width: 20),
+        DropdownMenu(
+          onSelected: (value) {
+            setState(() {
+              styleTeleportData.styleType = value;
+            });
+          },
+          dropdownMenuEntries: const [
+            DropdownMenuEntry(value: 'single', label: 'single'),
+            DropdownMenuEntry(value: 'collection', label: 'collection'),
+            DropdownMenuEntry(value: 'album', label: 'album')
+          ],
+          hintText: 'single',
+          helperText: 'single',
+          width: 200,
+        ),
+        const SizedBox(width: 20),
+        SizedBox(
+          width: styleTeleportData.styleType == 'single' ? 0 : 300,
+          child: TextField(
+            onChanged: (value) => setState(() {
+              styleTeleportData.styleTypeDetails = value;
+            }),
+            decoration: InputDecoration(
+                suffixText: styleTeleportData.styleType == 'collection'
+                    ? 'collection'
+                    : 'album',
+                hintText: styleTeleportData.styleType == 'collection'
+                    ? 'enter collection name'
+                    : 'enter album name'),
+          ),
+        ),
+        const SizedBox(width: 20),
+        ElevatedButton(
+          onPressed: () {
+            debugPrint('oky');
+            //  loundryUploadPainter.createImage();
+            debugPrint('oky again');
+          },
+          style: const ButtonStyle(
+            fixedSize: MaterialStatePropertyAll(Size.fromHeight(35)),
+          ),
+          child: const Text('push'),
+        ),
+      ],
+    ));
+  }
+  //
+  //
+  //>>>>>>>>>>>>>>>>> style upload form
+
+  //new feature
+
+    a part of your profile where other
+    users can see what you are wearing at the mooment
+
+
+
+// account and proposed expenses
+>screen guide 1000  (1)
+>bag 4000      (2)
+>prepaid 1000   (2)
+>airpod 3500
+>subscription 1500  (1)
+> phone money 8000   (3)
+
+total 19000
+
+cash at hand 2000
