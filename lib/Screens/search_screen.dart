@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Widgets/explore_screen_widgets/app_bar.dart';
 import '../main.dart';
 
 class SearchResultScreen extends StatefulWidget {
@@ -23,6 +22,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
       shadowColor: palette.white,
       elevation: 0,
       title: SearchBar(
+        onTap: () => debugPrint('tapped'),
         backgroundColor: MaterialStatePropertyAll(palette.lightPurple),
         hintText:
             'search for styles, fabrics, designers, brands, artists and more',

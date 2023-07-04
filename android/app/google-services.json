@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "947879801862",
+    "project_id": "adroit-sol-385215",
+    "storage_bucket": "adroit-sol-385215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947879801862:android:410a36fff8756a2c07ff87",
+        "android_client_info": {
+          "package_name": "com.example.bloody"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947879801862-gbq8qbfbetngqnejgk6bfuek96vnnncp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADp-PUo59oNg9B48N1ko2gXvHpL3ifosM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947879801862-an9macvgs4c0ddl4te27qf9uglqn6q0o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "947879801862-m2plj20gl6lddb6s5j2of0p6p7q1f16l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.providerShopper"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

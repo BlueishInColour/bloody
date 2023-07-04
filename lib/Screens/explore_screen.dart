@@ -8,7 +8,6 @@ import '../main.dart';
 //import 'dart:async';
 import 'dart:io';
 import '../Widgets/explore_screen_widgets/pod_icon_buttons.dart';
-import '../Widgets/explore_screen_widgets/app_bar.dart';
 import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
 
 //final palette = Palette();
@@ -31,7 +30,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      appBar: AppBar(title: Text('swagr')),
+      appBar: AppBar(title: const Text('swagr')),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(20),
         child: manyFloatingwidget
@@ -43,8 +42,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                     onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SelectScreen())),
-                    icon: Icon(
+                            builder: (context) => const SelectScreen())),
+                    icon: const Icon(
                       Icons.control_point_duplicate_outlined,
                       size: 40,
                       color: Colors.black,

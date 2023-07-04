@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Widgets/explore_screen_widgets/app_bar.dart';
 import '../main.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -20,7 +19,7 @@ class NotificationScreen extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 5),
-        (Container(
+        (SizedBox(
           height: 100,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,

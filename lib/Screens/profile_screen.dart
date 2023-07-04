@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Widgets/explore_screen_widgets/app_bar.dart';
 import '../main.dart';
 
 class ProfileScreen extends StatefulWidget {

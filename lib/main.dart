@@ -1,11 +1,7 @@
 import "package:flutter/material.dart";
 import 'Screens/swagr_house.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-void main() async {
-  await Hive.initFlutter(); //initialize hive database
-  await Hive.openBox('peopleBox');
+main() async {
   runApp(const Swagr());
 }
 
@@ -15,7 +11,7 @@ class Palette {
   final Color lightRed = const Color.fromARGB(82, 240, 15, 15);
 
   final Color purple = const Color.fromARGB(255, 129, 50, 219);
-  final Color lightPurple = Color.fromARGB(41, 129, 50, 219);
+  final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
 
   final Color black = const Color.fromARGB(255, 0, 0, 0);
   final Color white = const Color.fromARGB(255, 255, 255, 255);

@@ -10,11 +10,12 @@ import 'explore_screen.dart';
 
 //import 'style_upload_screen.dart';
 //import 'loundry_upload_screen.dart';
-import 'tryout.dart';
 import 'upload_type_select_screen.dart';
 import 'notification_screen.dart';
 import 'profile_screen.dart';
 import 'sign_up_in_out_screen.dart';
+import 'tryout_screen.dart';
+import '../provider.dart';
 
 final palette = Palette();
 
@@ -32,13 +33,14 @@ class SwagrHouseState extends State<SwagrHouse> {
     return Scaffold(
       //  appBar: appbar(context),
       backgroundColor: palette.white,
-      body: const [
+      body: [
         Center(
-            child: //ExploreScreenWidget(),
-                InfoScreen()),
-        Center(child: SearchResultScreen()),
-        Center(child: NotificationScreen()),
-        Center(child: ProfileScreen()),
+          child: TryOutScreen(),
+          // ExploreScreenWidget(),
+        ),
+        const Center(child: SearchResultScreen()),
+        const Center(child: NotificationScreen()),
+        const Center(child: ProfileScreen()),
       ][selectedPageIndex],
 
       bottomNavigationBar: NavigationBar(
