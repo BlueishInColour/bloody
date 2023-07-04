@@ -12,4 +12,4 @@ if you want to work with me on this, youll need well grounded knowledge in
 
 
 
-well work out the rest later but foe now, yeah!
+well work out the rest later but for now, yeah!
