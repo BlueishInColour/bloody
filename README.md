@@ -8,7 +8,7 @@ if you want to work with me on this, youll need well grounded knowledge in
 
 
     flutter/dart for frontend
-    ySQL( mysql1 plugin ) for database management
+    SQL( mysql1 plugin ) for database management
 
 
 
