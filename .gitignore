@@ -42,3 +42,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#ones that i dont want
+/ios
+/startrecord.txt
+
