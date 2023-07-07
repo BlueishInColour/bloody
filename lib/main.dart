@@ -146,7 +146,7 @@ class Swagr extends StatelessWidget {
             filled: true,
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(9),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                 )),
             counterStyle: TextStyle(
@@ -226,8 +226,8 @@ class Swagr extends StatelessWidget {
         searchBarTheme: SearchBarThemeData(
             backgroundColor: MaterialStatePropertyAll(palette.white),
             shadowColor: MaterialStatePropertyAll(palette.lightGrey),
-            elevation: MaterialStatePropertyAll(0),
-            constraints: BoxConstraints(maxHeight: 50),
+            elevation: const MaterialStatePropertyAll(0),
+            constraints: const BoxConstraints(maxHeight: 50),
             surfaceTintColor: MaterialStatePropertyAll(palette.lightPurple),
             textStyle:
                 MaterialStatePropertyAll(TextStyle(color: palette.black))),

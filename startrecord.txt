@@ -17,7 +17,6 @@ web       1:947879801862:web:aa9447475decf0d207ff87
 ios       1:947879801862:ios:9b3030f0d3b1faad07ff87
 
 
-run to install android sdk 
+start android emulator
 
-
-/home/pelumi/androidsdk/cmdline-tools/latest/bin/sdkmanager  "build-tools;29.0.2" "platform;android-29" 
+emulator  -avd pixel_5_api29_google_apis_emulator

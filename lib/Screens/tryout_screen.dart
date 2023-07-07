@@ -54,11 +54,11 @@ class TryOutScreen extends HookConsumerWidget {
                     addEmail('oluwapelumi', 'this is my email');
                     debugPrint('successful');
                   },
-                  child: Text('submit'))),
+                  child: const Text('submit'))),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         //  Text('nioweoknppoepopepojpoepopoeioe'),
-        Divider(),
+        const Divider(),
 
         Container(
           height: 500,
@@ -70,16 +70,16 @@ class TryOutScreen extends HookConsumerWidget {
               color: Colors.lightBlueAccent,
               child: (Row(
                 children: [
-                  Expanded(child: Text('book')),
+                  const Expanded(child: Text('book')),
                   ////////              //UPDATE
 
-                  IconButton(onPressed: null, icon: Icon(Icons.edit)),
+                  const IconButton(onPressed: null, icon: Icon(Icons.edit)),
 
                   ////////               //DELETE
 
                   IconButton(
-                      onPressed: () => null,
-                      icon: Icon(Icons.delete, color: Colors.red))
+                      onPressed: () {},
+                      icon: const Icon(Icons.delete, color: Colors.red))
                 ],
               )),
             );

@@ -1,21 +1,15 @@
 import 'package:bloody/Screens/search_screen.dart';
-import 'package:bloody/Widgets/explore_screen_widgets/app_bar.dart';
 
 import '../main.dart';
 import 'package:flutter/material.dart';
 
-import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
 
-import 'explore_screen.dart';
 
 //import 'style_upload_screen.dart';
 //import 'loundry_upload_screen.dart';
-import 'upload_type_select_screen.dart';
 import 'notification_screen.dart';
 import 'profile_screen.dart';
-import 'sign_up_in_out_screen.dart';
 import 'tryout_screen.dart';
-import '../provider.dart';
 
 final palette = Palette();
 
