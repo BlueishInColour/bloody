@@ -41,7 +41,7 @@ class Swagr extends StatelessWidget {
             style: ButtonStyle(
                 splashFactory: InkSparkle.splashFactory,
                 shadowColor: MaterialStatePropertyAll(palette.lightPurple),
-                backgroundColor: MaterialStatePropertyAll(palette.red))),
+                backgroundColor: MaterialStatePropertyAll(palette.black))),
         badgeTheme: BadgeThemeData(
           backgroundColor: palette.lightPurple,
           textColor: palette.white,
@@ -109,8 +109,8 @@ class Swagr extends StatelessWidget {
         ),
         shadowColor: palette.lightPurple,
         buttonTheme: ButtonThemeData(
-          buttonColor: palette.red,
-          disabledColor: palette.red,
+          buttonColor: palette.black,
+          disabledColor: palette.black,
           focusColor: palette.lightPurple,
           textTheme: ButtonTextTheme.normal,
           shape: const RoundedRectangleBorder(
@@ -124,10 +124,10 @@ class Swagr extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(palette.red),
               elevation: const MaterialStatePropertyAll(0)),
         ),
-        textButtonTheme: const TextButtonThemeData(
+        textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
-          backgroundColor:
-              MaterialStatePropertyAll(Color.fromARGB(0, 231, 6, 6)),
+          backgroundColor: MaterialStatePropertyAll(Color.fromARGB(0, 0, 0, 0)),
+          foregroundColor: MaterialStatePropertyAll(Colors.white),
         )),
         inputDecorationTheme: InputDecorationTheme(
             labelStyle: TextStyle(
