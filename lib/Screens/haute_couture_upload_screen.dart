@@ -118,9 +118,9 @@ class HauteCoutureUploadScreenState extends State<HauteCoutureUploadScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              containPod(context, Icons.camera, palette.lightRed, null),
+              containPod(context, Icons.camera, palette.black, null),
               containPod(
-                  context, Icons.file_present_rounded, palette.lightBlue, null),
+                  context, Icons.file_present_rounded, palette.lightPurple, null),
               containPod(context, Icons.explore, palette.lightPurple, null)
             ],
           ),
@@ -143,9 +143,9 @@ class HauteCoutureUploadScreenState extends State<HauteCoutureUploadScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              containPod(context, Icons.camera, palette.lightRed, null),
+              containPod(context, Icons.camera, palette.black, null),
               containPod(
-                  context, Icons.file_present_rounded, palette.lightBlue, null),
+                  context, Icons.file_present_rounded, palette.lightPurple, null),
               containPod(context, Icons.explore, palette.lightPurple, null)
             ],
           ),
@@ -170,7 +170,7 @@ class HauteCoutureUploadScreenState extends State<HauteCoutureUploadScreen> {
             containPod(
                 context,
                 Icons.explore,
-                palette.lightBlue,
+                palette.lightPurple,
                 () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Generic())),
                 width: 170,

@@ -64,7 +64,7 @@ Widget cancelWidget(BuildContext context) {
       icon: Icon(
         Icons.cancel_outlined,
         size: 30,
-        color: palette.purple,
+        color: palette.lightPurple,
       )));
 }
 
@@ -146,7 +146,7 @@ PreferredSizeWidget tabNavigationBar(BuildContext context) {
   return AppBar(
       automaticallyImplyLeading: false,
       titleTextStyle: TextStyle(
-          color: palette.purple, fontSize: 15, fontWeight: FontWeight.bold),
+          color: palette.lightPurple, fontSize: 15, fontWeight: FontWeight.bold),
       toolbarHeight: 25,
       bottomOpacity: 0.60,
       elevation: 0,

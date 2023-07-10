@@ -34,7 +34,7 @@ class _IconState extends State<icon> {
       isSelected: false,
       icon: Icon(
         widget.icony,
-        color: isPressed ? palette.red : palette.grey,
+        color: isPressed ? palette.red : palette.black,
       ),
     ));
   }

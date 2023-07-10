@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 //import 'loundry_upload_screen.dart';
 import 'notification_screen.dart';
 import 'profile_screen.dart';
-import 'tryout_screen.dart';
+import 'explore_screen.dart';
 
 final palette = Palette();
 
@@ -28,13 +28,14 @@ class SwagrHouseState extends State<SwagrHouse> {
       //  appBar: appbar(context),
       backgroundColor: palette.white,
       body: [
-        Center(
-          child: TryOutScreen(),
-          // ExploreScreenWidget(),
+        const Center(
+          child: 
+          ExploreScreenWidget(),
         ),
         const Center(child: SearchResultScreen()),
         const Center(child: NotificationScreen()),
         const Center(child: ProfileScreen()),
+          const Center(child: ProfileScreen()),
       ][selectedPageIndex],
 
       bottomNavigationBar: NavigationBar(
@@ -46,18 +47,27 @@ class SwagrHouseState extends State<SwagrHouse> {
           destinations: const <NavigationDestination>[
             NavigationDestination(
               icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home_filled, color: Colors.black,fill: 1,),
               label: 'home',
             ),
             NavigationDestination(
               icon: Icon(Icons.search),
-              label: 'expore',
+                label: 'expore',
+            ),  
+            NavigationDestination(
+              icon: Icon(Icons.add_box, size: 50,color: Colors.black),
+              
+              label: 'add',
             ),
             NavigationDestination(
               icon: Icon(Icons.notifications_outlined),
+               selectedIcon: Icon(Icons.notifications_rounded, color: Colors.black,fill: 1,),
               label: 'notify',
+
             ),
             NavigationDestination(
               icon: Icon(Icons.auto_awesome_mosaic_outlined),
+               selectedIcon: Icon(Icons.auto_awesome_mosaic_rounded, color: Colors.black,),
               label: 'profile',
             ),
           ]),

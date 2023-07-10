@@ -30,39 +30,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      appBar: AppBar(title: const Text('swagr')),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(20),
-        child: manyFloatingwidget
-            ? floatingActionButtons(context)
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SelectScreen())),
-                    icon: const Icon(
-                      Icons.control_point_duplicate_outlined,
-                      size: 40,
-                      color: Colors.black,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        manyFloatingwidget = true;
-                      });
-                    },
-                    icon: const Icon(Icons.explore_outlined,
-                        size: 40, color: Colors.black),
-                  ),
-                ],
-              ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      appBar: AppBar(title: const Text('tsunami',style:TextStyle(fontSize:42,fontWeight: FontWeight.bold))),
       body: ListView.builder(
         itemBuilder: imagePod,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -154,7 +122,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-        // color: palette.lightBlue,
+        // color: palette.lightPurple,
         borderRadius: BorderRadius.circular(12),
       ),
       child: (Row(
@@ -197,7 +165,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         textDirection: TextDirection.rtl,
         children: [
           CircleAvatar(
-            backgroundColor: palette.lightRed,
+            backgroundColor: palette.black,
             // backgroundImage: const NetworkImage(
             //   "https://source.unsplash.com/random/?art&width=500&height=1000",
             // ),

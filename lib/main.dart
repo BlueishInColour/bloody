@@ -7,20 +7,14 @@ main() async {
 
 class Palette {
   Palette();
-  final Color red = const Color.fromARGB(239, 240, 15, 15);
-  final Color lightRed = const Color.fromARGB(82, 240, 15, 15);
 
-  final Color purple = const Color.fromARGB(255, 129, 50, 219);
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
+
+  final Color red = const  Color.fromARGB(41, 247, 3, 23);
 
   final Color black = const Color.fromARGB(255, 0, 0, 0);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
 
-  final Color grey = const Color.fromARGB(255, 72, 72, 73);
-  final Color lightGrey = const Color.fromARGB(36, 72, 72, 73);
-
-  final Color blue = const Color.fromARGB(255, 30, 15, 240);
-  final Color lightBlue = const Color.fromARGB(78, 30, 15, 240);
 }
 
 final palette = Palette();
@@ -40,16 +34,16 @@ class Swagr extends StatelessWidget {
             foregroundColor: palette.black,
             titleTextStyle: TextStyle(
                 color: palette.black,
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold)),
         primaryColor: palette.red,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 splashFactory: InkSparkle.splashFactory,
-                shadowColor: MaterialStatePropertyAll(palette.grey),
+                shadowColor: MaterialStatePropertyAll(palette.lightPurple),
                 backgroundColor: MaterialStatePropertyAll(palette.red))),
         badgeTheme: BadgeThemeData(
-          backgroundColor: palette.purple,
+          backgroundColor: palette.lightPurple,
           textColor: palette.white,
           alignment: Alignment.topRight,
           textStyle: TextStyle(color: palette.white),
@@ -59,7 +53,7 @@ class Swagr extends StatelessWidget {
         cardTheme: CardTheme(
           clipBehavior: Clip.antiAlias,
           color: palette.lightPurple,
-          shadowColor: palette.lightGrey,
+          shadowColor: palette.lightPurple,
           elevation: 2,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -80,7 +74,7 @@ class Swagr extends StatelessWidget {
             borderRadius: BorderRadius.circular(9),
           ),
           elevation: 2,
-          headerBackgroundColor: palette.purple,
+          headerBackgroundColor: palette.lightPurple,
           headerForegroundColor: palette.white,
         ),
         dialogBackgroundColor: palette.lightPurple,
@@ -88,7 +82,7 @@ class Swagr extends StatelessWidget {
           elevation: 2,
           alignment: Alignment.center,
           backgroundColor: palette.lightPurple,
-          // shadowColor: palette.lightGrey,
+          // shadowColor: palette.lightPurple,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(9),
           ),
@@ -105,16 +99,16 @@ class Swagr extends StatelessWidget {
         // cardColor: palette.lightPurple,
         bannerTheme: MaterialBannerThemeData(
           // backgroundColor: palette.lightPurple,
-          dividerColor: palette.lightGrey,
-          shadowColor: palette.lightGrey,
+          dividerColor: palette.lightPurple,
+          shadowColor: palette.lightPurple,
           elevation: 2,
           contentTextStyle: TextStyle(color: palette.white),
         ),
-        shadowColor: palette.lightGrey,
+        shadowColor: palette.lightPurple,
         buttonTheme: ButtonThemeData(
           buttonColor: palette.red,
           disabledColor: palette.red,
-          focusColor: palette.purple,
+          focusColor: palette.lightPurple,
           textTheme: ButtonTextTheme.normal,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -123,7 +117,7 @@ class Swagr extends StatelessWidget {
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
               iconColor: MaterialStatePropertyAll(palette.red),
-              shadowColor: MaterialStatePropertyAll(palette.lightGrey),
+              shadowColor: MaterialStatePropertyAll(palette.lightPurple),
               backgroundColor: MaterialStatePropertyAll(palette.red),
               elevation: const MaterialStatePropertyAll(2)),
         ),
@@ -150,7 +144,7 @@ class Swagr extends StatelessWidget {
                   color: Colors.transparent,
                 )),
             counterStyle: TextStyle(
-              color: palette.purple,
+              color: palette.lightPurple,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(9),
@@ -187,7 +181,7 @@ class Swagr extends StatelessWidget {
           height: 50,
           surfaceTintColor: palette.black,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          indicatorColor: palette.lightPurple,
+          indicatorColor:Colors.transparent,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: palette.white,
@@ -200,14 +194,14 @@ class Swagr extends StatelessWidget {
           unselectedItemColor: palette.black,
           selectedIconTheme: IconThemeData(color: palette.red, size: 30),
           unselectedIconTheme: const IconThemeData(
-            color: Color.fromRGBO(60, 12, 219, 0.475),
+            color: Color.fromRGBO(255, 255, 255, 1),
           ),
         ),
         hoverColor: palette.lightPurple,
         progressIndicatorTheme: ProgressIndicatorThemeData(
             color: palette.red, refreshBackgroundColor: palette.lightPurple),
         toggleButtonsTheme: ToggleButtonsThemeData(
-            disabledColor: palette.lightGrey,
+            disabledColor: palette.lightPurple,
             borderColor: palette.red,
             selectedBorderColor: palette.red),
         snackBarTheme: SnackBarThemeData(
@@ -222,10 +216,10 @@ class Swagr extends StatelessWidget {
         iconTheme: IconThemeData(
             color: palette.red,
             fill: 0.5,
-            shadows: [Shadow(color: palette.lightGrey, blurRadius: 10)]),
+            shadows: [Shadow(color: palette.lightPurple, blurRadius: 10)]),
         searchBarTheme: SearchBarThemeData(
             backgroundColor: MaterialStatePropertyAll(palette.white),
-            shadowColor: MaterialStatePropertyAll(palette.lightGrey),
+            shadowColor: MaterialStatePropertyAll(palette.lightPurple),
             elevation: const MaterialStatePropertyAll(0),
             constraints: const BoxConstraints(maxHeight: 50),
             surfaceTintColor: MaterialStatePropertyAll(palette.lightPurple),
@@ -237,7 +231,7 @@ class Swagr extends StatelessWidget {
         ),
         scaffoldBackgroundColor: palette.white,
         disabledColor: palette.lightPurple,
-        dividerColor: palette.lightGrey,
+        dividerColor: palette.lightPurple,
       ),
       home: const SwagrHouse(),
     ));

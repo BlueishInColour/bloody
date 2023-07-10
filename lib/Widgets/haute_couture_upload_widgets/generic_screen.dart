@@ -27,7 +27,7 @@ class GenericState extends State<Generic> {
             onPressed: null,
             style: ButtonStyle(
               padding: const MaterialStatePropertyAll(EdgeInsets.all(15)),
-              backgroundColor: MaterialStatePropertyAll(palette.purple),
+              backgroundColor: MaterialStatePropertyAll(palette.lightPurple),
             ),
             child: Text('done', style: TextStyle(color: palette.black)),
           )
