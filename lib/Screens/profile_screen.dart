@@ -13,27 +13,102 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CircleAvatar(radius: 30, backgroundColor: palette.white),
-        toolbarHeight: 200,
-        backgroundColor: palette.black,
-        bottomOpacity: 1,
-        bottom: PreferredSize(
-            child: Container(
-              color: Colors.white,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    NavBarButton('posts', () => null, icon: Icons.post_add),
-                    NavBarButton('gigs', () => null,
-                        icon: Icons.attach_money_rounded),
-                    NavBarButton('profile', () => null, icon: Icons.person),
-                    NavBarButton('settings', () => null, icon: Icons.settings)
-                  ]),
-            ),
-            preferredSize: Size(100, 20)),
+        title: Text(
+          '@blueishInColour',
+        ),
       ),
+      body: body(context),
     );
   }
+}
+
+Widget body(BuildContext context) {
+  return ListView.custom(
+      childrenDelegate: SliverChildListDelegate([
+    ///
+    ProfilePictureWidget(context),
+    ProfileNameButtonWidget(context),
+    ProfileInfoWidget(context),
+    NavBarWidget(context),
+  ]));
+}
+
+Widget ProfilePictureWidget(BuildContext context) {
+  return Stack(
+    children: [
+      Container(height: 200, color: Colors.black),
+      Positioned(
+          bottom: 5,
+          left: 5,
+          child: CircleAvatar(
+            radius: 35,
+            backgroundColor: Colors.white,
+          ))
+    ],
+  );
+}
+
+Widget ProfileNameButtonWidget(BuildContext context) {
+  return (SizedBox(
+    height: 55,
+    child: Row(children: [
+      //name and username
+      Expanded(
+          child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Row(
+            children: [
+              Text('Oluwapelumide',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300))
+            ],
+          ),
+          Row(
+            children: [
+              Text('@blueishInColour',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w200))
+            ],
+          )
+        ]),
+      )),
+      //follow button for others settings for self
+      Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextButton(
+              onPressed: () => debugPrint('okay'),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.black),
+                  foregroundColor: MaterialStatePropertyAll(Colors.white),
+                  fixedSize: MaterialStatePropertyAll(Size(70, 35))),
+              child: Text('follow')),
+        )
+      ])
+    ]),
+  ));
+}
+
+Widget ProfileInfoWidget(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: (ConstrainedBox(
+      constraints: BoxConstraints.loose(Size(300, 90)),
+      child: Text(
+          'i was the only one here before you came into my lidfe , do you really think you can go against me in this world full of danger, hate and pain , you moust really be joking cus im already laughing, its okay i get it you are in pain and i dont really care about what you are thining about just know that i am always there for you whenever you want me to what ever you do and say is noy'),
+    )),
+  );
+}
+
+Widget NavBarWidget(BuildContext context) {
+  return Container(
+    color: Colors.white,
+    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      NavBarButton('posts', () => null, icon: Icons.post_add),
+      NavBarButton('gigs', () => null, icon: Icons.attach_money_rounded),
+      NavBarButton('follows', () => null, icon: Icons.favorite),
+      NavBarButton('profile', () => null, icon: Icons.person),
+    ]),
+  );
 }
 
 Widget NavBarButton(String text, Function() onPress,
