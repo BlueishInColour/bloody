@@ -9,12 +9,12 @@ class Palette {
   Palette();
 
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
+  //
 
-  final Color red = const  Color.fromARGB(41, 247, 3, 23);
+  final Color red = const Color.fromARGB(41, 247, 3, 23);
 
   final Color black = const Color.fromARGB(255, 0, 0, 0);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
-
 }
 
 final palette = Palette();
@@ -79,14 +79,17 @@ class Swagr extends StatelessWidget {
         ),
         dialogBackgroundColor: palette.lightPurple,
         dialogTheme: DialogTheme(
-          elevation: 2,
+          elevation: 0,
           alignment: Alignment.center,
-          backgroundColor: palette.lightPurple,
+          backgroundColor: palette.black,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+
           // shadowColor: palette.lightPurple,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(9),
           ),
-          contentTextStyle: TextStyle(color: palette.black),
+          contentTextStyle: TextStyle(color: palette.white, fontSize: 15),
           iconColor: palette.red,
         ),
         dividerTheme: DividerThemeData(
@@ -119,15 +122,12 @@ class Swagr extends StatelessWidget {
               iconColor: MaterialStatePropertyAll(palette.red),
               shadowColor: MaterialStatePropertyAll(palette.lightPurple),
               backgroundColor: MaterialStatePropertyAll(palette.red),
-              elevation: const MaterialStatePropertyAll(2)),
+              elevation: const MaterialStatePropertyAll(0)),
         ),
         textButtonTheme: const TextButtonThemeData(
             style: ButtonStyle(
           backgroundColor:
               MaterialStatePropertyAll(Color.fromARGB(0, 231, 6, 6)),
-          padding:
-              MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 20)),
-          elevation: MaterialStatePropertyAll(2),
         )),
         inputDecorationTheme: InputDecorationTheme(
             labelStyle: TextStyle(
@@ -181,7 +181,7 @@ class Swagr extends StatelessWidget {
           height: 50,
           surfaceTintColor: palette.black,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          indicatorColor:Colors.transparent,
+          indicatorColor: Colors.transparent,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: palette.white,

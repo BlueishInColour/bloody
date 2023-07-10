@@ -12,8 +12,17 @@ class SearchResultScreenState extends State<SearchResultScreen> {
   String searchText = '';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: searchbar(context) //searchbar(context),
-        );
+    return Scaffold(
+      appBar: searchbar(context),
+      body: ListView.separated(
+        itemBuilder: boxes,
+        separatorBuilder: (context, index) => SizedBox(
+          height: 4,
+          width: 4,
+        ),
+        itemCount: 20,
+      ), //searchbar(context),
+    );
   }
 
   PreferredSizeWidget searchbar(BuildContext context) {
@@ -39,4 +48,12 @@ class SearchResultScreenState extends State<SearchResultScreen> {
       ),
     );
   }
+}
+
+Widget boxes(BuildContext context, int int) {
+  return (Container(
+    height: 50,
+    width: 30,
+    color: palette.lightPurple,
+  ));
 }

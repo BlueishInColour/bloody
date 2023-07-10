@@ -26,8 +26,8 @@ PreferredSizeWidget appbar(BuildContext context,
                 child: search
                     ? searchBarWidget(context)
                     : notification
-                        ? barwidget(context, 'notifications',
-                            const NotificationScreen())
+                        ? barwidget(
+                            context, 'notifications', NotificationScreen())
                         : profile
                             ? barwidget(
                                 context, 'profile', const ProfileScreen())
@@ -78,8 +78,8 @@ Widget searchWidget(BuildContext context) {
 
 Widget notificationWidget(BuildContext context) {
   return (IconButton(
-    onPressed: () => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const NotificationScreen())),
+    onPressed: () => Navigator.push(
+        context, MaterialPageRoute(builder: (context) => NotificationScreen())),
     icon: Icon(Icons.notifications_none, size: 30, color: palette.red),
   ));
 }
@@ -146,7 +146,9 @@ PreferredSizeWidget tabNavigationBar(BuildContext context) {
   return AppBar(
       automaticallyImplyLeading: false,
       titleTextStyle: TextStyle(
-          color: palette.lightPurple, fontSize: 15, fontWeight: FontWeight.bold),
+          color: palette.lightPurple,
+          fontSize: 15,
+          fontWeight: FontWeight.bold),
       toolbarHeight: 25,
       bottomOpacity: 0.60,
       elevation: 0,

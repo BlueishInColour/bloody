@@ -1,4 +1,3 @@
-import 'package:bloody/Screens/upload_type_select_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../Widgets/dummy_data.dart';
@@ -30,7 +29,9 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      appBar: AppBar(title: const Text('tsunami',style:TextStyle(fontSize:42,fontWeight: FontWeight.bold))),
+      appBar: AppBar(
+          title: const Text('tsunami',
+              style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold))),
       body: ListView.builder(
         itemBuilder: imagePod,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),

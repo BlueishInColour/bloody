@@ -8,12 +8,21 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Scaffold(
       appBar: AppBar(title: const Text('notifications')),
-      body: ListView.builder(
+      body: ListView.separated(
+        itemCount: 20,
         itemBuilder: notificationPod,
+        separatorBuilder: (context, index) => Divider(),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       ),
     ));
   }
+
+  final Icon done = const Icon(
+      Icons.done_all); //notify icon to confirm pull or pushed actions
+  final Icon notify = const Icon(Icons
+      .notifications_active); //notify icon to alert for news or notification
+  final Icon promotion =
+      const Icon(Icons.lightbulb_rounded); //notify icon for promotions and ads
 
   Widget? notificationPod(BuildContext context, int index) {
     return Column(
@@ -26,15 +35,18 @@ class NotificationScreen extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    color: palette.lightPurple,
                     borderRadius: const BorderRadius.all(Radius.circular(20))),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     //                //part
                     //icon for type of notification
                     ///
-                    CircleAvatar(),
+                    CircleAvatar(
+                      child: done,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black,
+                    ),
                     Expanded(child: Text('')),
 
                     //part
@@ -63,9 +75,6 @@ class NotificationScreen extends StatelessWidget {
           ),
         )),
         const SizedBox(height: 20),
-        const Divider(
-          color: Colors.grey,
-        )
       ],
     );
   }
