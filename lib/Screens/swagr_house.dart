@@ -55,43 +55,37 @@ class SwagrHouseState extends State<SwagrHouse> {
             ),
             NavigationDestination(
               icon: Icon(Icons.search),
+              selectedIcon: Icon(Icons.search, size: 27),
               label: 'expore',
             ),
             NavigationDestination(
               icon: IconButton(
-                padding: EdgeInsets.all(0),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return dialog(context);
-                      });
-                },
-                icon: Icon(
-                  Icons.add_box,
-                  size: 50,
-                  color: Colors.black,
-                ),
-              ),
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return dialog(context);
+                        });
+                  },
+                  icon: Icon(Icons.add_box, size: 50, color: Colors.black)),
               label: 'add',
             ),
             NavigationDestination(
-              icon: Icon(Icons.notifications_outlined),
-              selectedIcon: Icon(
-                Icons.notifications_rounded,
-                color: Colors.black,
-                fill: 1,
-              ),
-              label: 'notify',
-            ),
+                icon: Icon(Icons.notifications_outlined),
+                selectedIcon: Icon(
+                  Icons.notifications_rounded,
+                  color: Colors.black,
+                  fill: 1,
+                ),
+                label: 'notify'),
             NavigationDestination(
-              icon: Icon(Icons.auto_awesome_mosaic_outlined),
-              selectedIcon: Icon(
-                Icons.auto_awesome_mosaic_rounded,
-                color: Colors.black,
-              ),
-              label: 'profile',
-            ),
+                icon: Icon(Icons.auto_awesome_mosaic_outlined),
+                selectedIcon: Icon(
+                  Icons.auto_awesome_mosaic_rounded,
+                  color: Colors.black,
+                ),
+                label: 'profile'),
           ]),
     );
   }

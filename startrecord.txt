@@ -20,3 +20,6 @@ ios       1:947879801862:ios:9b3030f0d3b1faad07ff87
 start android emulator
 
 emulator  -avd pixel_5_api29_google_apis_emulator
+
+//mysql password and username
+root@localhost: YEdNt&kkR42*

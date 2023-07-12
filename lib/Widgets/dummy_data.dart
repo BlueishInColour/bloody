@@ -34,7 +34,7 @@ final List<DummyData> posts = <DummyData>[
       userprofilepix:
           'https://source.unsplash.com/random/?wildlife&width=500&height=1000',
       postedpix:
-          'https://source.unsplash.com/random/?wildlife&width=505&height=1000'),
+          'https://source.unsplash.com/random/?wildlife&width=2&height=1000'),
   const DummyData(
       name: 'max',
       username: '@maxxy',
@@ -48,5 +48,5 @@ final List<DummyData> posts = <DummyData>[
       userprofilepix:
           'https://source.unsplash.com/random/?wildlife&width=500&height=1000',
       postedpix:
-          'https://source.unsplash.com/random/?wildlife&width=570&height=1000'),
+          'https://source.unsplash.com/random/?wildlife&width=9&height=1000'),
 ];

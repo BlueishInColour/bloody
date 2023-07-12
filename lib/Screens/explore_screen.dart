@@ -8,6 +8,7 @@ import '../main.dart';
 import 'dart:io';
 import '../Widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
+import '../Widgets/explore_screen_widgets/full_screen_image.dart';
 
 //final palette = Palette();
 
@@ -25,6 +26,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   File image = File('');
 
   bool manyFloatingwidget = false;
+
+  bool extraDetails = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,21 +77,45 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               // width: 250,
               // fit: BoxFit.fill,
               //posts[index].postedpix,
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/placeholder.png',
-                    placeholderFit: BoxFit.contain,
-                    imageErrorBuilder: (context, error, stackTrace) =>
-                        loadingImage(context, 300),
-                    image: posts[index].userprofilepix,
-                  )),
+              GestureDetector(
+            onTap: () => setState(() {
+              extraDetails = !extraDetails;
+            }),
+            onDoubleTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (BuildContext context, _, __) {
+                        return (FullScreenPage(
+                            child: Image.network(posts[index].userprofilepix),
+                            dark: true));
+                      }));
+            },
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/placeholder.png',
+                  placeholderFit: BoxFit.contain,
+                  imageErrorBuilder: (context, error, stackTrace) =>
+                      loadingImage(context, 300),
+                  image: posts[index].userprofilepix,
+                )),
+          ),
         ),
         Positioned(
             bottom: 10,
             right: 10,
             child: icon(re: () => null, icony: Icons.share_rounded)),
       ]),
+      const SizedBox(height: 5),
+      SizedBox(
+        child: extraDetails
+            ? Text(
+                'creates a text widget., If the [style] argument is null, the text will use the style from the closest enclosing [DefaultTextStyle].,The [data] parameter must not be null, The [overflow] property behavior is affected by the [softWrap] argument. If the [softWrap] is true or null, the glyph causing overflow, and those that follow, will not be rendered. Otherwise, it will be shown with the given overflow option.',
+              )
+            : null,
+      ),
       const SizedBox(height: 5),
       workerdetailspod(context),
       const SizedBox(height: 30),
@@ -102,6 +129,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       color: palette.lightPurple,
     ));
   }
+
+  //full screen image page route
 
 ///////*********User details pod  ******/////
   ///
@@ -130,11 +159,25 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           //profilepix
-          CircleAvatar(
-              backgroundColor: palette.lightPurple,
-              backgroundImage: const NetworkImage(
-                "https://source.unsplash.com/random/?art&width=500&height=1000",
-              )),
+          GestureDetector(
+            onDoubleTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (BuildContext context, _, __) {
+                        return (FullScreenPage(
+                            child: Image.network(
+                                "https://source.unsplash.com/random/?art&width=500&height=1000"),
+                            dark: true));
+                      }));
+            },
+            child: CircleAvatar(
+                backgroundColor: palette.lightPurple,
+                backgroundImage: const NetworkImage(
+                  "https://source.unsplash.com/random/?art&width=500&height=1000",
+                )),
+          ),
 
           pad(),
           //name and user name container
