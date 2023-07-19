@@ -33,8 +33,14 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   Widget build(BuildContext context) {
     return (Scaffold(
       appBar: AppBar(
-          title: const Text('tsunami',
-              style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold))),
+        title: Text.rich(TextSpan(children: [
+          TextSpan(
+              text: 'freak',
+              style: TextStyle(color: palette.black, fontSize: 42)),
+          TextSpan(
+              text: 'In', style: TextStyle(color: palette.red, fontSize: 42))
+        ])),
+      ),
       body: ListView.builder(
         itemBuilder: imagePod,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -237,7 +243,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         hint: 'like',
         enabled: true,
         child:
-            icon(re: () => debugPrint('clicked'), icony: Icons.favorite_sharp),
+            icon(re: () => debugPrint('clicked'), icony: Icons.local_fire_department_outlined),
       ),
       icon(re: () => null, icony: Icons.arrow_back),
     ]));
