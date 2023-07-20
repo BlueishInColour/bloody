@@ -12,6 +12,7 @@ import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
 import '../Widgets/explore_screen_widgets/full_screen_image.dart';
 
 import './camera_screen.dart';
+import 'master.dart';
 
 //final palette = Palette();
 
@@ -40,12 +41,21 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
           TextSpan(
               text: 'freak',
               style: TextStyle(color: palette.black, fontSize: 42)),
-               TextSpan(
-              text: 'In', style: TextStyle(color: palette.red, fontSize: 42)), WidgetSpan(child: Icon(Icons.local_fire_department_rounded, color: palette.red,size:35,)),
-        
+          TextSpan(
+              text: 'In', style: TextStyle(color: palette.red, fontSize: 42)),
+          WidgetSpan(
+              child: Icon(
+            Icons.local_fire_department_rounded,
+            color: palette.red,
+            size: 35,
+          )),
         ])),
       ),
-      floatingActionButton: IconButton(icon: Icon(Icons.camera), onPressed: ()=>Navigator.push(context, PageRouteBuilder(pageBuilder: (context,_,__)=>CameraApp())),),
+      floatingActionButton: IconButton(
+        icon: Icon(Icons.ac_unit_rounded, size: 50, color: Colors.blue),
+        onPressed: () => Navigator.push(context,
+            PageRouteBuilder(pageBuilder: (context, _, __) => Master())),
+      ),
       body: ListView.builder(
         itemBuilder: imagePod,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -247,8 +257,9 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         label: 'like',
         hint: 'like',
         enabled: true,
-        child:
-            icon(re: () => debugPrint('clicked'), icony: Icons.local_fire_department_outlined),
+        child: icon(
+            re: () => debugPrint('clicked'),
+            icony: Icons.local_fire_department_outlined),
       ),
       icon(re: () => null, icony: Icons.arrow_back),
     ]));

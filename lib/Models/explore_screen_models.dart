@@ -73,11 +73,11 @@ Future createDatabaseAndTable() async {
 //after connected
   print("Connected");
 
-  var res1 = await conn.execute('CREATE DATABASE baseDB ');
-  print('res1 : $res1');
+  var res1 = await conn.execute('CREATE DATABASE IF NOT EXISTS baseDB ');
+  print('database created');
 
-  var res2 = await conn.execute("""CREATE TABLE baseDB.all_users(
- index_number IDENTITY(1,1) PRIMARY KEY,
+  var res2 = await conn.execute("""CREATE TABLE IF NOT EXISTS baseDB.all_users(
+
   full_name VARCHAR(225),
   user_name VARCHAR(225) PRIMARY KEY,
   user_profile_pix  VARCHAR(225) ,
@@ -91,7 +91,7 @@ Future createDatabaseAndTable() async {
   print('res2 : $res2');
 
   var res3 = await conn.execute("""
-CREATE TABLE baseDb.allcreators(
+CREATE TABLE IF NOT EXISTS baseDb.allcreators(
   creator_id IDENTITY(1,1) PRIMARY KEY,
   brand_name = VARCHAR(225),
   brand_profile_pix = VARCHAR(225),
