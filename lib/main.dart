@@ -1,7 +1,12 @@
 import "package:flutter/material.dart";
 import 'Screens/swagr_house.dart';
+import 'package:camera/camera.dart';
 
+late List<CameraDescription> _cameras;
 main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //_cameras = await availableCameras();
   runApp(const Swagr());
 }
 
@@ -197,7 +202,7 @@ class Swagr extends StatelessWidget {
             color: Color.fromRGBO(255, 255, 255, 1),
           ),
         ),
-        hoverColor: palette.lightPurple,
+        hoverColor: Colors.transparent,
         progressIndicatorTheme: ProgressIndicatorThemeData(
             color: palette.red, refreshBackgroundColor: palette.lightPurple),
         toggleButtonsTheme: ToggleButtonsThemeData(

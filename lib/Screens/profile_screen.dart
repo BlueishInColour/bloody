@@ -12,11 +12,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '@blueishInColour',
-        ),
-      ),
+      appBar: AppBar(title: ProfileNameButtonWidget(context)),
       body: body(context),
     );
   }
@@ -27,7 +23,7 @@ Widget body(BuildContext context) {
       childrenDelegate: SliverChildListDelegate([
     ///
     ProfilePictureWidget(context),
-    ProfileNameButtonWidget(context),
+    //   ProfileNameButtonWidget(context),
     ProfileInfoWidget(context),
     NavBarWidget(context),
   ]));
@@ -36,9 +32,9 @@ Widget body(BuildContext context) {
 Widget ProfilePictureWidget(BuildContext context) {
   return Stack(
     children: [
-      Container(height: 200, color: Colors.black),
+      Container(height: 600, color: Colors.black),
       Positioned(
-          bottom: 5,
+          top: 5,
           left: 5,
           child: CircleAvatar(
             radius: 35,

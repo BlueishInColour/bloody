@@ -1,3 +1,4 @@
+import 'package:bloody/Screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../Widgets/dummy_data.dart';
@@ -9,6 +10,8 @@ import 'dart:io';
 import '../Widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
 import '../Widgets/explore_screen_widgets/full_screen_image.dart';
+
+import './camera_screen.dart';
 
 //final palette = Palette();
 
@@ -37,10 +40,12 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
           TextSpan(
               text: 'freak',
               style: TextStyle(color: palette.black, fontSize: 42)),
-          TextSpan(
-              text: 'In', style: TextStyle(color: palette.red, fontSize: 42))
+               TextSpan(
+              text: 'In', style: TextStyle(color: palette.red, fontSize: 42)), WidgetSpan(child: Icon(Icons.local_fire_department_rounded, color: palette.red,size:35,)),
+        
         ])),
       ),
+      floatingActionButton: IconButton(icon: Icon(Icons.camera), onPressed: ()=>Navigator.push(context, PageRouteBuilder(pageBuilder: (context,_,__)=>CameraApp())),),
       body: ListView.builder(
         itemBuilder: imagePod,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
