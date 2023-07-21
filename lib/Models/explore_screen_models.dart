@@ -4,37 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:mysql_client/mysql_client.dart';
 
 //building the data model and fetch,insert and ert and update model for this screen
-///(userModel)
-///user_id
-///full_name
-///user_name
-///user_profile_pix
+
 ///
-///email
-///phone_number
-///date_of_birth
-///sex(male/female)
-///
-///posts=<posts_id>[]
-///followers=<user_id/creator_id>[]
-///following=<user_id/creator_id>[]
-///
-///type_of_user = varcharr
-///
-///
-///(PostModel)
-///post_id = id
-///posted_pix = []
-///extra_text_informtion = varcharr
-///date_of_pushing = datetime
-///no_of_shares = int
-///no_of_freaks = int
-///
-///no_of-pull_request = int
-///no_of_push_requests = int
-///user(full_name,user_name,user_profile_pix)
-///creator(brand_name, profilepix,design_name)
-///
+
 ///
 ///(creatorModel)
 ///creator_id = id
