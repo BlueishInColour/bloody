@@ -49,14 +49,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
-  buffer:
-    dependency: transitive
-    description:
-      name: buffer
-      sha256: "8962c12174f53e2e848a6acd7ac7fd63d8a1a6a316c20c458a832d87eba5422a"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.2.0"
   build:
     dependency: transitive
     description:
@@ -384,38 +376,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.1"
-  hive:
-    dependency: "direct main"
-    description:
-      name: hive
-      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.3"
-  hive_flutter:
-    dependency: "direct main"
-    description:
-      name: hive_flutter
-      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.0"
-  hive_generator:
-    dependency: "direct main"
-    description:
-      name: hive_generator
-      sha256: "65998cc4d2cd9680a3d9709d893d2f6bb15e6c1f92626c3f1fa650b4b3281521"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
-  hive_ui:
-    dependency: "direct main"
-    description:
-      name: hive_ui
-      sha256: a2f4919c84dce6a36642ab3289fb5524b058788f74064ba99fbda976d3bcc2cd
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.14"
   hooks_riverpod:
     dependency: "direct dev"
     description:
@@ -428,10 +388,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "0.13.6"
   http_multi_server:
     dependency: transitive
     description:
@@ -592,14 +552,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.4"
-  mysql_client:
-    dependency: "direct main"
-    description:
-      name: mysql_client
-      sha256: "6a0fdcbe3e0721c637f97ad24649be2f70dbce2b21ede8f962910e640f753fc2"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.27"
   nested:
     dependency: transitive
     description:
@@ -773,22 +725,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  source_gen:
-    dependency: transitive
-    description:
-      name: source_gen
-      sha256: fc0da689e5302edb6177fdd964efcb7f58912f43c28c2047a808f5bfff643d16
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.4.0"
-  source_helper:
-    dependency: transitive
-    description:
-      name: source_helper
-      sha256: "6adebc0006c37dd63fe05bca0a929b99f06402fc95aa35bf36d67f5c06de01fd"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.3.4"
   source_span:
     dependency: transitive
     description:
@@ -861,14 +797,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -877,6 +805,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.3.2"
+  upstash_redis:
+    dependency: "direct main"
+    description:
+      name: upstash_redis
+      sha256: "5ab8add45cadc646171df11f34f6da234296670d5dd56fea048450d579940738"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.4.0"
   uuid:
     dependency: "direct main"
     description:

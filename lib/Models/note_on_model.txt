@@ -1,0 +1,37 @@
+trying to copy facebook style of model
+
+for object schema
+
+id: int //unique id of object
+objecttype: string //usermodel,postmodel,
+data: byte
+
+example:
+
+634|'post'|{'text':'this si really nice @bob"}
+
+for association schema
+id1: int //source id eg from post id
+id2: int //desinamtion id
+associationtype : string  // freakedout,comment,share,
+data: byte //shareto,shareby,sharefrom
+
+example
+634|224|comment|{'text':'that was a nice pix'}
+
+
+people who use freakblaze which is the paid version will have a ring of fire around their profile pix
+
+SEVERAL OCCASIONS when a db action is called
+>create a freak {user} |objecttype     ---done
+>follow a freak        |associationtype     --done`
+>following a freak     |associationtype      ---done
+>message a freak     |associationtype
+>notify a freak
+
+
+>create a post     |objecttype
+>freakin a post {like}      |associationtype     ----done`
+>freakout a post {share}         |associationtype    ---done
+>comment         |associationtype
+>notify a freak
