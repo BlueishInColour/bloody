@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import 'Screens/swagr_house.dart';
 import 'package:camera/camera.dart';
 
-late List<CameraDescription> _cameras;
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -16,7 +15,7 @@ class Palette {
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
   //
 
-  final Color red = Color.fromARGB(255, 255, 0, 21);
+  final Color red = const Color.fromARGB(255, 255, 0, 21);
 
   final Color black = const Color.fromARGB(255, 0, 0, 0);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
@@ -129,7 +128,7 @@ class Swagr extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(palette.red),
               elevation: const MaterialStatePropertyAll(0)),
         ),
-        textButtonTheme: TextButtonThemeData(
+        textButtonTheme: const TextButtonThemeData(
             style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(Color.fromARGB(0, 0, 0, 0)),
           foregroundColor: MaterialStatePropertyAll(Colors.white),
