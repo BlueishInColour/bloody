@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-import 'Screens/swagr_house.dart';
-import 'package:camera/camera.dart';
+import 'Screens/splash_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +12,6 @@ class Palette {
   Palette();
 
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
-  //
-
   final Color red = const Color.fromARGB(255, 255, 0, 21);
 
   final Color black = const Color.fromARGB(255, 0, 0, 0);
@@ -135,7 +132,7 @@ class Swagr extends StatelessWidget {
         )),
         inputDecorationTheme: InputDecorationTheme(
             labelStyle: TextStyle(
-              color: palette.white,
+              color: Colors.transparent,
             ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
             hintStyle: TextStyle(
@@ -153,7 +150,7 @@ class Swagr extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(9),
               borderSide: const BorderSide(
-                color: Colors.transparent,
+                color: Colors.white,
                 style: BorderStyle.none,
                 strokeAlign: BorderSide.strokeAlignCenter,
                 // width: BorderSide.strokeAlignInside,
@@ -165,7 +162,10 @@ class Swagr extends StatelessWidget {
 
         dropdownMenuTheme: DropdownMenuThemeData(
             inputDecorationTheme: InputDecorationTheme(
-                fillColor: palette.lightPurple,
+                constraints: BoxConstraints(maxHeight: 37, maxWidth: 120),
+                fillColor: palette.red,
+                hoverColor: palette.red,
+                focusColor: palette.red,
                 counterStyle: TextStyle(color: palette.white),
                 floatingLabelStyle: TextStyle(color: palette.white),
                 filled: true,
@@ -178,7 +178,7 @@ class Swagr extends StatelessWidget {
                 alignment: Alignment.center,
                 backgroundColor: MaterialStatePropertyAll(palette.white),
                 surfaceTintColor: MaterialStatePropertyAll(palette.white)),
-            textStyle: TextStyle(color: palette.black)),
+            textStyle: TextStyle(color: palette.black, fontSize: 14)),
         navigationBarTheme: NavigationBarThemeData(
           backgroundColor: palette.white,
           elevation: 0,
@@ -237,7 +237,7 @@ class Swagr extends StatelessWidget {
         disabledColor: palette.lightPurple,
         dividerColor: palette.lightPurple,
       ),
-      home: const SwagrHouse(),
+      home: SplashScreen(),
     ));
   }
 }

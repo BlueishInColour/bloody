@@ -34,8 +34,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
       title: SearchBar(
         onTap: () => debugPrint('tapped'),
         backgroundColor: MaterialStatePropertyAll(palette.lightPurple),
-        hintText:
-            'search for styles, fabrics, designers, brands, artists and more',
+        hintText: 'explore',
         hintStyle: const MaterialStatePropertyAll(
             TextStyle(fontStyle: FontStyle.italic, fontSize: 14)),
         trailing: [

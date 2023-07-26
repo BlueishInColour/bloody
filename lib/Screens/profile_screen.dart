@@ -67,6 +67,20 @@ Widget ProfileNameButtonWidget(BuildContext context) {
           )
         ]),
       )),
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('followers 1k',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+            Text('following 234k',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+            Text('posts 34k',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+          ],
+        ),
+      ),
       //follow button for others settings for self
       Column(children: [
         Padding(

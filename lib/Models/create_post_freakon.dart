@@ -59,21 +59,29 @@ createPost(String username) async {
     'data': {
       'postedby': username,
       'posted_as_at': DateTime.now().toString(),
-      'byte': base64Image
+      'extra_info': '',
+      'freakins': 0,
+      'freakouts': 0,
+      'byte': base64Image,
     }
   }));
 }
 
-getPosts() {
+getPosts() async {
   print('connecting');
   var redis = Redis.fromEnv();
   print('connected');
+  print(await redis.json.get('post', [r'$.BlueshInColour.data.postedby']));
 
-  var bytes = redis.json.get(
-    'post',
-    [r'$.BlueshInColour.data'],
-  );
-  return bytes;
+  var bytes = await redis.json.get('post', [r'$.BlueshInColour.data.byte']);
+  print(bytes);
+  print('?????????????????????????????????????????????');
+  var capped = (bytes.toString());
+//  var capped = cappd
+//      .replaceFirstMapped('[', (match) => '')
+//      .replaceFirstMapped(']', (match) => '');
+  print(capped);
+  return capped;
 }
 
 Future<File> writeImageTemp(String base64Image, String imageName) async {

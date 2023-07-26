@@ -4,9 +4,11 @@ import '../dummy_data.dart';
 
 //final isSelected
 class icon extends StatefulWidget {
-  const icon({required this.re, required this.icony, super.key});
+  const icon(
+      {required this.re, required this.icony, this.size = 25, super.key});
   final Function() re;
   final IconData icony;
+  final double size;
 
   @override
   State<icon> createState() => _IconState();
@@ -35,6 +37,7 @@ class _IconState extends State<icon> {
       icon: Icon(
         widget.icony,
         color: isPressed ? palette.red : palette.black,
+        size: widget.size,
       ),
     ));
   }

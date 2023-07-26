@@ -132,13 +132,13 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       const SizedBox(height: 5),
       SizedBox(
         child: extraDetails
-            ? Text(
+            ? const Text(
                 'creates a text widget., If the [style] argument is null, the text will use the style from the closest enclosing [DefaultTextStyle].,The [data] parameter must not be null, The [overflow] property behavior is affected by the [softWrap] argument. If the [softWrap] is true or null, the glyph causing overflow, and those that follow, will not be rendered. Otherwise, it will be shown with the given overflow option.',
               )
             : null,
       ),
       const SizedBox(height: 5),
-      workerdetailspod(context),
+      creatorPod(context),
       const SizedBox(height: 30),
       const Divider()
     ])));
@@ -218,7 +218,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     );
   }
 
-  Widget workerdetailspod(context) {
+  Widget creatorPod(context) {
     return (Container(
       height: 40,
       decoration: BoxDecoration(
@@ -261,7 +261,11 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
             re: () => debugPrint('clicked'),
             icony: Icons.local_fire_department_outlined),
       ),
-      icon(re: () => null, icony: Icons.arrow_back),
+      icon(
+        re: () => null,
+        size: 23,
+        icony: Icons.chat_bubble_outline_rounded,
+      ),
     ]));
   }
 }

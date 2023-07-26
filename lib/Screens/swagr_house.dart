@@ -1,7 +1,6 @@
 import 'package:bloody/Screens/search_screen.dart';
 
-import 'package:bloody/Screens/style_upload_screen.dart';
-import '../Screens/loundry_upload_screen.dart';
+import 'package:bloody/Screens/post_upload_screen.dart';
 import '../Screens/haute_couture_upload_screen.dart';
 
 import '../main.dart';
@@ -62,13 +61,13 @@ class SwagrHouseState extends State<SwagrHouse> {
               icon: IconButton(
                   padding: EdgeInsets.all(0),
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return dialog(context);
-                        });
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) => ScaffoldMessenger(child: PostUpload())));
                   },
-                  icon: Icon(Icons.add_box, size: 50, color: Colors.black)),
+                  icon: Icon(Icons.file_upload_outlined,
+                      size: 40, color: Colors.black)),
               label: 'add',
             ),
             NavigationDestination(
@@ -104,9 +103,7 @@ Widget dialog(BuildContext context) {
                 backgroundColor:
                     MaterialStatePropertyAll(Color.fromARGB(43, 129, 50, 219))),
             onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const StyleUploadScreen())),
+                context, MaterialPageRoute(builder: (context) => PostUpload())),
             child: Text('style',
                 style: TextStyle(color: Colors.white, fontSize: 15)),
           ),
@@ -127,10 +124,8 @@ Widget dialog(BuildContext context) {
               style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
                       Color.fromARGB(43, 129, 50, 219))),
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LoundryUploadScreen())),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PostUpload())),
               child: Text('loundry',
                   style: TextStyle(color: palette.white, fontSize: 15)))
         ],

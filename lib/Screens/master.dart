@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:upstash_redis/upstash_redis.dart';
 import 'dart:typed_data';
 
-import 'package:bloody/Models/post_model.dart';
+import 'package:bloody/Models/create_post_freakon.dart';
 import 'package:flutter/material.dart';
 import '../Models/explore_screen_models.dart';
 import '../Models/create_freak.dart';
 import '../Models/follow_freak.dart';
+import '../Models/comment_freakon.dart';
+import '../main.dart';
 
 class Master extends StatefulWidget {
   Master({super.key});
@@ -17,12 +19,12 @@ class Master extends StatefulWidget {
 
 class MasterState extends State<Master> {
   String ext = '';
-  String bytes = '';
-  set() {
+  // Uint8List bytes = List<int>[];
+  set() async {
     print('started getting stuff out of db');
-    var byt = getPosts();
+    var byt = await getPosts();
     setState(() {
-      bytes = byt.toString();
+      //  bytes = byt.toString();
     });
 
     print('completed the setting of every strings');
@@ -48,9 +50,49 @@ class MasterState extends State<Master> {
         singleCommand('create post schema', () => createPostSchema()),
         singleCommand('create post upload', () => createPost('BlueshInColour')),
         singleCommand('get picture bytes', () => set()),
-        Image.memory(base64Decode(bytes))
+        singleCommand(
+            'create comment schema', () => createCommentFreakonSchema()),
+        singleCommand('comment', () => commentFreakon())
       ],
     ));
+  }
+
+  imagebuilder() {
+    return FutureBuilder(
+      builder: (ctx, snapshot) {
+        // Checking if future is resolved or not
+        if (snapshot.connectionState == ConnectionState.done) {
+          // If we got an error
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                '${snapshot.error} occurred',
+                style: TextStyle(fontSize: 18),
+              ),
+            );
+
+            // if we got our data
+          } else if (snapshot.hasData) {
+            // Extracting data from snapshot object
+            final data = snapshot.data.toString();
+            return Center(child: Image.memory(base64Decode(data)));
+          }
+        }
+
+        // Displaying LoadingSpinner to indicate waiting state
+        return Center(
+          child: CircularProgressIndicator(
+            color: palette.lightPurple,
+            // backgroundColor: palette.black,
+            semanticsLabel: 'shoveling some coal in',
+          ),
+        );
+      },
+
+      // Future that needs to be resolved
+      // inorder to display something on the Canvas
+      future: getPosts(),
+    );
   }
 
   Widget singleCommand(String text, Function() onPressed) {
