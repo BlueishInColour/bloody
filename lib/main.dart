@@ -15,6 +15,7 @@ class Palette {
   final Color red = const Color.fromARGB(255, 255, 0, 21);
 
   final Color black = const Color.fromARGB(255, 0, 0, 0);
+  final Color grey = const Color.fromARGB(179, 238, 234, 234);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
 }
 
@@ -163,9 +164,9 @@ class Swagr extends StatelessWidget {
         dropdownMenuTheme: DropdownMenuThemeData(
             inputDecorationTheme: InputDecorationTheme(
                 constraints: BoxConstraints(maxHeight: 37, maxWidth: 120),
-                fillColor: palette.red,
-                hoverColor: palette.red,
-                focusColor: palette.red,
+                fillColor: palette.grey,
+                hoverColor: palette.grey,
+                focusColor: palette.grey,
                 counterStyle: TextStyle(color: palette.white),
                 floatingLabelStyle: TextStyle(color: palette.white),
                 filled: true,

@@ -23,6 +23,42 @@ class SwagrHouse extends StatefulWidget {
 
 class SwagrHouseState extends State<SwagrHouse> {
   int selectedPageIndex = 0;
+  final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  late VoidCallback _showPersBottomSheetCallBack;
+
+  @override
+  void initState() {
+    super.initState();
+    _showPersBottomSheetCallBack = _showPersistentBottomSheet;
+  }
+
+  void _showPersistentBottomSheet() {
+    setState(() {
+      _showPersBottomSheetCallBack = () => null;
+    });
+    _scaffoldKey.currentState!
+        .showBottomSheet((context) {
+          return new Container(
+            height: 200.0,
+            color: Colors.green,
+            child: new Center(
+              child: new Text("Persistent BottomSheet",
+                  textScaleFactor: 2,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          );
+        })
+        .closed
+        .whenComplete(() {
+          if (mounted) {
+            setState(() {
+              _showPersBottomSheetCallBack = _showPersistentBottomSheet;
+            });
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,12 +96,27 @@ class SwagrHouseState extends State<SwagrHouse> {
             NavigationDestination(
               icon: IconButton(
                   padding: EdgeInsets.all(0),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (context, _, __) => ScaffoldMessenger(child: PostUpload())));
-                  },
+                  onPressed: () => showModalBottomSheet(
+                        context: context,
+                        showDragHandle: true,
+                        useSafeArea: true,
+                        backgroundColor: Colors.white70,
+                        // anchorPoint: Offset(500, 500),
+                        isScrollControlled: true,
+                        enableDrag: true,
+                        isDismissible: true,
+                        // barrierColor: Colors.white,
+                        shape: ContinuousRectangleBorder(
+                            // side: BorderSide(width: 5),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(70),
+                                topRight: Radius.circular(70))),
+                        //  isDismissible: bool.fromEnvironment('off'),
+                        constraints: BoxConstraints(maxHeight: 600),
+                        builder: (BuildContext context) {
+                          return PostUpload();
+                        },
+                      ),
                   icon: Icon(Icons.file_upload_outlined,
                       size: 40, color: Colors.black)),
               label: 'add',

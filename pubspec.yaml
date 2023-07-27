@@ -101,6 +101,7 @@ flutter:
   assets:
     - assets/images/placeholder.png
     - assets/images/pexel.jpg
+    - assets/images/clickfile.png
 
   fonts:
   - family: AveriaSerifLibre
