@@ -52,7 +52,7 @@ class PostUploadState extends State<PostUpload> {
         TextInputScreen(context),
         TagInputScreen(context)
       ][selectedPageIndex],
-      bottomNavigationBar: bottomNavigationBar(context),
+      bottomSheet: bottomSheet(context),
     );
   }
 
@@ -86,136 +86,156 @@ class PostUploadState extends State<PostUpload> {
 
   String flag = '';
   Widget MainBody(BuildContext context) {
-    bool person = false;
-    bool hashtag = false;
-
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          key: Key('dropdown'),
-          child: Center(
-            child: DropdownMenu(
-                inputDecorationTheme: InputDecorationTheme(
-                    filled: true,
-                    fillColor: palette.grey,
-                    focusColor: palette.grey,
-                    hoverColor: palette.grey,
-                    constraints: BoxConstraints(minWidth: 500, minHeight: 60)),
-                width: 300,
-                menuStyle: MenuStyle(
-                  minimumSize: MaterialStatePropertyAll(Size(300, 60)),
-                  backgroundColor: MaterialStatePropertyAll(palette.grey),
-                  surfaceTintColor: MaterialStatePropertyAll(palette.grey),
-                ),
-                label: Text('type',
-                    style: TextStyle(fontSize: 12, color: palette.black)),
-                dropdownMenuEntries: const [
-                  DropdownMenuEntry(value: 'style', label: 'style'),
-                  DropdownMenuEntry(value: 'blog', label: 'blog'),
-                  DropdownMenuEntry(value: 'loundry', label: 'loundry'),
-                  DropdownMenuEntry(value: 'design', label: 'design'),
-                  //   DropdownMenuEntry(value: 'none', label: 'none'),
-                ]),
-          ),
-        ),
-        SliverToBoxAdapter(
-            child: Container(
-          height: 400,
-          color: palette.white,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            addAutomaticKeepAlives: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(
-                      'assets/images/clickfile.png',
-                      width: 300,
-                      fit: BoxFit.cover,
-                    )),
-              );
-            },
-          ),
-        )),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                decoration: BoxDecoration(
-                  color: palette.grey,
-                  borderRadius: BorderRadius.circular(15),
-                  // border: Border.all(color: palette.black)
-                ),
-                // padding: EdgeInsets.all(8),
-                height: 300,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      hoverColor: palette.grey,
-                      hintText: 'extra information',
-                      hintStyle: TextStyle(color: palette.black)),
-                  minLines: 20,
-                  maxLines: 21,
-                )),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                decoration: BoxDecoration(
-                  color: palette.grey,
-                  borderRadius: BorderRadius.circular(15),
-                  // border: Border.all(color: palette.black)
-                ),
-                // padding: EdgeInsets.all(8),
-                height: 60,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      // hintText: 'tag a @creator or #topic',
-                      //    helperText: flag,
-                      prefixText: flag,
-                      prefixStyle: TextStyle(fontSize: 20),
-                      // labelText: 'flag',
-                      hintStyle: TextStyle(color: palette.black),
-                      hoverColor: palette.grey,
-                      prefixIcon: SizedBox(
-                        width: 100,
-                        child: Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    flag = '@';
-                                  });
-                                  debugPrint(flag);
-                                },
-                                icon: Icon(Icons.alternate_email_rounded)),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    flag = '#';
-                                  });
-                                  debugPrint(flag);
-                                },
-                                icon: Icon(Icons.tag)),
-                            VerticalDivider()
-                          ],
-                        ),
-                      ),
-                      suffixIcon: CircleAvatar(
-                        child: IconButton(
-                          onPressed: () => debugPrint('hashed'),
-                          icon: Icon(Icons.outlined_flag_sharp),
-                        ),
-                      )),
-                )),
-          ),
-        )
-      ],
+    return SafeArea(
+      child: CustomScrollView(
+        slivers: [
+          dropDownMenu(context),
+          mediaContentPartWidget(context),
+          extrainfoPartWidget(context),
+          flagPartWiget(context),
+          const SliverToBoxAdapter(child: SizedBox(height: 60))
+        ],
+      ),
     );
   }
+
+//<<<<<<<<<<<<<<<<<<<<<MAINBODY
+  Widget dropDownMenu(BuildContext context) {
+    return SliverToBoxAdapter(
+      key: Key('dropdown'),
+      child: Center(
+        child: DropdownMenu(
+            inputDecorationTheme: InputDecorationTheme(
+                filled: true,
+                fillColor: palette.grey,
+                focusColor: palette.grey,
+                hoverColor: palette.grey,
+                constraints: BoxConstraints(minWidth: 500, minHeight: 60)),
+            width: 300,
+            menuStyle: MenuStyle(
+              minimumSize: MaterialStatePropertyAll(Size(300, 60)),
+              backgroundColor: MaterialStatePropertyAll(palette.grey),
+              surfaceTintColor: MaterialStatePropertyAll(palette.grey),
+            ),
+            label: Text('type',
+                style: TextStyle(fontSize: 12, color: palette.black)),
+            dropdownMenuEntries: const [
+              DropdownMenuEntry(value: 'style', label: 'style'),
+              DropdownMenuEntry(value: 'blog', label: 'blog'),
+              DropdownMenuEntry(value: 'loundry', label: 'loundry'),
+              DropdownMenuEntry(value: 'exhibition', label: 'exhibition'),
+
+              //   DropdownMenuEntry(value: 'none', label: 'none'),
+            ]),
+      ),
+    );
+  }
+
+  Widget mediaContentPartWidget(BuildContext context) {
+    return SliverToBoxAdapter(
+        child: Container(
+      height: 400,
+      color: palette.white,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        addAutomaticKeepAlives: true,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  'assets/images/clickfile.png',
+                  width: 300,
+                  fit: BoxFit.cover,
+                )),
+          );
+        },
+      ),
+    ));
+  }
+
+  Widget extrainfoPartWidget(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+            decoration: BoxDecoration(
+              color: palette.grey,
+              borderRadius: BorderRadius.circular(15),
+              // border: Border.all(color: palette.black)
+            ),
+            // padding: EdgeInsets.all(8),
+            height: 300,
+            child: TextFormField(
+              decoration: InputDecoration(
+                  hoverColor: palette.grey,
+                  hintText: 'extra information',
+                  hintStyle: TextStyle(color: palette.black)),
+              minLines: 20,
+              maxLines: 21,
+            )),
+      ),
+    );
+  }
+
+  Widget flagPartWiget(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+            decoration: BoxDecoration(
+              color: palette.grey,
+              borderRadius: BorderRadius.circular(15),
+              // border: Border.all(color: palette.black)
+            ),
+            // padding: EdgeInsets.all(8),
+            height: 60,
+            child: TextFormField(
+              decoration: InputDecoration(
+                  // hintText: 'tag a @creator or #topic',
+                  //    helperText: flag,
+                  prefixText: flag,
+                  prefixStyle: TextStyle(fontSize: 20),
+                  // labelText: 'flag',
+                  hintStyle: TextStyle(color: palette.black),
+                  hoverColor: palette.grey,
+                  prefixIcon: SizedBox(
+                    width: 100,
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              setState(() {
+                                flag = '@';
+                              });
+                              debugPrint(flag);
+                            },
+                            icon: Icon(Icons.alternate_email_rounded)),
+                        IconButton(
+                            onPressed: () {
+                              setState(() {
+                                flag = '#';
+                              });
+                              debugPrint(flag);
+                            },
+                            icon: Icon(Icons.tag)),
+                        VerticalDivider()
+                      ],
+                    ),
+                  ),
+                  suffixIcon: CircleAvatar(
+                    child: IconButton(
+                      onPressed: () => debugPrint('hashed'),
+                      icon: Icon(Icons.outlined_flag_sharp),
+                    ),
+                  )),
+            )),
+      ),
+    );
+  }
+
+// MAINBODY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   Widget FilePickScreen(BuildContext context) {
     return (Text('pickfile'));
@@ -227,6 +247,34 @@ class PostUploadState extends State<PostUpload> {
 
   Widget TagInputScreen(BuildContext context) {
     return (Text('TagInput'));
+  }
+
+  Widget bottomSheet(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      child: (Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconButton(
+              onPressed: () => debugPrint('clicked'),
+              icon: Icon(Icons.camera_alt, size: 40, color: palette.black)),
+          IconButton(
+            onPressed: () => debugPrint('clicked'),
+            icon:
+                Icon(Icons.upload_file_rounded, size: 40, color: palette.black),
+          ),
+          IconButton(
+              onPressed: () => debugPrint('clicked'),
+              icon: Icon(Icons.drive_file_rename_outline_rounded,
+                  size: 40, color: palette.black)),
+          IconButton(
+            onPressed: () => debugPrint('clicked'),
+            icon: Icon(Icons.flag, size: 40, color: palette.black),
+          ),
+        ],
+      )),
+    );
   }
 
   Widget bottomNavigationBar(BuildContext context) {
