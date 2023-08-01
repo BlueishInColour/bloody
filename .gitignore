@@ -49,6 +49,6 @@ app.*.map.json
 /android
 /web
 /startrecord.txt
-
+/test
 
 

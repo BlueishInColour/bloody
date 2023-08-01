@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'package:upstash_redis/upstash_redis.dart';
 import 'dart:typed_data';
 
-import 'package:bloody/Models/create_post_freakon.dart';
 import 'package:flutter/material.dart';
-import '../Models/explore_screen_models.dart';
-import '../Models/create_freak.dart';
-import '../Models/follow_freak.dart';
-import '../Models/comment_freakon.dart';
 import '../main.dart';
+import '../Models/cosmsosdb.dart';
 
 class Master extends StatefulWidget {
   Master({super.key});
@@ -22,7 +17,7 @@ class MasterState extends State<Master> {
   // Uint8List bytes = List<int>[];
   set() async {
     print('started getting stuff out of db');
-    var byt = await getPosts();
+
     setState(() {
       //  bytes = byt.toString();
     });
@@ -42,17 +37,19 @@ class MasterState extends State<Master> {
   Widget CommandPage(BuildContext context) {
     return (ListView(
       children: [
-        singleCommand('create new freak', () => createfreak(ext)),
-        singleCommand('create schema', () => createSchema()),
-        singleCommand('create follow schema', () => createFollowschema()),
-        singleCommand('follow', () => follow('bluosh', 'mummy')),
-        singleCommand('print image binary', () => printSomething()),
-        singleCommand('create post schema', () => createPostSchema()),
-        singleCommand('create post upload', () => createPost('BlueshInColour')),
-        singleCommand('get picture bytes', () => set()),
-        singleCommand(
-            'create comment schema', () => createCommentFreakonSchema()),
-        singleCommand('comment', () => commentFreakon())
+        singleCommand('create cosmos db', () => createdb()),
+        singleCommand('getdb', () => get()),
+        singleCommand('deletedb', () => deletedb()),
+        singleCommand('get list', () => listdb()),
+        ////////////
+        singleCommand('create collection', () => createCollection()),
+        singleCommand('get collection', () => getCollection()),
+        singleCommand('delete collection ', () => deleteCollection()),
+        singleCommand('get list collection', () => listCollection()),
+        //////////
+        singleCommand('create Document', () => createDocument()),
+        singleCommand('list document', () => listDocument()),
+        singleCommand('get document', () => getDocument())
       ],
     ));
   }
@@ -91,7 +88,7 @@ class MasterState extends State<Master> {
 
       // Future that needs to be resolved
       // inorder to display something on the Canvas
-      future: getPosts(),
+      future: null,
     );
   }
 
