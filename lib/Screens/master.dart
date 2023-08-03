@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'package:upstash_redis/upstash_redis.dart';
 import 'dart:typed_data';
 
-import 'package:bloody/Models/create_post_freakon.dart';
+import 'package:bloody/apis/create_post_freakon.dart';
 import 'package:flutter/material.dart';
-import '../Models/explore_screen_models.dart';
-import '../Models/create_freak.dart';
-import '../Models/follow_freak.dart';
-import '../Models/comment_freakon.dart';
+import '../apis/explore_screen_models.dart';
+import '../apis/create_freak.dart';
+import '../apis/follow_freak.dart';
+import '../apis/comment_freakon.dart';
 import '../main.dart';
+import '../Models/post_model.dart';
 
 class Master extends StatefulWidget {
   Master({super.key});
@@ -48,18 +49,16 @@ class MasterState extends State<Master> {
         singleCommand('follow', () => follow('bluosh', 'mummy')),
         singleCommand('print image binary', () => printSomething()),
         singleCommand('create post schema', () => createPostSchema()),
-        singleCommand('create post upload', () => createPost('BlueshInColour')),
-        singleCommand('get picture bytes', () => set()),
-        singleCommand(
-            'create comment schema', () => createCommentFreakonSchema()),
-        singleCommand('comment', () => commentFreakon())
+        //   singleCommand('create post upload', () => createPost('BlueshInColour')),
+        singleCommand('get posts', () => getPosts()),
+        imagebuilder()
       ],
     ));
   }
 
   imagebuilder() {
     return FutureBuilder(
-      builder: (ctx, snapshot) {
+      builder: (ctx, AsyncSnapshot<List<Post>> snapshot) {
         // Checking if future is resolved or not
         if (snapshot.connectionState == ConnectionState.done) {
           // If we got an error
@@ -74,8 +73,9 @@ class MasterState extends State<Master> {
             // if we got our data
           } else if (snapshot.hasData) {
             // Extracting data from snapshot object
-            final data = snapshot.data.toString();
-            return Center(child: Image.memory(base64Decode(data)));
+            var post = snapshot.data;
+            return Center(
+                child: Image.memory(Uint8List.fromList(post![0].data.byte[0])));
           }
         }
 
@@ -110,7 +110,8 @@ class MasterState extends State<Master> {
               }),
             )),
         IconButton(
-            onPressed: onPressed, icon: Icon(Icons.g_mobiledata, size: 20))
+            onPressed: onPressed,
+            icon: const Icon(Icons.g_mobiledata, size: 20))
       ],
     ));
   }

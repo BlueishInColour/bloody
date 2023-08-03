@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../main.dart';
+import '../apis/create_post_freakon.dart';
+import '../Models/post_model.dart';
 
 class PostUpload extends StatefulWidget {
   PostUpload({super.key});
@@ -11,11 +15,28 @@ class PostUpload extends StatefulWidget {
   State<PostUpload> createState() => PostUploadState();
 }
 
+List<int> temporaryImage =
+    File('assets/images/clickfile.png').readAsBytesSync();
+
 class PostUploadState extends State<PostUpload> {
   int selectedPageIndex = 0;
+
   final images = <File>[];
   var textinfo = '';
-
+  String flagged = '';
+  Post post = Post(
+      data: Data(
+        byte: [temporaryImage],
+        extra_info: '',
+        freakins: 0,
+        freakouts: 0,
+        posted_as_at: DateTime.now(),
+        postedby: '',
+        flag: [],
+        pinnedTag: '',
+      ),
+      id: '',
+      objectType: '');
   var hashtags = <String>[];
   getFileImages() async {
     print('connected');
@@ -23,15 +44,13 @@ class PostUploadState extends State<PostUpload> {
       source: ImageSource.gallery,
     );
 
-    String bytes = await image!.readAsBytes().toString();
-    var file = File(bytes);
-    return file;
-  }
-
-  initialImage() async {
-    var image = await PickedFile('assets/images/clickfile.png');
-    String bytes = await image!.readAsBytes().toString();
-    return bytes;
+    List<int> bytes = await image!.readAsBytes();
+    print(bytes);
+    print('done converting');
+    setState(() {
+      post.data.byte.insert(0, bytes);
+    });
+    print('done setting bytes');
   }
 
   getCameraImages() async {
@@ -39,19 +58,16 @@ class PostUploadState extends State<PostUpload> {
     var image = await ImagePicker.platform.pickImage(
         source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
     List<int> bytes = await image!.readAsBytes();
-    return bytes;
+    setState(() {
+      post.data.byte.add(bytes);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
-      body: [
-        MainBody(context),
-        FilePickScreen(context),
-        TextInputScreen(context),
-        TagInputScreen(context)
-      ][selectedPageIndex],
+      body: MainBody(context),
       bottomSheet: bottomSheet(context),
     );
   }
@@ -74,7 +90,10 @@ class PostUploadState extends State<PostUpload> {
                   backgroundColor: MaterialStatePropertyAll(palette.red),
                   shape: MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
-              onPressed: () => debugPrint('clicked'),
+              onPressed: () {
+                debugPrint('clicked');
+                createPost(post);
+              },
               child: Text(
                 'post',
                 style: TextStyle(fontSize: 20),
@@ -92,6 +111,12 @@ class PostUploadState extends State<PostUpload> {
           dropDownMenu(context),
           mediaContentPartWidget(context),
           extrainfoPartWidget(context),
+          flaggedContainer(context),
+          post.data.pinnedTag.isNotEmpty
+              ? SliverToBoxAdapter(
+                  child: creatorPod(context, post.data.pinnedTag),
+                )
+              : SliverToBoxAdapter(child: SizedBox()),
           flagPartWiget(context),
           const SliverToBoxAdapter(child: SizedBox(height: 60))
         ],
@@ -105,6 +130,11 @@ class PostUploadState extends State<PostUpload> {
       key: Key('dropdown'),
       child: Center(
         child: DropdownMenu(
+            onSelected: (value) {
+              setState(() {
+                post.objectType = value!;
+              });
+            },
             inputDecorationTheme: InputDecorationTheme(
                 filled: true,
                 fillColor: palette.grey,
@@ -139,17 +169,14 @@ class PostUploadState extends State<PostUpload> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         addAutomaticKeepAlives: true,
+        itemCount: post.data.byte.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  'assets/images/clickfile.png',
-                  width: 300,
-                  fit: BoxFit.cover,
-                )),
-          );
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child:
+                      Image.memory(Uint8List.fromList(post.data.byte[index]))));
         },
       ),
     ));
@@ -168,6 +195,11 @@ class PostUploadState extends State<PostUpload> {
             // padding: EdgeInsets.all(8),
             height: 300,
             child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  post.data.extra_info = value!;
+                });
+              },
               decoration: InputDecoration(
                   hoverColor: palette.grey,
                   hintText: 'extra information',
@@ -177,6 +209,68 @@ class PostUploadState extends State<PostUpload> {
             )),
       ),
     );
+  }
+
+  Widget flaggedContainer(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 250,
+          decoration: BoxDecoration(
+            color: palette.grey,
+            borderRadius: BorderRadius.circular(15),
+            // border: Border.all(color: palette.black)
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              """
+tagged:
+
+${post.data.flag}
+""",
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget creatorPod(context, String name) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: (Container(
+        height: 40,
+        decoration: BoxDecoration(
+          color: palette.lightPurple,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          textDirection: TextDirection.rtl,
+          children: [
+            CircleAvatar(
+              backgroundColor: palette.black,
+              // backgroundImage: const NetworkImage(
+              //   "https://source.unsplash.com/random/?art&width=500&height=1000",
+              // ),
+            ),
+            pad(),
+            Text(name,
+                style: TextStyle(
+                  color: Colors.blue,
+                )),
+            pad(),
+            const Expanded(child: SizedBox())
+          ],
+        ),
+      )),
+    );
+  }
+
+  Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
+    return (VerticalDivider(color: color));
   }
 
   Widget flagPartWiget(BuildContext context) {
@@ -192,6 +286,11 @@ class PostUploadState extends State<PostUpload> {
             // padding: EdgeInsets.all(8),
             height: 60,
             child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  flagged = value;
+                });
+              },
               decoration: InputDecoration(
                   // hintText: 'tag a @creator or #topic',
                   //    helperText: flag,
@@ -225,9 +324,22 @@ class PostUploadState extends State<PostUpload> {
                     ),
                   ),
                   suffixIcon: CircleAvatar(
-                    child: IconButton(
-                      onPressed: () => debugPrint('hashed'),
-                      icon: Icon(Icons.outlined_flag_sharp),
+                    child: GestureDetector(
+                      onLongPress: () {
+                        setState(() {
+                          post.data.pinnedTag = flagged;
+                        });
+                        print('the pinned tag is ${post.data.pinnedTag}');
+                      },
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            post.data.flag.add(flagged);
+                          });
+                          print('just flagged a post, ${post.data.flag.last}');
+                        },
+                        icon: Icon(Icons.outlined_flag_sharp),
+                      ),
                     ),
                   )),
             )),
@@ -257,10 +369,16 @@ class PostUploadState extends State<PostUpload> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () => debugPrint('clicked'),
+              onPressed: () {
+                debugPrint('camera clicked');
+                getCameraImages();
+              },
               icon: Icon(Icons.camera_alt, size: 40, color: palette.black)),
           IconButton(
-            onPressed: () => debugPrint('clicked'),
+            onPressed: () {
+              debugPrint('clicked');
+              getFileImages();
+            },
             icon:
                 Icon(Icons.upload_file_rounded, size: 40, color: palette.black),
           ),
