@@ -12,6 +12,8 @@ import 'package:upstash_redis/upstash_redis.dart';
 
 import 'create_freak.dart';
 import '../Models/post_model.dart';
+import 'connect.dart';
+import 'package:firedart/firedart.dart';
 
 ///(PostModel)
 ///post_id = id
@@ -35,7 +37,6 @@ import '../Models/post_model.dart';
 ///
 createPostSchema() {
   print('connecting');
-  var redis = Redis.fromEnv();
   print('connected');
 
   print(redis.json.set('post', $, {}));
@@ -43,23 +44,35 @@ createPostSchema() {
 
 createPost(Post post) async {
   print('connecting');
-  var redis = Redis.fromEnv();
+//
+  // CollectionReference postDocument =
+  //     FirebaseFirestore.instance.collection('post').withConverter<Post>(
+  //           fromFirestore: (snapshot, _) => Post.fromJson(snapshot.data()!),
+  //           toFirestore: (post, _) => post.toJson(),
+  //         );
+  // print('connected');
+  // return postDocument
+  //     .add(post)
+  //     .then((value) => print('post uploaded'))
+  //     .catchError((error, stackTrace) => print('failed to post : $error'));
+//
+  Firestore.initialize('adroit-sol-385215');
   print('connected');
+  var map = await Firestore.instance.collection('post').add(post.toJson());
+  print(map);
+  return map;
 //  var image = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
 //  List<int> bytes = await image!.readAsBytes();
 //  print(bytes);
   //Codec Imagetobase64 = utf8.fuse(base64);
   //String encoded = Imagetobase64.encode(bytes.toString());
-
-  print(redis.json.set('post', r'$.blueish', post.toJson()));
-  print('post created');
 }
 
 Future<List<Post>> getPosts() async {
   print('connecting');
-  var redis = Redis.fromEnv();
+
   print('connected');
-  print(await redis.json.get('post', [r'$.BlueshInColour.data.postedby']));
+
   print('done that');
 
   List bytes = await redis.json.get('post', [r'$.blueish']);

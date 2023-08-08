@@ -1,5 +1,6 @@
 import 'package:upstash_redis/upstash_redis.dart';
 import 'package:uuid/uuid.dart';
+import 'connect.dart';
 
 //for association schema
 //id1: int //source id eg from post id
@@ -12,12 +13,10 @@ import 'package:uuid/uuid.dart';
 //
 
 createCommentFreakonSchema() async {
-  var redis = Redis.fromEnv();
   var res = redis.json.set('comments', $, {});
 }
 
 commentFreakon() async {
-  var redis = Redis.fromEnv();
   var res = redis.json.set('comments', r'$', {
     'comment_id': Uuid.NAMESPACE_DNS,
     'comment_by': '',

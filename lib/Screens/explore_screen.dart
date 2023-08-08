@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../Widgets/dummy_data.dart';
@@ -51,12 +50,6 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
             style: TextStyle(color: palette.black, fontSize: 42)),
         TextSpan(
             text: 'In', style: TextStyle(color: palette.red, fontSize: 42)),
-        WidgetSpan(
-            child: Icon(
-          Icons.local_fire_department_rounded,
-          color: palette.red,
-          size: 35,
-        )),
       ])),
     );
   }

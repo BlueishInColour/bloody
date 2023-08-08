@@ -2,6 +2,7 @@ import 'package:upstash_redis/upstash_redis.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'connect.dart';
 
 ///(userModel)
 ///user_id
@@ -31,7 +32,7 @@ import 'package:flutter/material.dart';
 
 Future createfreak(String username) async {
   print('connecting');
-  final redis = Redis.fromEnv();
+
   print('connected');
 
   print(redis.json.set('freaks', r'$' '.$username', {
@@ -61,7 +62,7 @@ Future createfreak(String username) async {
 
 Future createSchema() async {
   print('connecting');
-  final redis = Redis.fromEnv();
+
   print('connected');
 
   print(redis.json.set('freaks', $, {

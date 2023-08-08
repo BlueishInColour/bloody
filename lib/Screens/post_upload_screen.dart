@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../main.dart';
-import '../apis/create_post_freakon.dart';
+import '../Apis/create_post_freakon.dart';
 import '../Models/post_model.dart';
 
 class PostUpload extends StatefulWidget {
@@ -15,9 +15,6 @@ class PostUpload extends StatefulWidget {
   State<PostUpload> createState() => PostUploadState();
 }
 
-List<int> temporaryImage =
-    File('assets/images/clickfile.png').readAsBytesSync();
-
 class PostUploadState extends State<PostUpload> {
   int selectedPageIndex = 0;
 
@@ -26,7 +23,7 @@ class PostUploadState extends State<PostUpload> {
   String flagged = '';
   Post post = Post(
       data: Data(
-        byte: [temporaryImage],
+        byte: [],
         extra_info: '',
         freakins: 0,
         freakouts: 0,
@@ -78,7 +75,7 @@ class PostUploadState extends State<PostUpload> {
         foregroundColor: Colors.red,
         leadingWidth: 40,
         leading: IconButton(
-          icon: Icon(Icons.local_fire_department_rounded,
+          icon: Icon(Icons.local_fire_department_outlined,
               color: palette.red, size: 38),
           onPressed: () => Navigator.pop(context),
         ),
@@ -109,14 +106,14 @@ class PostUploadState extends State<PostUpload> {
       child: CustomScrollView(
         slivers: [
           dropDownMenu(context),
-          mediaContentPartWidget(context),
+          post.data.byte.isEmpty
+              ? dummyMediaContentPartWidget(context)
+              : mediaContentPartWidget(context),
           extrainfoPartWidget(context),
           flaggedContainer(context),
           post.data.pinnedTag.isNotEmpty
-              ? SliverToBoxAdapter(
-                  child: creatorPod(context, post.data.pinnedTag),
-                )
-              : SliverToBoxAdapter(child: SizedBox()),
+              ? creatorPod(context, post.data.pinnedTag)
+              : const SliverToBoxAdapter(child: SizedBox()),
           flagPartWiget(context),
           const SliverToBoxAdapter(child: SizedBox(height: 60))
         ],
@@ -182,6 +179,19 @@ class PostUploadState extends State<PostUpload> {
     ));
   }
 
+  Widget dummyMediaContentPartWidget(BuildContext context) {
+    return SliverToBoxAdapter(
+        child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Container(
+                decoration: BoxDecoration(
+                  color: palette.grey,
+                  borderRadius: BorderRadius.circular(15),
+                  // border: Border.all(color: palette.black)
+                ),
+                child: Image.asset('assets/images/clickfile.png'))));
+  }
+
   Widget extrainfoPartWidget(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
@@ -238,34 +248,36 @@ ${post.data.flag}
   }
 
   Widget creatorPod(context, String name) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: (Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: palette.lightPurple,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          textDirection: TextDirection.rtl,
-          children: [
-            CircleAvatar(
-              backgroundColor: palette.black,
-              // backgroundImage: const NetworkImage(
-              //   "https://source.unsplash.com/random/?art&width=500&height=1000",
-              // ),
-            ),
-            pad(),
-            Text(name,
-                style: TextStyle(
-                  color: Colors.blue,
-                )),
-            pad(),
-            const Expanded(child: SizedBox())
-          ],
-        ),
-      )),
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: (Container(
+          height: 40,
+          decoration: BoxDecoration(
+            color: palette.lightPurple,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            textDirection: TextDirection.rtl,
+            children: [
+              CircleAvatar(
+                backgroundColor: palette.black,
+                // backgroundImage: const NetworkImage(
+                //   "https://source.unsplash.com/random/?art&width=500&height=1000",
+                // ),
+              ),
+              pad(),
+              Text(name,
+                  style: TextStyle(
+                    color: Colors.blue,
+                  )),
+              pad(),
+              const Expanded(child: SizedBox())
+            ],
+          ),
+        )),
+      ),
     );
   }
 
@@ -373,22 +385,23 @@ ${post.data.flag}
                 debugPrint('camera clicked');
                 getCameraImages();
               },
-              icon: Icon(Icons.camera_alt, size: 40, color: palette.black)),
+              icon: Icon(Icons.camera_alt_outlined,
+                  size: 40, color: palette.black)),
           IconButton(
             onPressed: () {
               debugPrint('clicked');
               getFileImages();
             },
-            icon:
-                Icon(Icons.upload_file_rounded, size: 40, color: palette.black),
+            icon: Icon(Icons.upload_file_outlined,
+                size: 40, color: palette.black),
           ),
           IconButton(
               onPressed: () => debugPrint('clicked'),
-              icon: Icon(Icons.drive_file_rename_outline_rounded,
+              icon: Icon(Icons.drive_file_rename_outline,
                   size: 40, color: palette.black)),
           IconButton(
             onPressed: () => debugPrint('clicked'),
-            icon: Icon(Icons.flag, size: 40, color: palette.black),
+            icon: Icon(Icons.flag_outlined, size: 40, color: palette.black),
           ),
         ],
       )),
@@ -405,25 +418,27 @@ ${post.data.flag}
       height: 70,
       destinations: <NavigationDestination>[
         NavigationDestination(
-          icon: Icon(Icons.camera_alt, size: 40, color: palette.black),
+          icon:
+              Icon(Icons.photo_camera_outlined, size: 40, color: palette.black),
           selectedIcon: Icon(Icons.camera_alt, size: 40, color: palette.red),
           label: 'camera',
         ),
         NavigationDestination(
-          icon: Icon(Icons.upload_file_rounded, size: 40, color: palette.black),
+          icon:
+              Icon(Icons.upload_file_outlined, size: 40, color: palette.black),
           label: 'file',
           selectedIcon:
               Icon(Icons.upload_file_rounded, size: 40, color: palette.red),
         ),
         NavigationDestination(
-          icon: Icon(Icons.drive_file_rename_outline_rounded,
+          icon: Icon(Icons.drive_file_rename_outline,
               size: 40, color: palette.black),
           selectedIcon: Icon(Icons.drive_file_rename_outline_rounded,
               size: 40, color: palette.red),
           label: 'write',
         ),
         NavigationDestination(
-          icon: Icon(Icons.flag, size: 40, color: palette.black),
+          icon: Icon(Icons.flag_outlined, size: 40, color: palette.black),
           selectedIcon: Icon(Icons.tag, size: 40, color: palette.red),
           label: 'tag',
         ),

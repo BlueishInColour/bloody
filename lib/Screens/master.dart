@@ -2,14 +2,17 @@ import 'dart:convert';
 import 'package:upstash_redis/upstash_redis.dart';
 import 'dart:typed_data';
 
-import 'package:bloody/apis/create_post_freakon.dart';
+import 'package:bloody/Apis/create_post_freakon.dart';
 import 'package:flutter/material.dart';
-import '../apis/explore_screen_models.dart';
-import '../apis/create_freak.dart';
-import '../apis/follow_freak.dart';
-import '../apis/comment_freakon.dart';
+import '../Apis/explore_screen_models.dart';
+import '../Apis/create_freak.dart';
+import '../Apis/follow_freak.dart';
+import '../Apis/comment_freakon.dart';
 import '../main.dart';
 import '../Models/post_model.dart';
+import '../Apis/create_user_profile.dart';
+import '../Models/user_model.dart';
+import 'sign_up_in_out_screen.dart';
 
 class Master extends StatefulWidget {
   Master({super.key});
@@ -43,7 +46,23 @@ class MasterState extends State<Master> {
   Widget CommandPage(BuildContext context) {
     return (ListView(
       children: [
-        singleCommand('create new freak', () => createfreak(ext)),
+        singleCommand(
+            'create new freak',
+            () => createUser(User(
+                  age: 3,
+                  coverPix: [3],
+                  dateOfBirth: 'dwrsd',
+                  email: 'eyelase@gmail.com',
+                  extra_info: 'not much to say',
+                  fullname: 'eyelade oluwapelumi',
+                  noOfFollowers: 23,
+                  noOfFollowing: 3,
+                  phoneNumber: 1231423,
+                  profilePix: [3],
+                  sex: 'm',
+                  typeOfUser: 'the master',
+                  username: 'blueishincolour',
+                ))),
         singleCommand('create schema', () => createSchema()),
         singleCommand('create follow schema', () => createFollowschema()),
         singleCommand('follow', () => follow('bluosh', 'mummy')),
@@ -51,7 +70,13 @@ class MasterState extends State<Master> {
         singleCommand('create post schema', () => createPostSchema()),
         //   singleCommand('create post upload', () => createPost('BlueshInColour')),
         singleCommand('get posts', () => getPosts()),
-        imagebuilder()
+        singleCommand(
+            'enter login screeen',
+            () => Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, _, __) => SignUpInOutScreeen()))),
+        //  imagebuilder()
       ],
     ));
   }
