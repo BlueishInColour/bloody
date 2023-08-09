@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Models/cosmsosdb.dart';
+import '../../Apis/cosmsosdb.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -52,7 +52,7 @@ class CreateuserState extends State<CreateUser> {
             ),
             TextButton(
                 onPressed: () =>
-                    createDocument(email: email, id: id, name: name),
+                    createDocument(email: email, documentId: id, name: name),
                 child: Text('create this user'))
           ],
         ),
