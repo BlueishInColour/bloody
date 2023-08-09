@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../Models/cosmsosdb.dart';
+import './Test/create_user_screen.dart';
+import './Test/list_users.screen.dart';
 
 class Master extends StatefulWidget {
   Master({super.key});
@@ -47,9 +49,20 @@ class MasterState extends State<Master> {
         singleCommand('delete collection ', () => deleteCollection()),
         singleCommand('get list collection', () => listCollection()),
         //////////
-        singleCommand('create Document', () => createDocument()),
+        //  singleCommand('create Document', () => createDocument()),
         singleCommand('list document', () => listDocument()),
-        singleCommand('get document', () => getDocument())
+        singleCommand('get document', () => getDocument('oio')),
+
+        singleCommand(
+            'go to create user screen',
+            () => Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, _, __) => CreateUser()))),
+        singleCommand(
+            'go to create get user screen',
+            () => Navigator.push(context,
+                PageRouteBuilder(pageBuilder: (context, _, __) => List())))
       ],
     ));
   }

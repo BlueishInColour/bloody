@@ -1,4 +1,3 @@
-import 'package:bloody/Screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../Widgets/dummy_data.dart';
@@ -11,7 +10,6 @@ import '../Widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
 import '../Widgets/explore_screen_widgets/full_screen_image.dart';
 
-import './camera_screen.dart';
 import 'master.dart';
 
 //final palette = Palette();

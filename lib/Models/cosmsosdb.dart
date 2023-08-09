@@ -117,13 +117,19 @@ class User {
   Map<String, dynamic> toJson() => {'id': id, 'name': name, 'email': email};
 }
 
-createDocument() async {
+createDocument({
+  String id = '',
+  String name = '',
+  String email = '',
+}) async {
+  print('connecting');
   CosmosDb cosmosdb = connectCosmos();
+  print('connected');
   final CosmosDocument document = await cosmosdb.document.create(
     dbId: dbId,
     collectionId: collectionId,
-    partitionKey: 'fishyy',
-    body: User(id: 'fishyy', name: 'olu', email: 'iwiu').toJson(),
+    partitionKey: id,
+    body: User(id: id, name: name, email: email).toJson(),
   );
 
   print(document.toMap());
@@ -138,13 +144,10 @@ listDocument() async {
   print(documentList.toMap());
 }
 
-getDocument() async {
+getDocument(String id) async {
   CosmosDb cosmosdb = connectCosmos();
   final CosmosDocument document = await cosmosdb.document.get(
-      dbId: dbId,
-      collectionId: collectionId,
-      documentId: 'oio',
-      partitionKey: 'oio');
+      dbId: dbId, collectionId: collectionId, documentId: id, partitionKey: id);
   print('gotten document');
   print(document.toMap());
   print('this is the document unmapped value ${document.values}');
