@@ -45,6 +45,7 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.0.15
   dart_azure_cosmosdb: ^1.0.0
+  firedart: ^0.9.7
  
 
 dev_dependencies:

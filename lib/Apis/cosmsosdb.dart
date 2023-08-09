@@ -118,18 +118,29 @@ class User {
 }
 
 createDocument({
-  String id = '',
+  String dbId = '',
+  String collectionId = '',
+  String documentId = '',
   String name = '',
   String email = '',
 }) async {
   print('connecting');
   CosmosDb cosmosdb = connectCosmos();
   print('connected');
+  final Collection collection =
+      await cosmosdb.collection.get(dbId: dbId, collectionId: collectionId);
+  collection.error.isEmpty
+      ? cosmosdb.collection.create(
+          dbId: dbId,
+          collectionId: collectionId,
+          partitionKey: '/' '$collectionId',
+          version: 1)
+      : null;
   final CosmosDocument document = await cosmosdb.document.create(
     dbId: dbId,
     collectionId: collectionId,
-    partitionKey: id,
-    body: User(id: id, name: name, email: email).toJson(),
+    partitionKey: documentId,
+    body: User(id: documentId, name: name, email: email).toJson(),
   );
 
   print(document.toMap());
