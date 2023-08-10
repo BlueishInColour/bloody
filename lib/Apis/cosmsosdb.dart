@@ -118,8 +118,8 @@ class User {
 }
 
 createDocument({
-  String dbId = '',
-  String collectionId = '',
+  String dbId = 'userstttttt',
+  String collectionId = 'firsdb',
   String documentId = '',
   String name = '',
   String email = '',
@@ -135,14 +135,17 @@ createDocument({
           collectionId: collectionId,
           partitionKey: '/' '$collectionId',
           version: 1)
-      : null;
-  final CosmosDocument document = await cosmosdb.document.create(
+      : print('collection is not empty');
+  final CosmosDocument document = await cosmosdb.document.replace(
     dbId: dbId,
     collectionId: collectionId,
+    documentId: documentId,
     partitionKey: documentId,
-    body: User(id: documentId, name: name, email: email).toJson(),
+    body: {'id': documentId, 'email': email},
   );
-
+  document.error.isEmpty
+      ? print('document wasnt uploaded')
+      : print('successfully uploaded');
   print(document.toMap());
   print('this is the document}');
 }

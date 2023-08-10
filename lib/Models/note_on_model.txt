@@ -26,12 +26,12 @@ SEVERAL OCCASIONS when a db action is called
 >create a freak {user} |objecttype     ---done
 >follow a freak        |associationtype     --done`
 >following a freak     |associationtype      ---done
->message a freak     |associationtype      ---later feature
->notify a freak            ---later feature for notification
+#message a freak     |associationtype      ---later feature
+#notify a freak            ---later feature for notification
 
 
 >create a post     |objecttype ---done
 >freakin a post {like}      |associationtype     ----done`
 >freakout a post {share}         |associationtype    ---done
->comment         |associationtype    --done
->notify a freak      ---later feature for notification
+#comment         |associationtype    --done
+#notify a freak      ---later feature for notification
