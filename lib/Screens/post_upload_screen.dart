@@ -87,14 +87,9 @@ class PostUploadState extends State<PostUpload> {
                 createDocument(
                     dbId: 'postsss',
                     collectionId: 'blueishincolour',
-                    documentId: 'fishyyy',
-                    partitionKey: 'fishyyy',
-                    data: Post(
-                        id: 'fishyyy',
-                        text: 'text',
-                        postType: 'postType',
-                        photos: [],
-                        tags: []).toJson());
+                    documentId: post.id,
+                    partitionKey: post.id,
+                    data: post.toJson());
               },
               child: Text(
                 'post',

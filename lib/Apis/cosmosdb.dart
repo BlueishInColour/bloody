@@ -152,6 +152,7 @@ createDocument({
   });
 
   //conditionally creates documents
+  print(data.toString());
   final CosmosDocument document = await cosmosdb.document
       .get(
           dbId: dbId,
@@ -175,7 +176,7 @@ createDocument({
               dbId: dbId,
               collectionId: collectionId,
               //  documentId: documentId,
-              partitionKey: data.id,
+              partitionKey: partitionKey,
               body: data,
             )
             .then((value) => print(
