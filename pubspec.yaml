@@ -44,10 +44,11 @@ dependencies:
   uuid: ^3.0.7
   path: ^1.8.3
   path_provider: ^2.0.15
-  dart_azure_cosmosdb: ^1.0.0
+  #dart_azure_cosmosdb: ^1.0.0
   firedart: ^0.9.7
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
+  upstash_redis: ^1.4.0
   
  
 
