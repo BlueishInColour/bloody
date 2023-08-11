@@ -17,6 +17,8 @@ CosmosDb connectCosmos() {
   return cosmosDb;
 }
 
+CosmosDb cosmosdb = connectCosmos();
+
 //list all db
 
 listdb() async {

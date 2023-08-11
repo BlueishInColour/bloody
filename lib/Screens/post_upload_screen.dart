@@ -82,14 +82,15 @@ class PostUploadState extends State<PostUpload> {
                   backgroundColor: MaterialStatePropertyAll(palette.red),
                   shape: MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
-              onPressed: () {
+              onPressed: () async {
                 debugPrint('clicked');
-                createDocument(
-                    dbId: 'postsss',
-                    collectionId: 'blueishincolour',
-                    documentId: post.id,
-                    partitionKey: post.id,
-                    data: post.toJson());
+                await cosmosdb.document
+                    .create(
+                        dbId: 'posts',
+                        collectionId: 'blueishincolour',
+                        partitionKey: post.id,
+                        body: post.toJson())
+                    .then((value) => print('${value.error}'));
               },
               child: Text(
                 'post',
