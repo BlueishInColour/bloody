@@ -1,8 +1,15 @@
+import 'dart:typed_data';
+import 'package:uuid/uuid.dart';
+
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../main.dart';
+import '../Apis/cosmosdb.dart';
+import '../Models/post_model.dart';
+//import '../Apis/create_post_freakon.dart';
+import '../Models/post_model.dart';
 
 class PostUpload extends StatefulWidget {
   PostUpload({super.key});
@@ -12,26 +19,30 @@ class PostUpload extends StatefulWidget {
 }
 
 class PostUploadState extends State<PostUpload> {
-  int selectedPageIndex = 0;
-  final images = <File>[];
   var textinfo = '';
-
+  String flagged = '';
+  Post post = Post(
+    postType: '',
+    tags: [],
+    id: 'fishyyy',
+    photos: [],
+    text: '',
+  );
   var hashtags = <String>[];
+
   getFileImages() async {
     print('connected');
     var image = await ImagePicker.platform.pickImage(
       source: ImageSource.gallery,
     );
 
-    String bytes = await image!.readAsBytes().toString();
-    var file = File(bytes);
-    return file;
-  }
-
-  initialImage() async {
-    var image = await PickedFile('assets/images/clickfile.png');
-    String bytes = await image!.readAsBytes().toString();
-    return bytes;
+    List<int> bytes = await image!.readAsBytes();
+    print(bytes);
+    print('done converting');
+    setState(() {
+      post.photos.insert(0, bytes);
+    });
+    print('done setting bytes');
   }
 
   getCameraImages() async {
@@ -39,19 +50,16 @@ class PostUploadState extends State<PostUpload> {
     var image = await ImagePicker.platform.pickImage(
         source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
     List<int> bytes = await image!.readAsBytes();
-    return bytes;
+    setState(() {
+      post.photos.insert(0, bytes);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
-      body: [
-        MainBody(context),
-        FilePickScreen(context),
-        TextInputScreen(context),
-        TagInputScreen(context)
-      ][selectedPageIndex],
+      body: MainBody(context),
       bottomSheet: bottomSheet(context),
     );
   }
@@ -62,7 +70,7 @@ class PostUploadState extends State<PostUpload> {
         foregroundColor: Colors.red,
         leadingWidth: 40,
         leading: IconButton(
-          icon: Icon(Icons.local_fire_department_rounded,
+          icon: Icon(Icons.local_fire_department_outlined,
               color: palette.red, size: 38),
           onPressed: () => Navigator.pop(context),
         ),
@@ -74,7 +82,20 @@ class PostUploadState extends State<PostUpload> {
                   backgroundColor: MaterialStatePropertyAll(palette.red),
                   shape: MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
-              onPressed: () => debugPrint('clicked'),
+              onPressed: () {
+                debugPrint('clicked');
+                createDocument(
+                    dbId: 'postsss',
+                    collectionId: 'blueishincolour',
+                    documentId: 'fishyyy',
+                    partitionKey: 'fishyyy',
+                    data: Post(
+                        id: 'fishyyy',
+                        text: 'text',
+                        postType: 'postType',
+                        photos: [],
+                        tags: []).toJson());
+              },
               child: Text(
                 'post',
                 style: TextStyle(fontSize: 20),
@@ -90,8 +111,14 @@ class PostUploadState extends State<PostUpload> {
       child: CustomScrollView(
         slivers: [
           dropDownMenu(context),
-          mediaContentPartWidget(context),
+          post.photos.isEmpty
+              ? dummyMediaContentPartWidget(context)
+              : mediaContentPartWidget(context),
           extrainfoPartWidget(context),
+          flaggedContainer(context),
+          post.tags.isEmpty
+              ? const SliverToBoxAdapter(child: SizedBox())
+              : creatorPod(context, post.tags.first),
           flagPartWiget(context),
           const SliverToBoxAdapter(child: SizedBox(height: 60))
         ],
@@ -105,6 +132,11 @@ class PostUploadState extends State<PostUpload> {
       key: Key('dropdown'),
       child: Center(
         child: DropdownMenu(
+            onSelected: (value) {
+              setState(() {
+                post.postType = value!;
+              });
+            },
             inputDecorationTheme: InputDecorationTheme(
                 filled: true,
                 fillColor: palette.grey,
@@ -139,20 +171,29 @@ class PostUploadState extends State<PostUpload> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         addAutomaticKeepAlives: true,
+        itemCount: post.photos.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  'assets/images/clickfile.png',
-                  width: 300,
-                  fit: BoxFit.cover,
-                )),
-          );
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.memory(Uint8List.fromList(post.photos[index]))));
         },
       ),
     ));
+  }
+
+  Widget dummyMediaContentPartWidget(BuildContext context) {
+    return SliverToBoxAdapter(
+        child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Container(
+                decoration: BoxDecoration(
+                  color: palette.grey,
+                  borderRadius: BorderRadius.circular(15),
+                  // border: Border.all(color: palette.black)
+                ),
+                child: Image.asset('assets/images/clickfile.png'))));
   }
 
   Widget extrainfoPartWidget(BuildContext context) {
@@ -168,6 +209,11 @@ class PostUploadState extends State<PostUpload> {
             // padding: EdgeInsets.all(8),
             height: 300,
             child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  post.text = value!;
+                });
+              },
               decoration: InputDecoration(
                   hoverColor: palette.grey,
                   hintText: 'extra information',
@@ -177,6 +223,70 @@ class PostUploadState extends State<PostUpload> {
             )),
       ),
     );
+  }
+
+  Widget flaggedContainer(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 250,
+          decoration: BoxDecoration(
+            color: palette.grey,
+            borderRadius: BorderRadius.circular(15),
+            // border: Border.all(color: palette.black)
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              """
+tagged:
+
+${post.tags.map((e) => '$e,')}
+""",
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget creatorPod(context, String name) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: (Container(
+          height: 40,
+          decoration: BoxDecoration(
+            color: palette.lightPurple,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            textDirection: TextDirection.rtl,
+            children: [
+              CircleAvatar(
+                backgroundColor: palette.black,
+                // backgroundImage: const NetworkImage(
+                //   "https://source.unsplash.com/random/?art&width=500&height=1000",
+                // ),
+              ),
+              pad(),
+              Text(name,
+                  style: TextStyle(
+                    color: Colors.blue,
+                  )),
+              pad(),
+              const Expanded(child: SizedBox())
+            ],
+          ),
+        )),
+      ),
+    );
+  }
+
+  Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
+    return (VerticalDivider(color: color));
   }
 
   Widget flagPartWiget(BuildContext context) {
@@ -192,6 +302,11 @@ class PostUploadState extends State<PostUpload> {
             // padding: EdgeInsets.all(8),
             height: 60,
             child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  flagged = value;
+                });
+              },
               decoration: InputDecoration(
                   // hintText: 'tag a @creator or #topic',
                   //    helperText: flag,
@@ -225,9 +340,19 @@ class PostUploadState extends State<PostUpload> {
                     ),
                   ),
                   suffixIcon: CircleAvatar(
-                    child: IconButton(
-                      onPressed: () => debugPrint('hashed'),
-                      icon: Icon(Icons.outlined_flag_sharp),
+                    child: GestureDetector(
+                      onLongPress: () {
+                        post.tags.insert(0, flagged);
+
+                        print('the pinned tag is ${post.tags.first}');
+                      },
+                      child: IconButton(
+                        onPressed: () {
+                          post.tags.add(flagged);
+                          print('just flagged a post, ${post.tags.last}');
+                        },
+                        icon: Icon(Icons.outlined_flag_sharp),
+                      ),
                     ),
                   )),
             )),
@@ -257,59 +382,30 @@ class PostUploadState extends State<PostUpload> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () => debugPrint('clicked'),
-              icon: Icon(Icons.camera_alt, size: 40, color: palette.black)),
+              onPressed: () {
+                debugPrint('camera clicked');
+                getCameraImages();
+              },
+              icon: Icon(Icons.camera_alt_outlined,
+                  size: 40, color: palette.black)),
           IconButton(
-            onPressed: () => debugPrint('clicked'),
-            icon:
-                Icon(Icons.upload_file_rounded, size: 40, color: palette.black),
+            onPressed: () {
+              debugPrint('clicked');
+              getFileImages();
+            },
+            icon: Icon(Icons.upload_file_outlined,
+                size: 40, color: palette.black),
           ),
           IconButton(
               onPressed: () => debugPrint('clicked'),
-              icon: Icon(Icons.drive_file_rename_outline_rounded,
+              icon: Icon(Icons.drive_file_rename_outline,
                   size: 40, color: palette.black)),
           IconButton(
             onPressed: () => debugPrint('clicked'),
-            icon: Icon(Icons.flag, size: 40, color: palette.black),
+            icon: Icon(Icons.flag_outlined, size: 40, color: palette.black),
           ),
         ],
       )),
-    );
-  }
-
-  Widget bottomNavigationBar(BuildContext context) {
-    return NavigationBar(
-      backgroundColor: Colors.white30,
-      selectedIndex: selectedPageIndex,
-      onDestinationSelected: (int index) => setState(() {
-        selectedPageIndex = index;
-      }),
-      height: 70,
-      destinations: <NavigationDestination>[
-        NavigationDestination(
-          icon: Icon(Icons.camera_alt, size: 40, color: palette.black),
-          selectedIcon: Icon(Icons.camera_alt, size: 40, color: palette.red),
-          label: 'camera',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.upload_file_rounded, size: 40, color: palette.black),
-          label: 'file',
-          selectedIcon:
-              Icon(Icons.upload_file_rounded, size: 40, color: palette.red),
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.drive_file_rename_outline_rounded,
-              size: 40, color: palette.black),
-          selectedIcon: Icon(Icons.drive_file_rename_outline_rounded,
-              size: 40, color: palette.red),
-          label: 'write',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.flag, size: 40, color: palette.black),
-          selectedIcon: Icon(Icons.tag, size: 40, color: palette.red),
-          label: 'tag',
-        ),
-      ],
     );
   }
 }

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import '../main.dart';
-import '../Apis/cosmsosdb.dart';
+import '../Apis/cosmosdb.dart';
 import './Test/create_user_screen.dart';
 import './Test/list_users.screen.dart';
 

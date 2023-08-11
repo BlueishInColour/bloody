@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Apis/cosmsosdb.dart';
+import '../../Apis/cosmosdb.dart';
 import '../../main.dart';
 
 class List extends StatefulWidget {

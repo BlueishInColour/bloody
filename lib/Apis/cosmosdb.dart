@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../Models/post_model.dart';
 
 import 'package:dart_azure_cosmosdb/dart_azure_cosmosdb.dart';
 
@@ -121,33 +122,76 @@ createDocument({
   String dbId = 'userstttttt',
   String collectionId = 'firsdb',
   String documentId = '',
-  String name = '',
-  String email = '',
+  String partitionKey = '',
+  Map<String, dynamic> data = const {},
 }) async {
   print('connecting');
   CosmosDb cosmosdb = connectCosmos();
   print('connected');
-  final Collection collection =
-      await cosmosdb.collection.get(dbId: dbId, collectionId: collectionId);
-  collection.error.isEmpty
-      ? cosmosdb.collection.create(
+  //conditionally create database
+  // await cosmosdb.database.get(dbId: dbId).then((value) async {
+  //   value.error.isEmpty
+  //       ? print('database contains $dbId')
+  //       : await cosmosdb.database.create(dbId: dbId);
+  // });
+
+  //conditionally create collection
+
+  await cosmosdb.collection
+      .get(dbId: dbId, collectionId: collectionId)
+      .then((value) async {
+    value.error.isEmpty
+        ? print('collection contains $collectionId in $dbId')
+        : await cosmosdb.collection
+            .create(
+                dbId: dbId,
+                collectionId: collectionId,
+                partitionKey: '/$collectionId',
+                version: 1)
+            .then((value) => print(value.error));
+  });
+
+  //conditionally creates documents
+  final CosmosDocument document = await cosmosdb.document
+      .get(
           dbId: dbId,
           collectionId: collectionId,
-          partitionKey: '/' '$collectionId',
-          version: 1)
-      : print('collection is not empty');
-  final CosmosDocument document = await cosmosdb.document.replace(
-    dbId: dbId,
-    collectionId: collectionId,
-    documentId: documentId,
-    partitionKey: documentId,
-    body: {'id': documentId, 'email': email},
-  );
-  document.error.isEmpty
-      ? print('document wasnt uploaded')
-      : print('successfully uploaded');
-  print(document.toMap());
-  print('this is the document}');
+          documentId: documentId,
+          partitionKey: documentId)
+      .then((value) async {
+    value.error.isEmpty
+        ? await cosmosdb.document
+            .replace(
+              dbId: dbId,
+              collectionId: collectionId,
+              documentId: documentId,
+              partitionKey: documentId,
+              body: data,
+            )
+            .then((value) => print(
+                'when replacing documents this error ws encountered ${value.error}'))
+        : await cosmosdb.document
+            .create(
+              dbId: dbId,
+              collectionId: collectionId,
+              //  documentId: documentId,
+              partitionKey: data.id,
+              body: data,
+            )
+            .then((value) => print(
+                'when creating documents this error ws encountered ${value.error}'));
+
+    return value;
+  });
+
+  print(cosmosdb.document
+      .get(
+          dbId: dbId,
+          collectionId: collectionId,
+          documentId: documentId,
+          partitionKey: partitionKey)
+      .then((value) => print(value.toMap())));
+  return document;
 }
 
 listDocument() async {
