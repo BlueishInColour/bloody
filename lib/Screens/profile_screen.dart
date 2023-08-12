@@ -50,7 +50,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       //   ProfileNameButtonWidget(context),
       ProfileInfoWidget(context),
 
-      NavBarWidget(context),
+      // NavBarWidget(context),
     ]));
   }
 

@@ -66,7 +66,7 @@ class SwagrHouseState extends State<SwagrHouse> {
       backgroundColor: palette.white,
       body: [
         const Center(child: ExploreScreenWidget()),
-        const Center(child: SearchResultScreen()),
+        const Center(child: SearchScreen()),
         Center(child: NotificationScreen()),
         Center(child: NotificationScreen()),
         Center(child: ProfileScreen(mine: true)),

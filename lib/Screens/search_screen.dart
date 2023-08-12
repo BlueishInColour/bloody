@@ -1,152 +1,99 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
 
-class SearchResultScreen extends StatefulWidget {
-  const SearchResultScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  State<SearchResultScreen> createState() => SearchResultScreenState();
+  State<SearchScreen> createState() => SearchScreenState();
 }
 
-class SearchResultScreenState extends State<SearchResultScreen> {
-  String searchText = '';
-  @override
+class SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: searchbar(context),
-      body: ListView(
-          scrollDirection: Axis.vertical,
-          addAutomaticKeepAlives: true,
-          children: [
-            UserSearchResults(context),
-            Divider(),
-            CreatorSearchResults(context),
-            Divider(),
-          ]), //searchb]ar(context),
-    );
-  }
+    PreferredSizeWidget searchbar(BuildContext context) {
+      return AppBar(
+        // forceMaterialTransparency: true,
+        shadowColor: palette.white,
+        elevation: 0,
+        title: SearchBar(
+          onTap: () => debugPrint('tapped'),
+          backgroundColor: MaterialStatePropertyAll(palette.lightPurple),
+          hintText: 'explore',
+          hintStyle: const MaterialStatePropertyAll(
+              TextStyle(fontStyle: FontStyle.italic, fontSize: 14)),
+          trailing: [
+            IconButton.outlined(
+                onPressed: null,
+                icon: Icon(
+                  Icons.search,
+                  color: palette.black,
+                )),
+          ],
+        ),
+      );
+    }
 
-  PreferredSizeWidget searchbar(BuildContext context) {
-    return AppBar(
-      // forceMaterialTransparency: true,
-      shadowColor: palette.white,
-      elevation: 0,
-      title: SearchBar(
-        onTap: () => debugPrint('tapped'),
-        backgroundColor: MaterialStatePropertyAll(palette.lightPurple),
-        hintText: 'explore',
-        hintStyle: const MaterialStatePropertyAll(
-            TextStyle(fontStyle: FontStyle.italic, fontSize: 14)),
-        trailing: [
-          IconButton.outlined(
-              onPressed: null,
-              icon: Icon(
-                Icons.search,
-                color: palette.black,
+    tile(
+        {String text = 'explore fashion',
+        String image =
+            "https://source.unsplash.com/random/?art&width=500&height=1000",
+        required Function() onclick}) {
+      return GridTile(
+        header: Expanded(
+          child: ElevatedButton(
+              style: ButtonStyle(
+                  minimumSize: MaterialStatePropertyAll(Size(100, 20)),
+                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20))),
+                  padding: MaterialStatePropertyAll(EdgeInsets.all(10)),
+                  backgroundColor: MaterialStatePropertyAll(palette.grey),
+                  foregroundColor: MaterialStatePropertyAll(Colors.black87)),
+              onPressed: onclick,
+              child: Text(
+                text,
               )),
-        ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: GestureDetector(
+            onTap: onclick,
+            child: FadeInImage.assetNetwork(
+              height: 50,
+              fit: BoxFit.cover,
+              placeholder: 'assets/images/placeholder.png',
+              placeholderFit: BoxFit.cover,
+              imageErrorBuilder: (context, error, stackTrace) => Container(
+                // height: 20,
+                color: Colors.blueGrey,
+              ),
+              image: image,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return (Scaffold(
+      appBar: searchbar(context),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 3),
+        child: GridView(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 150,
+                childAspectRatio: 1,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0),
+            children: [
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+              tile(onclick: () => debugPrint('clicked bro')),
+            ]),
       ),
-    );
+    ));
   }
-
-  Widget UserSearchResults(BuildContext context) {
-    return Container(
-      height: 130,
-      width: 130,
-      //  color: palette.black,
-      child: (ListView.builder(
-          scrollDirection: Axis.horizontal,
-
-          // ignore: avoid_types_as_parameter_names
-          itemBuilder: (context, int) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: palette.black,
-                        )),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(children: [
-                        CircleAvatar(
-                          radius: 35,
-                          backgroundColor: palette.lightPurple,
-                        ),
-                        Text('fulname', style: TextStyle(color: palette.black)),
-                        ConstrainedBox(
-                            // fit: BoxFit.scaleDown,
-                            constraints: BoxConstraints(maxWidth: 100),
-                            child: Text('username',
-                                style: TextStyle(color: palette.black)))
-                      ]),
-                    )),
-              ))),
-    );
-  }
-}
-
-Widget CreatorSearchResults(BuildContext context) {
-  return Container(
-    height: 130,
-    width: 130,
-    //  color: palette.black,
-    child: (ListView.builder(
-        scrollDirection: Axis.horizontal,
-
-        // ignore: avoid_types_as_parameter_names
-        itemBuilder: (context, int) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: palette.black,
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(children: [
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: palette.lightPurple,
-                      ),
-                      Text('brandname', style: TextStyle(color: palette.black)),
-                      ConstrainedBox(
-                          // fit: BoxFit.scaleDown,
-                          constraints: BoxConstraints(maxWidth: 100),
-                          child: Text('username',
-                              style: TextStyle(color: palette.black)))
-                    ]),
-                  )),
-            ))),
-  );
-}
-
-class NewWidget extends StatelessWidget {
-  const NewWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      shape: BeveledRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          side: BorderSide(color: palette.black)),
-      leading: CircleAvatar(
-        radius: 40,
-        backgroundColor: palette.white,
-      ),
-    );
-  }
-}
-
-Widget boxes(BuildContext context, int int) {
-  return (Container(
-    height: 50,
-    width: 30,
-    color: palette.lightPurple,
-  ));
 }

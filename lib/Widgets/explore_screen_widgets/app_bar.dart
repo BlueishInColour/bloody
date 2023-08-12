@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bloody/Screens/explore_screen.dart';
 import '../../main.dart';
 import '../../Screens/notification_screen.dart';
-import '../../Screens/search_screen.dart';
+import '../../Screens/search_result_screen.dart';
 import '../../Screens/profile_screen.dart';
 
 PreferredSizeWidget appbar(BuildContext context,
