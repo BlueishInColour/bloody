@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../main.dart';
-import '../Apis/cosmosdb.dart';
+import '../Apis/upstash.dart';
 import '../Models/post_model.dart';
 //import '../Apis/create_post_freakon.dart';
 import '../Models/post_model.dart';
@@ -65,6 +65,7 @@ class PostUploadState extends State<PostUpload> {
   }
 
   PreferredSizeWidget appBar(BuildContext context) {
+    String uuid = Uuid.NAMESPACE_DNS;
     return (AppBar(
         backgroundColor: Colors.white12,
         foregroundColor: Colors.red,
@@ -84,13 +85,10 @@ class PostUploadState extends State<PostUpload> {
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
               onPressed: () async {
                 debugPrint('clicked');
-                await cosmosdb.document
-                    .create(
-                        dbId: 'posts',
-                        collectionId: 'blueishincolour',
-                        partitionKey: post.id,
-                        body: post.toJson())
-                    .then((value) => print('${value.error}'));
+                await postApi.json
+                    .set('blueishincolour', r'$' '.${post.id}', post.toJson())
+                    .then((value) => print(value.toString()));
+                debugPrint('done');
               },
               child: Text(
                 'post',

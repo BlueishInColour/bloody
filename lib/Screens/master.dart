@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import '../main.dart';
-import '../Apis/cosmosdb.dart';
+import '../Apis/upstash.dart';
 import './Test/create_user_screen.dart';
 import './Test/list_users.screen.dart';
 
@@ -39,19 +39,19 @@ class MasterState extends State<Master> {
   Widget CommandPage(BuildContext context) {
     return (ListView(
       children: [
-        singleCommand('create cosmos db', () => createdb()),
-        singleCommand('getdb', () => get()),
-        singleCommand('deletedb', () => deletedb()),
-        singleCommand('get list', () => listdb()),
-        ////////////
-        singleCommand('create collection', () => createCollection()),
-        singleCommand('get collection', () => getCollection()),
-        singleCommand('delete collection ', () => deleteCollection()),
-        singleCommand('get list collection', () => listCollection()),
-        //////////
-        //  singleCommand('create Document', () => createDocument()),
-        singleCommand('list document', () => listDocument()),
-        singleCommand('get document', () => getDocument('oio')),
+        //  singleCommand('create cosmos db', () => createdb()),
+        //  singleCommand('getdb', () => get()),
+        //  singleCommand('deletedb', () => deletedb()),
+        //  singleCommand('get list', () => listdb()),
+        //  ////////////
+        //  singleCommand('create collection', () => createCollection()),
+        //  singleCommand('get collection', () => getCollection()),
+        //  singleCommand('delete collection ', () => deleteCollection()),
+        //  singleCommand('get list collection', () => listCollection()),
+        //  //////////
+        //  //  singleCommand('create Document', () => createDocument()),
+        //  singleCommand('list document', () => listDocument()),
+        //  singleCommand('get document', () => getDocument('oio')),
 
         singleCommand(
             'go to create user screen',

@@ -69,7 +69,7 @@ class SwagrHouseState extends State<SwagrHouse> {
         const Center(child: SearchResultScreen()),
         Center(child: NotificationScreen()),
         Center(child: NotificationScreen()),
-        Center(child: ProfileScreen()),
+        Center(child: ProfileScreen(mine: true)),
       ][selectedPageIndex],
 
       bottomNavigationBar: NavigationBar(

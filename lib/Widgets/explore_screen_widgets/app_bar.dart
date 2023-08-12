@@ -29,8 +29,8 @@ PreferredSizeWidget appbar(BuildContext context,
                         ? barwidget(
                             context, 'notifications', NotificationScreen())
                         : profile
-                            ? barwidget(
-                                context, 'profile', const ProfileScreen())
+                            ? barwidget(context, 'profile',
+                                const ProfileScreen(mine: true))
                             : barwidget(
                                 context, 'swagr', const ExploreScreenWidget()),
               ),
@@ -86,8 +86,10 @@ Widget notificationWidget(BuildContext context) {
 
 Widget profileWidget(BuildContext context) {
   return (IconButton(
-    onPressed: () => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ProfileScreen())),
+    onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const ProfileScreen(mine: true))),
     icon:
         Icon(Icons.auto_awesome_mosaic_outlined, size: 30, color: palette.red),
   ));

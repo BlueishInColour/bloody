@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Apis/cosmosdb.dart';
+import '../../Apis/upstash.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});

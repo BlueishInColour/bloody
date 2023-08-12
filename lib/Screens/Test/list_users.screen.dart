@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Apis/cosmosdb.dart';
+import '../../Apis/upstash.dart';
 import '../../main.dart';
 
 class List extends StatefulWidget {
@@ -67,7 +67,7 @@ class ListUsers extends State<List> {
 
       // Future that needs to be resolved
       // inorder to display something on the Canvas
-      future: getDocument(id),
+      //  future: getDocument(id),
     );
   }
 }
