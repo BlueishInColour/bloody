@@ -131,17 +131,11 @@ class EditProfileScreenState extends State<EditProfileScreen> {
         Expanded(
             child: Padding(
           padding: const EdgeInsets.only(left: 10.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Row(
-              children: [
-                Text('Oluwapelumide',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300))
-              ],
-            ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Row(
               children: [
                 Text('@blueishInColour',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w200))
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400))
               ],
             )
           ]),

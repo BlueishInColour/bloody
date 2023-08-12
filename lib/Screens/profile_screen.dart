@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../Widgets/profile_screen_widgets/edit_profile._screen.dart';
+import '../Models/user_model.dart';
+import '../Apis/upstash.dart';
+
+import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -14,6 +19,17 @@ class ProfileScreen extends StatefulWidget {
 
 class ProfileScreenState extends State<ProfileScreen> {
   bool edit = false;
+  User user = User(
+      coverPicture: [],
+      profilePicture: [],
+      email: '',
+      fullname: "Leonart D'Vinci",
+      username: '@LouisVuiton',
+      typeOfUser: 'Designer',
+      phoneNumber: '',
+      extraInfo:
+          'i was the only one here before you came into my lidfe , do you really think you can go against me in this world full of danger, hate and pain , you moust really be joking cus im already laughing, its okay i get it you are in pain and i dont really care about what you are thining about just know that i am always there for you whenever you want me to what ever you do and say is noy',
+      dateOfBirth: '');
   ProfileScreenState();
   @override
   Widget build(BuildContext context) {
@@ -43,31 +59,17 @@ class ProfileScreenState extends State<ProfileScreen> {
   ) {
     return Stack(
       children: [
-        Container(height: 500, color: Colors.black),
+        user.coverPicture.isEmpty
+            ? Container(height: 500, color: Colors.blueGrey)
+            : Image.memory(Uint8List.fromList(user.coverPicture)),
         Positioned(
             top: 5,
             left: 5,
             child: CircleAvatar(
-              radius: 35,
-              backgroundColor: Colors.white,
-            )),
-        edit
-            ? Positioned(
-                left: 70,
-                top: 1,
-                child: IconButton(
-                    onPressed: () => null,
-                    icon: Icon(Icons.edit_outlined,
-                        color: Color.fromARGB(255, 255, 255, 255))))
-            : SizedBox(),
-        edit
-            ? Positioned(
-                right: 5,
-                top: 10,
-                child: IconButton(
-                    onPressed: () => null,
-                    icon: Icon(Icons.edit_outlined, color: Colors.white)))
-            : SizedBox(),
+                radius: 35,
+                backgroundColor: Colors.white,
+                backgroundImage:
+                    MemoryImage(Uint8List.fromList(user.profilePicture)))),
       ],
     );
   }
@@ -119,12 +121,10 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   Widget ProfileInfoWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: (ConstrainedBox(
-        constraints: BoxConstraints.loose(Size(300, 90)),
-        child: Text(
-            'i was the only one here before you came into my lidfe , do you really think you can go against me in this world full of danger, hate and pain , you moust really be joking cus im already laughing, its okay i get it you are in pain and i dont really care about what you are thining about just know that i am always there for you whenever you want me to what ever you do and say is noy'),
-      )),
+          constraints: BoxConstraints.loose(Size(300, 90)),
+          child: Text(user.extraInfo))),
     );
   }
 
@@ -170,30 +170,34 @@ class ProfileScreenState extends State<ProfileScreen> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           textDirection: TextDirection.rtl,
           children: [
-            CircleAvatar(
-              backgroundColor: palette.black,
-              // backgroundImage: const NetworkImage(
-              //   "https://source.unsplash.com/random/?art&width=500&height=1000",
-              // ),
+            //  pad(),
+            Expanded(
+              child: Text(user.username,
+                  style: TextStyle(
+                    color: Colors.blue,
+                  )),
             ),
             pad(),
-            const Text('@LouisVuitton',
-                style: TextStyle(
-                  color: Colors.blue,
-                )),
+            Expanded(
+              child: Text(user.fullname,
+                  style: TextStyle(
+                    color: Colors.black87,
+                  )),
+            ),
             pad(),
-            const Text("Leonard D'Vinci",
-                style: TextStyle(
-                  color: Colors.black87,
-                )),
-            pad(),
-            const Text('Designer',
-                style: TextStyle(
-                  color: Colors.black87,
-                )),
+            Expanded(
+              // flex: 20,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 7.0),
+                child: Text(user.typeOfUser,
+                    style: TextStyle(
+                      color: Colors.black87,
+                    )),
+              ),
+            ),
           ],
         ),
       )),

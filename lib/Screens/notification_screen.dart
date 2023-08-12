@@ -7,7 +7,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      appBar: AppBar(title: const Text('notifications')),
+      appBar: appBar(context),
       body: ListView.separated(
         itemCount: 20,
         itemBuilder: notificationPod,
@@ -77,5 +77,50 @@ class NotificationScreen extends StatelessWidget {
         const SizedBox(height: 20),
       ],
     );
+  }
+
+  AppBar appBar(BuildContext context) {
+    Widget tab(String text) {
+      return Row(
+        children: [
+          Text(text,
+              style: TextStyle(
+                color: Colors.black87,
+              )),
+          pad()
+        ],
+      );
+    }
+
+    return AppBar(
+      titleTextStyle: TextStyle(fontSize: 15),
+      title: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: (Container(
+          height: 40,
+          decoration: BoxDecoration(
+            color: palette.grey,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            //  padding: const EdgeInsetsDirectional.only(top: 15),
+            children: [
+              //  pad(),
+              const SizedBox(width: 7),
+              tab('notifications'),
+              tab('posts'),
+              tab('followers'),
+              tab('following'),
+              tab('gigs')
+            ],
+          ),
+        )),
+      ),
+    );
+  }
+
+  Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
+    return (VerticalDivider(color: color));
   }
 }

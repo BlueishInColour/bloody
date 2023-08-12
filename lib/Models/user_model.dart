@@ -12,6 +12,7 @@ part 'user_model.g.dart';
 class User {
   String username; //this is the id
   String fullname;
+  String typeOfUser;
   String extraInfo;
   String phoneNumber;
   String email;
@@ -24,6 +25,7 @@ class User {
     this.coverPicture = const [],
     this.dateOfBirth = '',
     this.email = '',
+    this.typeOfUser = '',
     this.extraInfo = '',
     this.phoneNumber = '',
     this.fullname = '',
