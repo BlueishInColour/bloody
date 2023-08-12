@@ -84,10 +84,60 @@ class PostUploadState extends State<PostUpload> {
                   shape: MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
               onPressed: () async {
+                SnackBar onPost = const SnackBar(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('uploading post',
+                          style: TextStyle(
+                              color: Color.fromARGB(221, 209, 207, 207))),
+                      CircularProgressIndicator(
+                          color: Color.fromARGB(221, 209, 207, 207))
+                    ],
+                  ),
+                  backgroundColor: Colors.black87,
+                );
+                SnackBar onPostDone = const SnackBar(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('uploading post',
+                          style: TextStyle(
+                              color: Color.fromARGB(221, 209, 207, 207))),
+                      Icon(Icons.done_all,
+                          color: Color.fromARGB(221, 209, 207, 207))
+                    ],
+                  ),
+                  backgroundColor: Colors.black87,
+                );
+                SnackBar onPostError = const SnackBar(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                            'post unable to upload, check if you have a good network connection',
+                            style: TextStyle(
+                                color: Color.fromARGB(221, 255, 14, 14))),
+                      ),
+                      Icon(Icons.error, color: Color.fromARGB(221, 255, 0, 0))
+                    ],
+                  ),
+                  backgroundColor: Colors.black87,
+                );
+
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(onPost);
+
                 debugPrint('clicked');
                 await postApi.json
                     .set('blueishincolour', r'$' '.${post.id}', post.toJson())
-                    .then((value) => print(value.toString()));
+                    .then((value) {
+                  print(value);
+                  value.toString() == 'OK'
+                      ? ScaffoldMessenger.of(context).showSnackBar(onPostDone)
+                      : ScaffoldMessenger.of(context).showSnackBar(onPostError);
+                });
                 debugPrint('done');
               },
               child: Text(
@@ -224,7 +274,7 @@ class PostUploadState extends State<PostUpload> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: 250,
+          height: 150,
           decoration: BoxDecoration(
             color: palette.grey,
             borderRadius: BorderRadius.circular(15),

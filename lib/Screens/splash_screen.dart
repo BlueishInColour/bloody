@@ -29,17 +29,40 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(Icons.local_fire_department_rounded, size: 60, color: palette.red),
-        Text('explore fashion',
-            style: TextStyle(
-                color: palette.black,
-                fontSize: 30,
-                fontWeight: FontWeight.w900))
-      ],
+      body: body(context),
+      backgroundColor: Colors.white,
+      bottomSheet: bottomSheet(),
+    );
+  }
+
+  Widget body(BuildContext context) {
+    return Center(
+        child: CircleAvatar(
+      backgroundColor: palette.red,
+      radius: 50,
+      child: Icon(
+        size: 70,
+        color: palette.white,
+        Icons.local_fire_department_outlined,
+      ),
     ));
+  }
+
+  bottomSheet() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.baseline,
+      children: [
+        Text.rich(
+          TextSpan(children: [
+            TextSpan(
+                text: 'freak',
+                style: TextStyle(color: palette.black, fontSize: 30)),
+            TextSpan(
+                text: 'In', style: TextStyle(color: palette.red, fontSize: 30)),
+          ]),
+        ),
+      ],
+    );
   }
 }
