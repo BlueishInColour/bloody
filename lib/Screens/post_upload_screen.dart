@@ -2,17 +2,16 @@ import 'dart:typed_data';
 import 'package:uuid/uuid.dart';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+
 import '../main.dart';
 import '../Apis/upstash.dart';
 import '../Models/post_model.dart';
 //import '../Apis/create_post_freakon.dart';
-import '../Models/post_model.dart';
+
 
 class PostUpload extends StatefulWidget {
-  PostUpload({super.key});
+  const PostUpload({super.key});
 
   @override
   State<PostUpload> createState() => PostUploadState();
@@ -59,13 +58,13 @@ class PostUploadState extends State<PostUpload> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
-      body: MainBody(context),
+      body: mainBody(context),
       bottomSheet: bottomSheet(context),
     );
   }
 
   PreferredSizeWidget appBar(BuildContext context) {
-    String uuid = Uuid.NAMESPACE_DNS;
+    //String uuid = Uuid.NAMESPACE_DNS;
     return (AppBar(
         backgroundColor: Colors.white12,
         foregroundColor: Colors.red,
@@ -77,11 +76,11 @@ class PostUploadState extends State<PostUpload> {
         ),
         title: Row(
           children: [
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             TextButton(
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(palette.red),
-                  shape: MaterialStatePropertyAll(StadiumBorder()),
+                  shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
               onPressed: () async {
                 SnackBar onPost = const SnackBar(
@@ -97,34 +96,6 @@ class PostUploadState extends State<PostUpload> {
                   ),
                   backgroundColor: Colors.black87,
                 );
-                SnackBar onPostDone = const SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('uploading post',
-                          style: TextStyle(
-                              color: Color.fromARGB(221, 209, 207, 207))),
-                      Icon(Icons.done_all,
-                          color: Color.fromARGB(221, 209, 207, 207))
-                    ],
-                  ),
-                  backgroundColor: Colors.black87,
-                );
-                SnackBar onPostError = const SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                            'post unable to upload, check if you have a good network connection',
-                            style: TextStyle(
-                                color: Color.fromARGB(221, 255, 14, 14))),
-                      ),
-                      Icon(Icons.error, color: Color.fromARGB(221, 255, 0, 0))
-                    ],
-                  ),
-                  backgroundColor: Colors.black87,
-                );
 
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(onPost);
@@ -134,13 +105,10 @@ class PostUploadState extends State<PostUpload> {
                     .set('blueishincolour', r'$' '.${post.id}', post.toJson())
                     .then((value) {
                   print(value);
-                  value.toString() == 'OK'
-                      ? ScaffoldMessenger.of(context).showSnackBar(onPostDone)
-                      : ScaffoldMessenger.of(context).showSnackBar(onPostError);
                 });
                 debugPrint('done');
               },
-              child: Text(
+              child: const Text(
                 'post',
                 style: TextStyle(fontSize: 20),
               ),
@@ -150,7 +118,7 @@ class PostUploadState extends State<PostUpload> {
   }
 
   String flag = '';
-  Widget MainBody(BuildContext context) {
+  Widget mainBody(BuildContext context) {
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -170,7 +138,7 @@ class PostUploadState extends State<PostUpload> {
     );
   }
 
-//<<<<<<<<<<<<<<<<<<<<<MAINBODY
+//<<<<<<<<<<<<<<<<<<<<<mainBody
   Widget dropDownMenu(BuildContext context) {
     return SliverToBoxAdapter(
       key: Key('dropdown'),
@@ -255,7 +223,7 @@ class PostUploadState extends State<PostUpload> {
             child: TextFormField(
               onChanged: (value) {
                 setState(() {
-                  post.text = value!;
+                  post.text = value;
                 });
               },
               decoration: InputDecoration(
@@ -404,7 +372,7 @@ ${post.tags.map((e) => '$e,')}
     );
   }
 
-// MAINBODY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// mainBody >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   Widget FilePickScreen(BuildContext context) {
     return (Text('pickfile'));

@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import '../main.dart';
-import '../Apis/upstash.dart';
 import './Test/create_user_screen.dart';
 import './Test/list_users.screen.dart';
 
 class Master extends StatefulWidget {
-  Master({super.key});
+  const Master({super.key});
 
   @override
   State<Master> createState() => MasterState();
@@ -18,7 +16,7 @@ class MasterState extends State<Master> {
   String ext = '';
   // Uint8List bytes = List<int>[];
   set() async {
-    print('started getting stuff out of db');
+    print('started getting stuff out of db'); 
 
     setState(() {
       //  bytes = byt.toString();
@@ -31,12 +29,12 @@ class MasterState extends State<Master> {
   Widget build(BuildContext context) {
     return (Scaffold(
         appBar: AppBar(
-          title: Text('master command page'),
+          title: const Text('master command page'),
         ),
-        body: CommandPage(context)));
+        body:commandPage(context)));
   }
 
-  Widget CommandPage(BuildContext context) {
+  Widget commandPage(BuildContext context) {
     return (ListView(
       children: [
         //  singleCommand('create cosmos db', () => createdb()),
@@ -58,11 +56,11 @@ class MasterState extends State<Master> {
             () => Navigator.push(
                 context,
                 PageRouteBuilder(
-                    pageBuilder: (context, _, __) => CreateUser()))),
+                    pageBuilder: (context, _, __) => const CreateUser()))),
         singleCommand(
             'go to create get user screen',
             () => Navigator.push(context,
-                PageRouteBuilder(pageBuilder: (context, _, __) => List())))
+                PageRouteBuilder(pageBuilder: (context, _, __) =>const  List())))
       ],
     ));
   }
@@ -77,7 +75,7 @@ class MasterState extends State<Master> {
             return Center(
               child: Text(
                 '${snapshot.error} occurred',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
             );
 
@@ -120,7 +118,7 @@ class MasterState extends State<Master> {
               }),
             )),
         IconButton(
-            onPressed: onPressed, icon: Icon(Icons.g_mobiledata, size: 20))
+            onPressed: onPressed, icon:const  Icon(Icons.g_mobiledata, size: 20))
       ],
     ));
   }

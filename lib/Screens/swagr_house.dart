@@ -67,9 +67,8 @@ class SwagrHouseState extends State<SwagrHouse> {
       body: [
         const Center(child: ExploreScreenWidget()),
         const Center(child: SearchScreen()),
-        Center(child: NotificationScreen()),
-        Center(child: NotificationScreen()),
-        Center(child: ProfileScreen(mine: true)),
+        const Center(child: NotificationScreen()),
+        const Center(child: ProfileScreen(mine: true)),
       ][selectedPageIndex],
 
       bottomNavigationBar: NavigationBar(
@@ -78,7 +77,7 @@ class SwagrHouseState extends State<SwagrHouse> {
           onDestinationSelected: (int index) => setState(() {
                 selectedPageIndex = index;
               }),
-          destinations: <NavigationDestination>[
+          destinations: const <NavigationDestination>[
             NavigationDestination(
               icon: Icon(Icons.home_outlined),
               selectedIcon: Icon(
@@ -92,34 +91,6 @@ class SwagrHouseState extends State<SwagrHouse> {
               icon: Icon(Icons.search),
               selectedIcon: Icon(Icons.search, size: 27),
               label: 'expore',
-            ),
-            NavigationDestination(
-              icon: IconButton(
-                  padding: EdgeInsets.all(0),
-                  onPressed: () => showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        useSafeArea: true,
-                        backgroundColor: Colors.white70,
-                        // anchorPoint: Offset(500, 500),
-                        isScrollControlled: true,
-                        enableDrag: true,
-                        isDismissible: true,
-                        // barrierColor: Colors.white,
-                        shape: ContinuousRectangleBorder(
-                            // side: BorderSide(width: 5),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(70),
-                                topRight: Radius.circular(70))),
-                        //  isDismissible: bool.fromEnvironment('off'),
-                        constraints: BoxConstraints(maxHeight: 600),
-                        builder: (BuildContext context) {
-                          return PostUpload();
-                        },
-                      ),
-                  icon: Icon(Icons.file_upload_outlined,
-                      size: 40, color: Colors.black)),
-              label: 'add',
             ),
             NavigationDestination(
                 icon: Icon(Icons.notifications_outlined),

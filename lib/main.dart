@@ -121,10 +121,12 @@ class Swagr extends StatelessWidget {
         fontFamily: 'Geologica',
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-              iconColor: MaterialStatePropertyAll(palette.red),
-              shadowColor: MaterialStatePropertyAll(palette.lightPurple),
-              backgroundColor: MaterialStatePropertyAll(palette.red),
-              elevation: const MaterialStatePropertyAll(0)),
+            iconColor: MaterialStatePropertyAll(palette.red),
+            shadowColor: MaterialStatePropertyAll(palette.lightPurple),
+            backgroundColor: MaterialStatePropertyAll(palette.red),
+
+            //  elevation: const MaterialStatePropertyAll(0)
+          ),
         ),
         textButtonTheme: const TextButtonThemeData(
             style: ButtonStyle(

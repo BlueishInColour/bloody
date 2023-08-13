@@ -7,10 +7,8 @@ import '../main.dart';
 //import 'dart:async';
 import 'dart:io';
 import '../Widgets/explore_screen_widgets/pod_icon_buttons.dart';
-import '../Widgets/explore_screen_widgets/floatingactionbuttons.dart';
+import './post_upload_screen.dart';
 import '../Widgets/explore_screen_widgets/full_screen_image.dart';
-
-import 'master.dart';
 
 //final palette = Palette();
 
@@ -38,21 +36,45 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         title: Text.rich(TextSpan(children: [
           TextSpan(
               text: 'freak',
-              style: TextStyle(color: palette.black, fontSize: 42)),
+              style: TextStyle(color: palette.black, fontSize: 35)),
           TextSpan(
-              text: 'In', style: TextStyle(color: palette.red, fontSize: 42)),
+              text: 'In', style: TextStyle(color: palette.red, fontSize: 35)),
           WidgetSpan(
               child: Icon(
-            Icons.local_fire_department_rounded,
+            Icons.local_fire_department_outlined,
             color: palette.red,
             size: 35,
           )),
         ])),
       ),
-      floatingActionButton: IconButton(
-        icon: Icon(Icons.ac_unit_rounded, size: 50, color: Colors.blue),
-        onPressed: () => Navigator.push(context,
-            PageRouteBuilder(pageBuilder: (context, _, __) => Master())),
+      floatingActionButton: CircleAvatar(
+        radius: 30,
+        backgroundColor: palette.black,
+        child: IconButton(
+            padding: const EdgeInsets.all(0),
+            onPressed: () => showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  useSafeArea: true,
+                  backgroundColor: Colors.white70,
+                  // anchorPoint: Offset(500, 500),
+                  isScrollControlled: true,
+                  enableDrag: true,
+                  isDismissible: true,
+                  // barrierColor: Colors.white,
+                  shape: const ContinuousRectangleBorder(
+                      // side: BorderSide(width: 5),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(70),
+                          topRight: Radius.circular(70))),
+                  //  isDismissible: bool.fromEnvironment('off'),
+                  constraints: const BoxConstraints(maxHeight: 600),
+                  builder: (BuildContext context) {
+                    return PostUpload();
+                  },
+                ),
+            icon: Icon(Icons.file_upload_outlined,
+                size: 40, color: palette.grey)),
       ),
       body: ListView.builder(
         itemBuilder: imagePod,
@@ -118,7 +140,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                   placeholderFit: BoxFit.contain,
                   imageErrorBuilder: (context, error, stackTrace) =>
                       loadingImage(context, 300),
-                  image: posts[index].userprofilepix,
+                  image: posts[index].postedpix,
                 )),
           ),
         ),

@@ -46,7 +46,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     return ListView.custom(
         childrenDelegate: SliverChildListDelegate([
       ///
-      ProfilePictureWidget(context), creatorPod(context),
+      profilePictureWidget(context), creatorPod(context),
       //   ProfileNameButtonWidget(context),
       ProfileInfoWidget(context),
 
@@ -54,7 +54,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     ]));
   }
 
-  Widget ProfilePictureWidget(
+  Widget profilePictureWidget(
     BuildContext context,
   ) {
     return Stack(
