@@ -11,7 +11,7 @@ class NotificationScreen extends StatelessWidget {
       body: ListView.separated(
         itemCount: 20,
         itemBuilder: notificationPod,
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       ),
     ));
@@ -34,8 +34,8 @@ class NotificationScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -43,16 +43,16 @@ class NotificationScreen extends StatelessWidget {
                     //icon for type of notification
                     ///
                     CircleAvatar(
-                      child: done,
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.black,
+                      child: done,
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
 
                     //part
                     //how may days, time ago
                     //
-                    Text('1d')
+                    const Text('1d')
                   ],
                 ),
               ),
@@ -84,7 +84,7 @@ class NotificationScreen extends StatelessWidget {
       return Row(
         children: [
           Text(text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black87,
               )),
           pad()
@@ -93,7 +93,7 @@ class NotificationScreen extends StatelessWidget {
     }
 
     return AppBar(
-      titleTextStyle: TextStyle(fontSize: 15),
+      titleTextStyle: const TextStyle(fontSize: 15),
       title: Padding(
         padding: const EdgeInsets.all(0.0),
         child: (Container(

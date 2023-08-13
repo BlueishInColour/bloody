@@ -3,27 +3,27 @@ import '../../main.dart';
 import '../dummy_data.dart';
 
 //final isSelected
-class icon extends StatefulWidget {
-  const icon(
+class Iconish extends StatefulWidget {
+  const Iconish(
       {required this.re, required this.icony, this.size = 25, super.key});
   final Function() re;
   final IconData icony;
   final double size;
 
   @override
-  State<icon> createState() => _IconState();
+  State<Iconish> createState() => _IconState();
 }
 
-class _IconState extends State<icon> {
-  // const _iconState({ , icon});
+class _IconState extends State<Iconish> {
+  // const _iconState({ , Iconish});
 //  final Function() re;
-  //final IconData icon ;
+  //final IconData Iconish ;
   bool isPressed = false;
   var pulledstyle = <String>[];
 
   @override
   Widget build(BuildContext context) {
-    return (IconButton( 
+    return (IconButton(
       onPressed: () {
         widget.re;
         setState(() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../Apis/upstash.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -24,7 +23,7 @@ class CreateuserState extends State<CreateUser> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             TextField(
-              decoration: InputDecoration(hintText: 'id'),
+              decoration: const InputDecoration(hintText: 'id'),
               onChanged: (v) {
                 setState(() {
                   id = v;
@@ -33,7 +32,7 @@ class CreateuserState extends State<CreateUser> {
               },
             ),
             TextField(
-              decoration: InputDecoration(hintText: 'name'),
+              decoration: const InputDecoration(hintText: 'name'),
               onChanged: (v) {
                 setState(() {
                   name = v;
@@ -42,7 +41,7 @@ class CreateuserState extends State<CreateUser> {
               },
             ),
             TextField(
-              decoration: InputDecoration(hintText: 'email'),
+              decoration: const InputDecoration(hintText: 'email'),
               onChanged: (v) {
                 setState(() {
                   email = v;
@@ -51,11 +50,11 @@ class CreateuserState extends State<CreateUser> {
               },
             ),
             TextButton(
-                onPressed: () => null
+                onPressed: () => debugPrint('clicked')
                 //createDocument(email: email, documentId: id, {name: name}),
                 ,
-                child: Text('create this user')),
-            BackButton()
+                child: const Text('create this user')),
+            const BackButton()
           ],
         ),
       )),

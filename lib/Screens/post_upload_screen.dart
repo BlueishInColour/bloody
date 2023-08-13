@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:uuid/uuid.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,6 @@ import '../main.dart';
 import '../Apis/upstash.dart';
 import '../Models/post_model.dart';
 //import '../Apis/create_post_freakon.dart';
-
 
 class PostUpload extends StatefulWidget {
   const PostUpload({super.key});
@@ -141,7 +139,6 @@ class PostUploadState extends State<PostUpload> {
 //<<<<<<<<<<<<<<<<<<<<<mainBody
   Widget dropDownMenu(BuildContext context) {
     return SliverToBoxAdapter(
-      key: Key('dropdown'),
       child: Center(
         child: DropdownMenu(
             onSelected: (value) {
@@ -154,10 +151,11 @@ class PostUploadState extends State<PostUpload> {
                 fillColor: palette.grey,
                 focusColor: palette.grey,
                 hoverColor: palette.grey,
-                constraints: BoxConstraints(minWidth: 500, minHeight: 60)),
+                constraints:
+                    const BoxConstraints(minWidth: 500, minHeight: 60)),
             width: 300,
             menuStyle: MenuStyle(
-              minimumSize: MaterialStatePropertyAll(Size(300, 60)),
+              minimumSize: const MaterialStatePropertyAll(Size(300, 60)),
               backgroundColor: MaterialStatePropertyAll(palette.grey),
               surfaceTintColor: MaterialStatePropertyAll(palette.grey),
             ),
@@ -198,7 +196,7 @@ class PostUploadState extends State<PostUpload> {
   Widget dummyMediaContentPartWidget(BuildContext context) {
     return SliverToBoxAdapter(
         child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Container(
                 decoration: BoxDecoration(
                   color: palette.grey,
@@ -285,7 +283,7 @@ ${post.tags.map((e) => '$e,')}
               ),
               pad(),
               Text(name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.blue,
                   )),
               pad(),
@@ -323,7 +321,7 @@ ${post.tags.map((e) => '$e,')}
                   // hintText: 'tag a @creator or #topic',
                   //    helperText: flag,
                   prefixText: flag,
-                  prefixStyle: TextStyle(fontSize: 20),
+                  prefixStyle: const TextStyle(fontSize: 20),
                   // labelText: 'flag',
                   hintStyle: TextStyle(color: palette.black),
                   hoverColor: palette.grey,
@@ -338,7 +336,7 @@ ${post.tags.map((e) => '$e,')}
                               });
                               debugPrint(flag);
                             },
-                            icon: Icon(Icons.alternate_email_rounded)),
+                            icon: const Icon(Icons.alternate_email_rounded)),
                         IconButton(
                             onPressed: () {
                               setState(() {
@@ -346,8 +344,8 @@ ${post.tags.map((e) => '$e,')}
                               });
                               debugPrint(flag);
                             },
-                            icon: Icon(Icons.tag)),
-                        VerticalDivider()
+                            icon: const Icon(Icons.tag)),
+                        const VerticalDivider()
                       ],
                     ),
                   ),
@@ -363,7 +361,7 @@ ${post.tags.map((e) => '$e,')}
                           post.tags.add(flagged);
                           print('just flagged a post, ${post.tags.last}');
                         },
-                        icon: Icon(Icons.outlined_flag_sharp),
+                        icon: const Icon(Icons.outlined_flag_sharp),
                       ),
                     ),
                   )),
@@ -374,16 +372,16 @@ ${post.tags.map((e) => '$e,')}
 
 // mainBody >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  Widget FilePickScreen(BuildContext context) {
-    return (Text('pickfile'));
+  Widget filePickScreen(BuildContext context) {
+    return (const Text('pickfile'));
   }
 
-  Widget TextInputScreen(BuildContext context) {
-    return (Text('textInput'));
+  Widget textInputScreen(BuildContext context) {
+    return (const Text('textInput'));
   }
 
-  Widget TagInputScreen(BuildContext context) {
-    return (Text('TagInput'));
+  Widget tagInputScreen(BuildContext context) {
+    return (const Text('TagInput'));
   }
 
   Widget bottomSheet(BuildContext context) {

@@ -23,7 +23,7 @@ class SwagrHouse extends StatefulWidget {
 
 class SwagrHouseState extends State<SwagrHouse> {
   int selectedPageIndex = 0;
-  final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   late VoidCallback _showPersBottomSheetCallBack;
 
   @override
@@ -38,11 +38,11 @@ class SwagrHouseState extends State<SwagrHouse> {
     });
     _scaffoldKey.currentState!
         .showBottomSheet((context) {
-          return new Container(
+          return Container(
             height: 200.0,
             color: Colors.green,
-            child: new Center(
-              child: new Text("Persistent BottomSheet",
+            child: const Center(
+              child: Text("Persistent BottomSheet",
                   textScaleFactor: 2,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),
@@ -124,9 +124,9 @@ Widget dialog(BuildContext context) {
             style: const ButtonStyle(
                 backgroundColor:
                     MaterialStatePropertyAll(Color.fromARGB(43, 129, 50, 219))),
-            onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => PostUpload())),
-            child: Text('style',
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PostUpload())),
+            child: const Text('style',
                 style: TextStyle(color: Colors.white, fontSize: 15)),
           ),
           const Divider(),
@@ -147,7 +147,7 @@ Widget dialog(BuildContext context) {
                   backgroundColor: MaterialStatePropertyAll(
                       Color.fromARGB(43, 129, 50, 219))),
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PostUpload())),
+                  MaterialPageRoute(builder: (context) => const PostUpload())),
               child: Text('loundry',
                   style: TextStyle(color: palette.white, fontSize: 15)))
         ],

@@ -70,7 +70,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                   //  isDismissible: bool.fromEnvironment('off'),
                   constraints: const BoxConstraints(maxHeight: 600),
                   builder: (BuildContext context) {
-                    return PostUpload();
+                    return const PostUpload();
                   },
                 ),
             icon: Icon(Icons.file_upload_outlined,
@@ -129,8 +129,9 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                       opaque: false,
                       pageBuilder: (BuildContext context, _, __) {
                         return (FullScreenPage(
-                            child: Image.network(posts[index].userprofilepix),
-                            dark: true));
+                          dark: true,
+                          child: Image.network(posts[index].userprofilepix),
+                        ));
                       }));
             },
             child: ClipRRect(
@@ -147,7 +148,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         Positioned(
             bottom: 10,
             right: 10,
-            child: icon(re: () => null, icony: Icons.share_rounded)),
+            child: Iconish(re: () => null, icony: Icons.share_rounded)),
       ]),
       const SizedBox(height: 5),
       SizedBox(
@@ -208,9 +209,10 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                       opaque: false,
                       pageBuilder: (BuildContext context, _, __) {
                         return (FullScreenPage(
-                            child: Image.network(
-                                "https://source.unsplash.com/random/?art&width=500&height=1000"),
-                            dark: true));
+                          dark: true,
+                          child: Image.network(
+                              "https://source.unsplash.com/random/?art&width=500&height=1000"),
+                        ));
                       }));
             },
             child: CircleAvatar(
@@ -277,11 +279,11 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         label: 'like',
         hint: 'like',
         enabled: true,
-        child: icon(
+        child: Iconish(
             re: () => debugPrint('clicked'),
             icony: Icons.local_fire_department_outlined),
       ),
-      icon(
+      Iconish(
         re: () => null,
         size: 23,
         icony: Icons.chat_bubble_outline_rounded,

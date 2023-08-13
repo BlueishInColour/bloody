@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import '../Widgets/profile_screen_widgets/edit_profile._screen.dart';
 import '../Models/user_model.dart';
-import '../Apis/upstash.dart';
-
-import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 
 class ProfileScreen extends StatefulWidget {
@@ -35,7 +32,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:
-          AppBar(title: ProfileNameButtonWidget(context, mine: widget.mine)),
+          AppBar(title: profileNameButtonWidget(context, mine: widget.mine)),
       body: body(context),
     );
   }
@@ -47,10 +44,10 @@ class ProfileScreenState extends State<ProfileScreen> {
         childrenDelegate: SliverChildListDelegate([
       ///
       profilePictureWidget(context), creatorPod(context),
-      //   ProfileNameButtonWidget(context),
-      ProfileInfoWidget(context),
+      //   profileNameButtonWidget(context),
+      profileInfoWidget(context),
 
-      // NavBarWidget(context),
+      // navBarWidget(context),
     ]));
   }
 
@@ -74,14 +71,14 @@ class ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget ProfileNameButtonWidget(BuildContext context, {bool mine = false}) {
+  Widget profileNameButtonWidget(BuildContext context, {bool mine = false}) {
     return (SizedBox(
       height: 55,
       child: Row(children: [
         //name and username
-        Expanded(
+        const Expanded(
             child: Padding(
-          padding: const EdgeInsets.only(left: 10.0),
+          padding: EdgeInsets.only(left: 10.0),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Row(
               children: [
@@ -99,48 +96,48 @@ class ProfileScreenState extends State<ProfileScreen> {
                     context,
                     PageRouteBuilder(
                         pageBuilder: (context, _, __) =>
-                            EditProfileScreen(mine: true))),
-                child: Text('edit'))
+                            const EditProfileScreen(mine: true))),
+                child: const Text('edit'))
             : Column(children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                       onPressed: () => debugPrint('okay'),
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.black),
                           foregroundColor:
                               MaterialStatePropertyAll(Colors.white),
                           fixedSize: MaterialStatePropertyAll(Size(70, 35))),
-                      child: Text('follow')),
+                      child: const Text('follow')),
                 )
               ])
       ]),
     ));
   }
 
-  Widget ProfileInfoWidget(BuildContext context) {
+  Widget profileInfoWidget(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: (ConstrainedBox(
-          constraints: BoxConstraints.loose(Size(300, 90)),
+          constraints: BoxConstraints.loose(const Size(300, 90)),
           child: Text(user.extraInfo))),
     );
   }
 
-  Widget NavBarWidget(BuildContext context) {
+  Widget navBarWidget(BuildContext context) {
     return Container(
       color: Colors.white,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        NavBarButton('posts', () => null, icon: Icons.post_add),
-        NavBarButton('gigs', () => null, icon: Icons.attach_money_rounded),
-        NavBarButton('follows', () => null, icon: Icons.favorite),
-        NavBarButton('profile', () => null, icon: Icons.person),
+        navBarButton('posts', () => null, icon: Icons.post_add),
+        navBarButton('gigs', () => null, icon: Icons.attach_money_rounded),
+        navBarButton('follows', () => null, icon: Icons.favorite),
+        navBarButton('profile', () => null, icon: Icons.person),
       ]),
     );
   }
 
-  Widget NavBarButton(String text, Function() onPress,
+  Widget navBarButton(String text, Function() onPress,
       {IconData icon = Icons.attach_money_rounded}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -176,14 +173,14 @@ class ProfileScreenState extends State<ProfileScreen> {
             //  pad(),
             Expanded(
               child: Text(user.username,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.blue,
                   )),
             ),
             pad(),
             Expanded(
               child: Text(user.fullname,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black87,
                   )),
             ),
@@ -193,7 +190,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 7.0),
                 child: Text(user.typeOfUser,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black87,
                     )),
               ),

@@ -134,7 +134,7 @@ class Swagr extends StatelessWidget {
           foregroundColor: MaterialStatePropertyAll(Colors.white),
         )),
         inputDecorationTheme: InputDecorationTheme(
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               color: Colors.transparent,
             ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -165,7 +165,7 @@ class Swagr extends StatelessWidget {
 
         dropdownMenuTheme: DropdownMenuThemeData(
             inputDecorationTheme: InputDecorationTheme(
-                constraints: BoxConstraints(maxHeight: 37, maxWidth: 120),
+                constraints: const BoxConstraints(maxHeight: 37, maxWidth: 120),
                 fillColor: palette.grey,
                 hoverColor: palette.grey,
                 focusColor: palette.grey,
@@ -240,7 +240,7 @@ class Swagr extends StatelessWidget {
         disabledColor: palette.lightPurple,
         dividerColor: palette.lightPurple,
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     ));
   }
 }

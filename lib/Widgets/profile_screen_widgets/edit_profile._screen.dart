@@ -60,7 +60,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:
-          AppBar(title: ProfileNameButtonWidget(context, mine: widget.mine)),
+          AppBar(title: profileNameButtonWidget(context, mine: widget.mine)),
       body: body(context),
     );
   }
@@ -71,18 +71,18 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     return ListView.custom(
         childrenDelegate: SliverChildListDelegate([
       ///
-      ProfilePictureWidget(context),
+      profilePictureWidget(context),
       //   ProfileNameButtonWidget(context),
-      EditUsernameWidget(context),
-      EditNameWidget(context),
-      EditProfileInfoWidget(context),
-      EditPhoneNumberWidget(context),
-      EditEmailWidget(context)
+      editUsernameWidget(context),
+      editNameWidget(context),
+      editProfileInfoWidget(context),
+      editPhoneNumberWidget(context),
+      editEmailWidget(context)
       // NavBarWidget(context),
     ]));
   }
 
-  Widget ProfilePictureWidget(
+  Widget profilePictureWidget(
     BuildContext context,
   ) {
     return Stack(
@@ -107,7 +107,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         user.profilePicture = value;
                       });
                     }),
-                icon: Icon(Icons.edit_outlined,
+                icon: const Icon(Icons.edit_outlined,
                     color: Color.fromARGB(255, 255, 255, 255)))),
         Positioned(
             right: 5,
@@ -118,19 +118,19 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         user.coverPicture = value;
                       });
                     }),
-                icon: Icon(Icons.edit_outlined, color: Colors.white))),
+                icon: const Icon(Icons.edit_outlined, color: Colors.white))),
       ],
     );
   }
 
-  Widget ProfileNameButtonWidget(BuildContext context, {bool mine = false}) {
+  Widget profileNameButtonWidget(BuildContext context, {bool mine = false}) {
     return (SizedBox(
       height: 55,
       child: Row(children: [
         //name and username
-        Expanded(
+        const Expanded(
             child: Padding(
-          padding: const EdgeInsets.only(left: 10.0),
+          padding: EdgeInsets.only(left: 10.0),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Row(
               children: [
@@ -151,15 +151,15 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               print('user details edited');
               Navigator.pop(context);
             },
-            child: Text('save'))
+            child: const Text('save'))
       ]),
     ));
   }
 
-  Widget EditUsernameWidget(BuildContext context) {
+  Widget editUsernameWidget(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             height: 50,
             child: TextField(
               onChanged: (value) => setState(() {
@@ -168,16 +168,16 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                   fillColor: palette.grey,
                   prefixText: '@',
-                  prefixStyle: TextStyle(color: Colors.black26),
+                  prefixStyle: const TextStyle(color: Colors.black26),
                   hintText: 'username',
-                  hintStyle: TextStyle(color: Colors.black26)),
+                  hintStyle: const TextStyle(color: Colors.black26)),
             )));
   }
 
-  Widget EditNameWidget(BuildContext context) {
+  Widget editNameWidget(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             height: 50,
             child: TextField(
               onChanged: (value) => setState(() {
@@ -186,14 +186,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                   fillColor: palette.grey,
                   hintText: 'name',
-                  hintStyle: TextStyle(color: Colors.black26)),
+                  hintStyle: const TextStyle(color: Colors.black26)),
             )));
   }
 
-  Widget EditProfileInfoWidget(BuildContext context) {
+  Widget editProfileInfoWidget(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             height: 100,
             child: TextField(
               maxLines: 7,
@@ -203,14 +203,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                   fillColor: palette.grey,
                   hintText: 'profile info',
-                  hintStyle: TextStyle(color: Colors.black26)),
+                  hintStyle: const TextStyle(color: Colors.black26)),
             )));
   }
 
-  Widget EditPhoneNumberWidget(BuildContext context) {
+  Widget editPhoneNumberWidget(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             height: 50,
             child: TextField(
               onChanged: (value) => setState(() {
@@ -220,14 +220,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                   fillColor: palette.grey,
                   hintText: 'phone number',
-                  hintStyle: TextStyle(color: Colors.black26)),
+                  hintStyle: const TextStyle(color: Colors.black26)),
             )));
   }
 
-  Widget EditEmailWidget(BuildContext context) {
+  Widget editEmailWidget(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             height: 50,
             child: TextField(
               onChanged: (value) => setState(() {
@@ -236,7 +236,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               decoration: InputDecoration(
                   fillColor: palette.grey,
                   hintText: 'blueishincolour@email.com',
-                  hintStyle: TextStyle(color: Colors.black26)),
+                  hintStyle: const TextStyle(color: Colors.black26)),
             )));
   }
 }

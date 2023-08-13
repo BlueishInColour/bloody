@@ -26,8 +26,8 @@ PreferredSizeWidget appbar(BuildContext context,
                 child: search
                     ? searchBarWidget(context)
                     : notification
-                        ? barwidget(
-                            context, 'notifications', NotificationScreen())
+                        ? barwidget(context, 'notifications',
+                            const NotificationScreen())
                         : profile
                             ? barwidget(context, 'profile',
                                 const ProfileScreen(mine: true))
@@ -78,8 +78,8 @@ Widget searchWidget(BuildContext context) {
 
 Widget notificationWidget(BuildContext context) {
   return (IconButton(
-    onPressed: () => Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotificationScreen())),
+    onPressed: () => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const NotificationScreen())),
     icon: Icon(Icons.notifications_none, size: 30, color: palette.red),
   ));
 }

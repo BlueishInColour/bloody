@@ -18,10 +18,10 @@ class SearchResultScreenState extends State<SearchResultScreen> {
           scrollDirection: Axis.vertical,
           addAutomaticKeepAlives: true,
           children: [
-            UserSearchResults(context),
-            Divider(),
-            CreatorSearchResults(context),
-            Divider(),
+            userSearchResults(context),
+            const Divider(),
+            creatorSearchResults(context),
+            const Divider(),
           ]), //searchb]ar(context),
     );
   }
@@ -49,8 +49,8 @@ class SearchResultScreenState extends State<SearchResultScreen> {
     );
   }
 
-  Widget UserSearchResults(BuildContext context) {
-    return Container(
+  Widget userSearchResults(BuildContext context) {
+    return SizedBox(
       height: 130,
       width: 130,
       //  color: palette.black,
@@ -77,7 +77,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
                         Text('fulname', style: TextStyle(color: palette.black)),
                         ConstrainedBox(
                             // fit: BoxFit.scaleDown,
-                            constraints: BoxConstraints(maxWidth: 100),
+                            constraints: const BoxConstraints(maxWidth: 100),
                             child: Text('username',
                                 style: TextStyle(color: palette.black)))
                       ]),
@@ -87,8 +87,8 @@ class SearchResultScreenState extends State<SearchResultScreen> {
   }
 }
 
-Widget CreatorSearchResults(BuildContext context) {
-  return Container(
+Widget creatorSearchResults(BuildContext context) {
+  return SizedBox(
     height: 130,
     width: 130,
     //  color: palette.black,
@@ -115,7 +115,7 @@ Widget CreatorSearchResults(BuildContext context) {
                       Text('brandname', style: TextStyle(color: palette.black)),
                       ConstrainedBox(
                           // fit: BoxFit.scaleDown,
-                          constraints: BoxConstraints(maxWidth: 100),
+                          constraints: const BoxConstraints(maxWidth: 100),
                           child: Text('username',
                               style: TextStyle(color: palette.black)))
                     ]),
@@ -133,7 +133,7 @@ class NewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       shape: BeveledRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           side: BorderSide(color: palette.black)),
       leading: CircleAvatar(
         radius: 40,
