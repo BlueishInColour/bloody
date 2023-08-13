@@ -11,6 +11,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class SearchScreenState extends State<SearchScreen> {
+  @override
   Widget build(BuildContext context) {
     PreferredSizeWidget searchbar(BuildContext context) {
       return AppBar(
@@ -47,11 +48,12 @@ class SearchScreenState extends State<SearchScreen> {
           GestureDetector(
             onTap: onclick,
             child: CachedNetworkImage(
+              errorWidget: (context, url, error) =>
+                  Container(height: 400, color: palette.grey),
               placeholder: (context, url) => const SizedBox(
                 height: 400,
                 child: Center(
-                    child:
-                        const CircleAvatar(child: CircularProgressIndicator())),
+                    child: CircleAvatar(child: CircularProgressIndicator())),
               ),
               imageUrl: image,
               height: 400,
@@ -67,12 +69,13 @@ class SearchScreenState extends State<SearchScreen> {
             left: 3,
             child: ElevatedButton(
                 style: ButtonStyle(
-                    minimumSize: MaterialStatePropertyAll(Size(100, 20)),
+                    minimumSize: const MaterialStatePropertyAll(Size(100, 20)),
                     shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
-                    padding: MaterialStatePropertyAll(EdgeInsets.all(10)),
+                    padding: const MaterialStatePropertyAll(EdgeInsets.all(10)),
                     backgroundColor: MaterialStatePropertyAll(palette.grey),
-                    foregroundColor: MaterialStatePropertyAll(Colors.black87)),
+                    foregroundColor:
+                        const MaterialStatePropertyAll(Colors.black87)),
                 onPressed: onclick,
                 child: Text(
                   text,
@@ -87,7 +90,7 @@ class SearchScreenState extends State<SearchScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3),
         child: GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisExtent: 300,
                 childAspectRatio: 1,
