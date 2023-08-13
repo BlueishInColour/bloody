@@ -109,6 +109,7 @@ class NotificationScreen extends StatelessWidget {
               //  pad(),
               const SizedBox(width: 7),
               tab('notifications'),
+              tab('saved'),
               tab('posts'),
               tab('followers'),
               tab('following'),

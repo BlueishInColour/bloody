@@ -57,7 +57,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     return Stack(
       children: [
         user.coverPicture.isEmpty
-            ? Container(height: 500, color: Colors.blueGrey)
+            ? Container(height: 500, color: palette.grey)
             : Image.memory(Uint8List.fromList(user.coverPicture)),
         Positioned(
             top: 5,

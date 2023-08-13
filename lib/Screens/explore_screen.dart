@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../Widgets/dummy_data.dart';
 import '../main.dart';
@@ -35,22 +36,27 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       appBar: AppBar(
         title: Text.rich(TextSpan(children: [
           TextSpan(
-              text: 'freak',
+              text: 'DIO',
               style: TextStyle(color: palette.black, fontSize: 35)),
           TextSpan(
-              text: 'In', style: TextStyle(color: palette.red, fontSize: 35)),
-          WidgetSpan(
-              child: Icon(
-            Icons.local_fire_department_outlined,
-            color: palette.red,
-            size: 35,
-          )),
+              text: 'n',
+              style: TextStyle(
+                  color: palette.black,
+                  fontSize: 47,
+                  fontWeight: FontWeight.w500)),
+          //  WidgetSpan(
+          //      child: Icon(
+          //    Icons.local_fire_department_outlined,
+          //    color: palette.red,
+          //    size: 35,
+          //  )),
         ])),
       ),
       floatingActionButton: CircleAvatar(
         radius: 30,
         backgroundColor: palette.black,
         child: IconButton(
+            color: palette.white,
             padding: const EdgeInsets.all(0),
             onPressed: () => showModalBottomSheet(
                   context: context,
@@ -119,31 +125,41 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               // fit: BoxFit.fill,
               //posts[index].postedpix,
               GestureDetector(
-            onTap: () => setState(() {
-              extraDetails = !extraDetails;
-            }),
-            onDoubleTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      opaque: false,
-                      pageBuilder: (BuildContext context, _, __) {
-                        return (FullScreenPage(
-                          dark: true,
-                          child: Image.network(posts[index].userprofilepix),
-                        ));
-                      }));
-            },
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/placeholder.png',
-                  placeholderFit: BoxFit.contain,
-                  imageErrorBuilder: (context, error, stackTrace) =>
-                      loadingImage(context, 300),
-                  image: posts[index].postedpix,
-                )),
-          ),
+                  onTap: () => setState(() {
+                        extraDetails = !extraDetails;
+                      }),
+                  onDoubleTap: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder: (BuildContext context, _, __) {
+                              return (FullScreenPage(
+                                dark: true,
+                                child:
+                                    Image.network(posts[index].userprofilepix),
+                              ));
+                            }));
+                  },
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CachedNetworkImage(
+                        imageUrl: posts[index].postedpix,
+                        placeholder: (context, url) => Container(
+                          height: 300,
+                          color: palette.grey,
+                          child: const Center(child: Text('fetching images')),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          height: 300,
+                          color: palette.grey,
+                          child: Center(
+                              child: Text(
+                            'connect to the internet',
+                            style: TextStyle(color: palette.red),
+                          )),
+                        ),
+                      ))),
         ),
         Positioned(
             bottom: 10,
@@ -163,13 +179,6 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       const SizedBox(height: 30),
       const Divider()
     ])));
-  }
-
-  Widget loadingImage(context, double height) {
-    return (Container(
-      height: height,
-      color: palette.lightPurple,
-    ));
   }
 
   //full screen image page route
@@ -216,7 +225,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                       }));
             },
             child: CircleAvatar(
-                backgroundColor: palette.lightPurple,
+                backgroundColor: palette.grey,
                 backgroundImage: const NetworkImage(
                   "https://source.unsplash.com/random/?art&width=500&height=1000",
                 )),
@@ -251,8 +260,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         textDirection: TextDirection.rtl,
         children: [
-          CircleAvatar(
-            backgroundColor: palette.black,
+          const CircleAvatar(
+            backgroundColor: Colors.blue,
             // backgroundImage: const NetworkImage(
             //   "https://source.unsplash.com/random/?art&width=500&height=1000",
             // ),

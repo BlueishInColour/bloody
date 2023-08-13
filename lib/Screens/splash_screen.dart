@@ -39,13 +39,30 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget body(BuildContext context) {
     return Center(
         child: CircleAvatar(
-      backgroundColor: palette.red,
-      radius: 50,
-      child: Icon(
-        size: 70,
-        color: palette.white,
-        Icons.local_fire_department_outlined,
-      ),
+      backgroundColor: palette.grey,
+      radius: 70,
+      child: Text.rich(TextSpan(children: [
+        TextSpan(
+            text: 'DIO',
+            style: TextStyle(
+                // fontFamily: 'Geologica_Cursive-Bold',
+                color: palette.black,
+                fontSize: 35,
+                fontWeight: FontWeight.w600)),
+        TextSpan(
+            text: 'n',
+            style: TextStyle(
+                fontFamily: 'Geologica_Cursive-Bold',
+                color: palette.black,
+                fontSize: 47,
+                fontWeight: FontWeight.w500)),
+        //  WidgetSpan(
+        //      child: Icon(
+        //    Icons.local_fire_department_outlined,
+        //    color: palette.red,
+        //    size: 35,
+        //  )),
+      ])),
     ));
   }
 
@@ -57,10 +74,19 @@ class _SplashScreenState extends State<SplashScreen> {
         Text.rich(
           TextSpan(children: [
             TextSpan(
-                text: 'freak',
-                style: TextStyle(color: palette.black, fontSize: 30)),
+                text: 'explore',
+                style: TextStyle(
+                    fontFamily: 'Geologica_Cursive-Bold',
+                    color: palette.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500)),
             TextSpan(
-                text: 'In', style: TextStyle(color: palette.red, fontSize: 30)),
+                text: '   fashion',
+                style: TextStyle(
+                    fontFamily: 'Geologica_Cursive-Bold',
+                    color: palette.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500)),
           ]),
         ),
       ],

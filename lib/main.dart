@@ -14,7 +14,7 @@ class Palette {
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
   final Color red = const Color.fromARGB(255, 255, 0, 21);
 
-  final Color black = const Color.fromARGB(255, 0, 0, 0);
+  final Color black = Colors.black87;
   final Color grey = const Color.fromARGB(179, 238, 234, 234);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
 }

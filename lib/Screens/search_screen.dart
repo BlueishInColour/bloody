@@ -1,3 +1,4 @@
+import 'package:bloody/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -48,12 +49,21 @@ class SearchScreenState extends State<SearchScreen> {
           GestureDetector(
             onTap: onclick,
             child: CachedNetworkImage(
-              errorWidget: (context, url, error) =>
-                  Container(height: 400, color: palette.grey),
-              placeholder: (context, url) => const SizedBox(
+              errorWidget: (context, url, error) => Container(
+                height: 400,
+                color: palette.grey,
+                child: const Center(
+                  child: Text('connect to internet'),
+                ),
+              ),
+              placeholder: (context, url) => SizedBox(
                 height: 400,
                 child: Center(
-                    child: CircleAvatar(child: CircularProgressIndicator())),
+                    child: CircleAvatar(
+                        backgroundColor: palette.grey,
+                        child: CircularProgressIndicator(
+                          color: palette.black,
+                        ))),
               ),
               imageUrl: image,
               height: 400,
@@ -87,6 +97,26 @@ class SearchScreenState extends State<SearchScreen> {
 
     return (Scaffold(
       appBar: searchbar(context),
+      floatingActionButton: CircleAvatar(
+        radius: 30,
+        backgroundColor: palette.black,
+        child: IconButton(
+            color: palette.white,
+            padding: const EdgeInsets.all(0),
+            onPressed: () => Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, _, __) => const SplashScreen())),
+            icon: Stack(
+              children: [
+                Icon(Icons.category_outlined, size: 40, color: palette.grey),
+                Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Icon(Icons.add, size: 17, color: palette.grey))
+              ],
+            )),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3),
         child: GridView(
