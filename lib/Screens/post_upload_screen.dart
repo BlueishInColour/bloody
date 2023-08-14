@@ -203,7 +203,9 @@ class PostUploadState extends State<PostUpload> {
                   borderRadius: BorderRadius.circular(15),
                   // border: Border.all(color: palette.black)
                 ),
-                child: Image.asset('assets/images/clickfile.png'))));
+                child: const Center(
+                    child:
+                        Text('click camera or file at bottom to ad image')))));
   }
 
   Widget extrainfoPartWidget(BuildContext context) {

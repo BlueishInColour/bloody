@@ -9,7 +9,7 @@ main() async {
 }
 
 class Palette {
-  Palette();
+  const Palette();
 
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
   final Color red = const Color.fromARGB(255, 255, 0, 21);
@@ -19,7 +19,23 @@ class Palette {
   final Color white = const Color.fromARGB(255, 255, 255, 255);
 }
 
-final palette = Palette();
+Palette palette = const Palette();
+
+class InheritedDataProvider extends InheritedWidget {
+  final Palette palette;
+  const InheritedDataProvider({
+    required Widget child,
+    this.palette = const Palette(),
+  }) : super(child: child);
+  @override
+  bool updateShouldNotify(InheritedDataProvider oldWidget) =>
+      palette != oldWidget.palette;
+
+  static InheritedDataProvider? of(BuildContext context) {
+    return (context
+        .dependOnInheritedWidgetOfExactType<InheritedDataProvider>());
+  }
+}
 
 class Swagr extends StatelessWidget {
   const Swagr({super.key});

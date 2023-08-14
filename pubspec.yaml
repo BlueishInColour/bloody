@@ -110,7 +110,6 @@ flutter_launcher_icons:
 flutter:
   assets:
     - assets/images/placeholder.png
-    - assets/images/clickfile.png
 
   fonts:
   - family: AveriaSerifLibre
