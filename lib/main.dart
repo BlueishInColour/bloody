@@ -116,7 +116,7 @@ class Swagr extends StatelessWidget {
           endIndent: 12,
         ),
         splashColor: palette.lightPurple,
-        primarySwatch: Colors.brown,
+        primarySwatch: Colors.amber,
         // cardColor: palette.lightPurple,
         bannerTheme: MaterialBannerThemeData(
           // backgroundColor: palette.lightPurple,
@@ -137,9 +137,9 @@ class Swagr extends StatelessWidget {
         fontFamily: 'Geologica',
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-            iconColor: MaterialStatePropertyAll(palette.red),
-            shadowColor: MaterialStatePropertyAll(palette.lightPurple),
-            backgroundColor: MaterialStatePropertyAll(palette.red),
+            iconColor: MaterialStatePropertyAll(palette.black),
+            shadowColor: MaterialStatePropertyAll(palette.grey),
+            backgroundColor: MaterialStatePropertyAll(palette.grey),
 
             //  elevation: const MaterialStatePropertyAll(0)
           ),
@@ -155,7 +155,7 @@ class Swagr extends StatelessWidget {
             ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
             hintStyle: TextStyle(
-              color: palette.white,
+              color: palette.black,
             ),
             filled: true,
             focusedBorder: OutlineInputBorder(
@@ -175,9 +175,9 @@ class Swagr extends StatelessWidget {
                 // width: BorderSide.strokeAlignInside,
               ),
             ),
-            focusColor: Colors.black,
-            fillColor: Colors.transparent,
-            hoverColor: Colors.black),
+            focusColor: palette.grey,
+            fillColor: palette.grey,
+            hoverColor: palette.grey),
 
         dropdownMenuTheme: DropdownMenuThemeData(
             inputDecorationTheme: InputDecorationTheme(
@@ -237,12 +237,12 @@ class Swagr extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(9))),
         ),
         iconTheme: IconThemeData(
-            color: palette.red,
+            color: palette.black,
             fill: 0.5,
             shadows: [Shadow(color: palette.lightPurple, blurRadius: 10)]),
         searchBarTheme: SearchBarThemeData(
             backgroundColor: MaterialStatePropertyAll(palette.white),
-            shadowColor: MaterialStatePropertyAll(palette.lightPurple),
+            shadowColor: MaterialStatePropertyAll(palette.grey),
             elevation: const MaterialStatePropertyAll(0),
             constraints: const BoxConstraints(maxHeight: 50),
             surfaceTintColor: MaterialStatePropertyAll(palette.lightPurple),

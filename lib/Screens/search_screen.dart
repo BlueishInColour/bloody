@@ -4,6 +4,8 @@ import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import './search_category_screen.dart';
 
+import './sign_up_in_out_screen.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -106,7 +108,8 @@ class SearchScreenState extends State<SearchScreen> {
             onPressed: () => Navigator.push(
                 context,
                 PageRouteBuilder(
-                    pageBuilder: (context, _, __) => const SplashScreen())),
+                    pageBuilder: (context, _, __) =>
+                        const SignUpInOutScreeen())),
             icon: Stack(
               children: [
                 Icon(Icons.category_outlined, size: 40, color: palette.grey),
