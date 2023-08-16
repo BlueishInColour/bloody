@@ -1,0 +1,3 @@
+configure the name of your apple
+configure the permissions in androidmanifest especially internet
+configure the app auth redirect scheme in android/app/build.gradle to, include something like this in defaultconfig >>  manifestPlaceholders = ['appAuthRedirectScheme': 'mj.coffee.app]

@@ -51,6 +51,9 @@ dependencies:
   upstash_redis: ^1.4.0
   cached_network_image: ^3.2.3
   image_picker: ^1.0.2
+  flutter_appauth: ^6.0.2
+  flutter_secure_storage: ^8.0.0 
+  http: ^0.13.5
   
  
 

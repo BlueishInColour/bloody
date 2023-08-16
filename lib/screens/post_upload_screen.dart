@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../main.dart';
-import '../Apis/upstash.dart';
-import '../Models/post_model.dart';
+import '../apis/upstash.dart';
+import '../models/post_model.dart';
 //import '../Apis/create_post_freakon.dart';
 
 class PostUpload extends StatefulWidget {

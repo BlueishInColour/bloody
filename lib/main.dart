@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'Screens/splash_screen.dart';
+import 'screens/splash_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +10,7 @@ main() async {
 
 class Palette {
   const Palette();
+  final String appName = 'dion';
 
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
   final Color red = const Color.fromARGB(255, 255, 0, 21);
@@ -59,7 +60,7 @@ class Swagr extends StatelessWidget {
             style: ButtonStyle(
                 splashFactory: InkSparkle.splashFactory,
                 shadowColor: MaterialStatePropertyAll(palette.lightPurple),
-                backgroundColor: MaterialStatePropertyAll(palette.black))),
+                backgroundColor: MaterialStatePropertyAll(palette.grey))),
         badgeTheme: BadgeThemeData(
           backgroundColor: palette.lightPurple,
           textColor: palette.white,
@@ -206,6 +207,10 @@ class Swagr extends StatelessWidget {
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           indicatorColor: Colors.transparent,
         ),
+        bottomSheetTheme: BottomSheetThemeData(
+          modalBackgroundColor: palette.black,
+        ),
+        indicatorColor: palette.white,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: palette.white,
           elevation: 0,
@@ -228,8 +233,9 @@ class Swagr extends StatelessWidget {
             borderColor: palette.red,
             selectedBorderColor: palette.red),
         snackBarTheme: SnackBarThemeData(
-          backgroundColor: palette.lightPurple,
-          actionTextColor: palette.black,
+          backgroundColor: palette.black,
+          actionTextColor: palette.white,
+
           closeIconColor: palette.red,
           //behavior: SnackBarBehavior.fixed,
           contentTextStyle: TextStyle(color: palette.black),

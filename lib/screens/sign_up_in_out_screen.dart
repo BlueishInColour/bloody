@@ -2,9 +2,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 import '../main.dart';
 import './splash_screen.dart';
+import '../models/user_model.dart';
+import '../apis/upstash.dart';
 
 class SignUpInOutScreeen extends StatefulWidget {
   const SignUpInOutScreeen({super.key});
@@ -16,6 +17,8 @@ class SignUpInOutScreeen extends StatefulWidget {
 class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
   int selectedIndex = 0;
   List<int> selectedprofilepix = [];
+  User user = User();
+
   @override
   Widget build(BuildContext context) {
     Widget appName() {
@@ -74,6 +77,16 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
 
     Widget loginPart(BuildContext context) {
       //
+
+      login() async {
+        print('connecting or connected');
+        var res = await userApi.json
+            .get(user.username, [r'$.username', r'$.hashedPassword']);
+        debugPrint(res.toString());
+        print(res);
+      }
+
+      //
       Widget textfield(context,
           {String hinttext = '', bool obscuretext = false}) {
         return TextField(
@@ -87,8 +100,27 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
       }
 
       Widget elevatedbutton(context) {
+        SnackBar logingIn = SnackBar(
+          content: Row(
+            children: [
+              const Expanded(
+                  child: Text(
+                'loging in  ',
+                style: TextStyle(color: Color.fromARGB(221, 209, 207, 207)),
+              )),
+              CircleAvatar(
+                backgroundColor: palette.black,
+                child: CircularProgressIndicator(
+                    color: Color.fromARGB(221, 209, 207, 207)),
+              )
+            ],
+          ),
+        );
         return ElevatedButton(
-          onPressed: () => null,
+          onPressed: () async {
+            ScaffoldMessenger.of(context).showSnackBar(logingIn);
+            await login();
+          },
           style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(palette.grey),
               foregroundColor: MaterialStatePropertyAll(palette.black),
@@ -171,8 +203,15 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
 
       //
       Widget textfield(context,
-          {String hinttext = '', bool obscuretext = false}) {
+          {String hinttext = '',
+          bool obscuretext = false,
+          dynamic field = ''}) {
         return TextField(
+          onChanged: (value) {
+            setState(() {
+              field = value;
+            });
+          },
           obscureText: obscuretext,
           decoration: InputDecoration(
               hintText: hinttext,
@@ -183,8 +222,36 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
       }
 
       Widget elevatedbutton(context) {
+        SnackBar signingUp = SnackBar(
+          content: Row(
+            children: [
+              const Expanded(
+                  child: Text(
+                'signing up  ',
+                style: TextStyle(color: Color.fromARGB(221, 209, 207, 207)),
+              )),
+              CircleAvatar(
+                backgroundColor: palette.black,
+                child: const CircularProgressIndicator(
+                    color: Color.fromARGB(221, 209, 207, 207)),
+              )
+            ],
+          ),
+        );
+
+        signUp() async {
+          print('connecting to sign up');
+          var res = await userApi.json.set(user.username, r'$', user.toJson());
+          var res2 = await userApi.json.get(user.username, [r'$']);
+          print(res);
+          print(res2);
+        }
+
         return ElevatedButton(
-          onPressed: () => null,
+          onPressed: () async {
+            ScaffoldMessenger.of(context).showSnackBar(signingUp);
+            await signUp();
+          },
           style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(palette.grey),
               foregroundColor: MaterialStatePropertyAll(palette.black),
@@ -205,9 +272,14 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   profilepix(context),
-                  textfield(context, hinttext: 'fullname'),
-                  textfield(context, hinttext: '@username'),
-                  textfield(context, hinttext: 'password'),
+                  textfield(context,
+                      hinttext: 'fullname', field: user.fullname),
+                  textfield(context,
+                      hinttext: '@username', field: user.username),
+                  textfield(
+                    context,
+                    hinttext: 'password',
+                  ),
                   textfield(context, hinttext: 'confirm password'),
                   elevatedbutton(context),
                 ],
@@ -218,14 +290,16 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
 
     return (Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            appName(),
-            tabBar(context),
-            selectedIndex == 0 ? loginPart(context) : signUpPart(context),
-          ],
+        child: Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              appName(),
+              tabBar(context),
+              selectedIndex == 0 ? loginPart(context) : signUpPart(context),
+            ],
+          ),
         ),
       ),
     ));

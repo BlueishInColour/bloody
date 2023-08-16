@@ -14,6 +14,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           const [],
       dateOfBirth: json['dateOfBirth'] as String? ?? '',
       email: json['email'] as String? ?? '',
+      typeOfUser: json['typeOfUser'] as String? ?? '',
       extraInfo: json['extraInfo'] as String? ?? '',
       phoneNumber: json['phoneNumber'] as String? ?? '',
       fullname: json['fullname'] as String? ?? '',
@@ -26,6 +27,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'username': instance.username,
       'fullname': instance.fullname,
+      'typeOfUser': instance.typeOfUser,
       'extraInfo': instance.extraInfo,
       'phoneNumber': instance.phoneNumber,
       'email': instance.email,

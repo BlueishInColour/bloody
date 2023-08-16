@@ -1,0 +1,14 @@
+"configurations": [
+    {
+        "name": "Flutter",
+        "request": "launch",
+        "flutterMode": "debug",
+        "type": "dart",
+        "args": [
+            "--dart-define",
+            "AUTH0_DOMAIN={YOUR DOMAIN}",
+            "--dart-define",
+            "AUTH0_CLIENT_ID={YOUR CLIENT ID}"
+        ]
+    }
+]

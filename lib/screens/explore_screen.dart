@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../Widgets/dummy_data.dart';
+import '../widgets/dummy_data.dart';
 import '../main.dart';
 //import 'package:image_picker/image_picker.dart';
 //import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 //import 'dart:async';
 import 'dart:io';
-import '../Widgets/explore_screen_widgets/pod_icon_buttons.dart';
+import '../widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import './post_upload_screen.dart';
-import '../Widgets/explore_screen_widgets/full_screen_image.dart';
+import '../widgets/explore_screen_widgets/full_screen_image.dart';
 
 //final palette = Palette();
 
@@ -32,6 +32,38 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //appbar
+
+    PreferredSizeWidget appbar(context) {
+      return AppBar(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text.rich(TextSpan(children: [
+                TextSpan(
+                    text: 'DIO',
+                    style: TextStyle(color: palette.black, fontSize: 35)),
+                TextSpan(
+                    text: 'n',
+                    style: TextStyle(
+                        color: palette.black,
+                        fontSize: 47,
+                        fontWeight: FontWeight.w500)),
+                //  WidgetSpan(
+                //      child: Icon(
+                //    Icons.local_fire_department_outlined,
+                //    color: palette.red,
+                //    size: 35,
+                //  )),
+              ])),
+            ),
+            ElevatedButton(
+                onPressed: () => debugPrint('trying to loginnnnn'),
+                child: const Text('login|signup'))
+          ],
+        ),
+      );
+    }
     //full screen image page route
 
 ///////*********User details pod  ******/////
@@ -214,25 +246,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     }
 
     return (Scaffold(
-      appBar: AppBar(
-        title: Text.rich(TextSpan(children: [
-          TextSpan(
-              text: 'DIO',
-              style: TextStyle(color: palette.black, fontSize: 35)),
-          TextSpan(
-              text: 'n',
-              style: TextStyle(
-                  color: palette.black,
-                  fontSize: 47,
-                  fontWeight: FontWeight.w500)),
-          //  WidgetSpan(
-          //      child: Icon(
-          //    Icons.local_fire_department_outlined,
-          //    color: palette.red,
-          //    size: 35,
-          //  )),
-        ])),
-      ),
+      appBar: appbar(context),
       floatingActionButton: CircleAvatar(
         radius: 30,
         backgroundColor: palette.black,

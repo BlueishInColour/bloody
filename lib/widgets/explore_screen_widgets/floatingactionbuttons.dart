@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../Screens/explore_screen.dart';
-import '../../Screens/post_upload_screen.dart';
+import '../../screens/explore_screen.dart';
+import '../../screens/post_upload_screen.dart';
 
 extension New on ExploreScreenWidgetState {
   Widget floatingActionButtons(BuildContext context) {

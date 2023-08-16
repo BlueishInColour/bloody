@@ -16,7 +16,7 @@ class MasterState extends State<Master> {
   String ext = '';
   // Uint8List bytes = List<int>[];
   set() async {
-    print('started getting stuff out of db'); 
+    print('started getting stuff out of db');
 
     setState(() {
       //  bytes = byt.toString();
@@ -31,7 +31,7 @@ class MasterState extends State<Master> {
         appBar: AppBar(
           title: const Text('master command page'),
         ),
-        body:commandPage(context)));
+        body: commandPage(context)));
   }
 
   Widget commandPage(BuildContext context) {
@@ -59,8 +59,10 @@ class MasterState extends State<Master> {
                     pageBuilder: (context, _, __) => const CreateUser()))),
         singleCommand(
             'go to create get user screen',
-            () => Navigator.push(context,
-                PageRouteBuilder(pageBuilder: (context, _, __) =>const  List())))
+            () => Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, _, __) => const List())))
       ],
     ));
   }
@@ -118,7 +120,8 @@ class MasterState extends State<Master> {
               }),
             )),
         IconButton(
-            onPressed: onPressed, icon:const  Icon(Icons.g_mobiledata, size: 20))
+            onPressed: onPressed,
+            icon: const Icon(Icons.g_mobiledata, size: 20))
       ],
     ));
   }

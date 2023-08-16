@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../main.dart';
-import '../../Models/user_model.dart';
-import '../../Apis/upstash.dart';
+import '../../models/user_model.dart';
+import '../../apis/upstash.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({
