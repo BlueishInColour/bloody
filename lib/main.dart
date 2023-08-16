@@ -5,6 +5,7 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //_cameras = await availableCameras();
+
   runApp(const Swagr());
 }
 

@@ -1,4 +1,4 @@
-import 'package:bloody/screens/splash_screen.dart';
+import '../screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';

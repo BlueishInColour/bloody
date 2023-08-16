@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bloody/screens/explore_screen.dart';
+import '../../screens/explore_screen.dart';
 import '../../main.dart';
 import '../../screens/notification_screen.dart';
 import '../../screens/search_result_screen.dart';

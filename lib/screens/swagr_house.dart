@@ -1,4 +1,4 @@
-import 'package:bloody/screens/search_screen.dart';
+import '../screens/search_screen.dart';
 
 import '../main.dart';
 import 'package:flutter/material.dart';

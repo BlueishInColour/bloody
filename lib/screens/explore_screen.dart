@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+//import '../services/auth_services.dart';
 
 import '../widgets/dummy_data.dart';
 import '../main.dart';
@@ -10,6 +11,7 @@ import 'dart:io';
 import '../widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import './post_upload_screen.dart';
 import '../widgets/explore_screen_widgets/full_screen_image.dart';
+import './profile_screen.dart';
 
 //final palette = Palette();
 
@@ -29,6 +31,12 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   bool manyFloatingwidget = false;
 
   bool extraDetails = false;
+
+  //login service state
+  bool isProgressing = false;
+  bool isLoggedIn = false;
+  String errorMessage = '';
+  String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +65,13 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                 //  )),
               ])),
             ),
-            ElevatedButton(
-                onPressed: () => debugPrint('trying to loginnnnn'),
-                child: const Text('login|signup'))
+            isProgressing
+                ? CircleAvatar(child: CircularProgressIndicator())
+                : !isLoggedIn
+                    ? ElevatedButton(
+                        onPressed: () => null,
+                        child: const Text('login|signup'))
+                    : Text('welcome')
           ],
         ),
       );
