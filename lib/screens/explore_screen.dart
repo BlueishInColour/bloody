@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+//import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 ///
@@ -41,82 +41,16 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   bool extraDetails = false;
 
   //Oauthpart of explore screen
-
-  UserProfile? _user;
+  Credentials? _credentials;
 
   late Auth0 auth0;
-  late Auth0Web auth0Web;
-  String auth_domain = 'dev-gb1zfslh4ohvjdyr.us.auth0.com';
-  String auth_client = 'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO';
-  String auth_custom_scheme = 'com.auth0.sample';
 
   @override
   void initState() {
     super.initState();
-    auth0 = widget.auth0 ??
-        Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
-    auth0Web =
-        Auth0Web(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
-
-    if (kIsWeb) {
-      auth0Web.onLoad().then((final credentials) => setState(() {
-            _user = credentials?.user;
-          }));
-    }
+    auth0 = Auth0('dev-gb1zfslh4ohvjdyr.us.auth0.com',
+        'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO');
   }
-
-  //
-
-  var storage = const FlutterSecureStorage();
-
-  Future<void> login() async {
-    try {
-      if (kIsWeb) {
-        return auth0Web.loginWithRedirect(redirectUrl: 'http://localhost:3000');
-      }
-
-      var credentials = await auth0
-          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-          .login();
-      //
-      storage.write(key: 'name', value: credentials.user.givenName);
-      storage.write(key: 'email', value: credentials.user.email);
-      storage.write(key: 'phone_number', value: credentials.user.phoneNumber);
-      storage.write(
-          key: 'picture_url', value: credentials.user.pictureUrl.toString());
-      storage.write(key: 'username', value: credentials.user.preferredUsername);
-      setState(() {
-        _user = credentials.user;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<void> logout() async {
-    try {
-      if (kIsWeb) {
-        await auth0Web.logout(returnToUrl: 'http://localhost:3000');
-      } else {
-        await auth0
-            .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-            .logout();
-
-        storage.delete(key: 'name');
-        storage.delete(key: 'email');
-        storage.delete(key: 'phone_number');
-        storage.delete(key: 'picture_url');
-        storage.delete(key: 'username');
-
-        setState(() {
-          _user = null;
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   //ending Oauth
 
   //login service state
@@ -155,20 +89,19 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                 //  )),
               ])),
             ),
-            isProgressing
-                ? const CircleAvatar(child: CircularProgressIndicator())
-                : !isLoggedIn
-                    ? ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(palette.black),
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)))),
-                        onPressed: () => login(),
-                        child: Text('login | signup',
-                            style: TextStyle(color: palette.white)))
-                    : const Text('welcome')
+            _credentials == null
+                ? ElevatedButton(
+                    onPressed: () async {
+                      final credentials = await auth0
+                          .webAuthentication(scheme: 'com.company.rubic')
+                          .login();
+
+                      setState(() {
+                        _credentials = credentials;
+                      });
+                    },
+                    child: const Text("Log in"))
+                : const SizedBox()
           ],
         ),
       );
