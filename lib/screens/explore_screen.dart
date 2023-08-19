@@ -137,7 +137,10 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               child: Text.rich(TextSpan(children: [
                 TextSpan(
                     text: palette.appName,
-                    style: TextStyle(color: palette.black, fontSize: 35)),
+                    style: TextStyle(
+                        color: palette.black,
+                        fontSize: 35,
+                        fontFamily: 'Geologica_Cursive-Bold')),
                 TextSpan(
                     text: '',
                     style: TextStyle(

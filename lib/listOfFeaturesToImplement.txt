@@ -39,13 +39,6 @@ from top to botttom
 
 
 
-add camera plugin (https://pub.dev/packages/camera)
-add picker file plugin
-how custompainter saves to image format
-hatunnel
-
-
-
 
 
 ///<<<<<<<<<<<<<<< style Upload Form
@@ -149,9 +142,9 @@ cash at hand & bank #10,500
 >>>>>> 13th August, 2023,
 New feature to work on for this new week on blue app is 
 >>learn provider and send data accros widget without passing it down especially palette
->>signup and signin screen and backend api in upstash and redis
+done  >>signup and signin screen and backend api in upstash and redis
 >>explore screen rendering data from my upstash database randomly
 >> search screen category been able to render data by category and randomly
 >> search screen should have a tile that enable users to create their own category and push it us for approval
 >>notification screen, defining the tabs to each have their own screen, and which will be a future or list builder
->>profile should render data from a user login or sign in data first from cached values then from net.
+done  >>profile should render data from a user login or sign in data first from cached values then from net.
