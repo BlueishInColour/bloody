@@ -44,14 +44,14 @@ class _SplashScreenState extends State<SplashScreen> {
       radius: 70,
       child: Text.rich(TextSpan(children: [
         TextSpan(
-            text: 'DIO',
+            text: palette.appName,
             style: TextStyle(
                 // fontFamily: 'Geologica_Cursive-Bold',
                 color: palette.black,
                 fontSize: 35,
                 fontWeight: FontWeight.w600)),
         TextSpan(
-            text: 'n',
+            text: '',
             style: TextStyle(
                 fontFamily: 'Geologica_Cursive-Bold',
                 color: palette.black,

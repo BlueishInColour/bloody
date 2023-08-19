@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../main.dart';
-import './splash_screen.dart';
 import '../models/user_model.dart';
 import '../apis/upstash.dart';
 
@@ -110,7 +109,7 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
               )),
               CircleAvatar(
                 backgroundColor: palette.black,
-                child: CircularProgressIndicator(
+                child:const  CircularProgressIndicator(
                     color: Color.fromARGB(221, 209, 207, 207)),
               )
             ],
@@ -188,13 +187,13 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
             ),
             IconButton(
               onPressed: () => getFileImages(),
-              icon: Icon(Icons.file_upload_outlined),
+              icon:const  Icon(Icons.file_upload_outlined),
               iconSize: 40,
             ),
             IconButton(
                 onPressed: () => getCameraImages(),
                 iconSize: 38,
-                icon: Icon(
+                icon:const Icon(
                   Icons.camera_alt_outlined,
                 ))
           ],

@@ -1,4 +1,4 @@
-name: com.company.bloody
+name: rubic
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -49,12 +49,24 @@ dependencies:
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
   upstash_redis: ^1.4.0
+  #http: ^1.0.0
   cached_network_image: ^3.2.3
   image_picker: ^1.0.2
   #flutter_appauth: ^6.0.2
-  #flutter_secure_storage: ^8.0.0 
+  flutter_secure_storage: ^8.0.0 
   #http: ^0.13.5
-  oauth2_client: ^3.2.1
+  #oauth2_client: ^3.2.1
+ # cloudinary_api: ^1.0.0
+ # cloudinary: ^1.2.0
+ # cloudinary_url_gen: ^0.10.0
+ # imagekit: ^0.0.5
+  #flutter_imagekit: ^0.0.6
+  http: ^0.13.5
+  crypto: ^3.0.3
+  cloudinary: ^1.2.0
+  run_small_dropbox: ^2.0.2
+  auth0_flutter: ^1.2.0
+  flutter_dotenv: ^5.0.2
   
  
 

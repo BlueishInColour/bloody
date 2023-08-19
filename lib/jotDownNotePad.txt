@@ -4,3 +4,5 @@ on to basis the edit screen and the real profile screen are bits different from 
 edit screen is a spin off of the real original scree, which means that data models in the edis screen is just the cached data from the real screen and
 can be easyly replaced from the edit screen but not really so ther is no need for future bulder but oly setstates in the edit screen but the real screen
 will built from future
+
+//was working on this (rubic:8142): CRITICAL **: 22:05:32.655

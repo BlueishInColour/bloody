@@ -50,6 +50,7 @@ class MasterState extends State<Master> {
         //  //  singleCommand('create Document', () => createDocument()),
         //  singleCommand('list document', () => listDocument()),
         //  singleCommand('get document', () => getDocument('oio')),
+        //  singleCommand('test cloudinary', () => uploadfile()),
 
         singleCommand(
             'go to create user screen',

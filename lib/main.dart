@@ -1,17 +1,19 @@
 import "package:flutter/material.dart";
 import 'screens/splash_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //_cameras = await availableCameras();
-
+  //for dontenv variables of auth0
+  await dotenv.load();
+  //
   runApp(const Swagr());
 }
 
 class Palette {
   const Palette();
-  final String appName = 'dion';
+  final String appName = 'rubic';
 
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
   final Color red = const Color.fromARGB(255, 255, 0, 21);
@@ -22,22 +24,6 @@ class Palette {
 }
 
 Palette palette = const Palette();
-
-class InheritedDataProvider extends InheritedWidget {
-  final Palette palette;
-  const InheritedDataProvider({
-    required Widget child,
-    this.palette = const Palette(),
-  }) : super(child: child);
-  @override
-  bool updateShouldNotify(InheritedDataProvider oldWidget) =>
-      palette != oldWidget.palette;
-
-  static InheritedDataProvider? of(BuildContext context) {
-    return (context
-        .dependOnInheritedWidgetOfExactType<InheritedDataProvider>());
-  }
-}
 
 class Swagr extends StatelessWidget {
   const Swagr({super.key});

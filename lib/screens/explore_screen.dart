@@ -1,7 +1,15 @@
+import '../apis/upstash.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //import '../services/auth_services.dart';
+///
+import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:auth0_flutter/auth0_flutter_web.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+///
 import '../widgets/dummy_data.dart';
 import '../main.dart';
 //import 'package:image_picker/image_picker.dart';
@@ -11,12 +19,12 @@ import 'dart:io';
 import '../widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import './post_upload_screen.dart';
 import '../widgets/explore_screen_widgets/full_screen_image.dart';
-import './profile_screen.dart';
 
 //final palette = Palette();
 
 class ExploreScreenWidget extends StatefulWidget {
-  const ExploreScreenWidget({super.key});
+  final Auth0? auth0;
+  const ExploreScreenWidget({this.auth0, final Key? key}) : super(key: key);
 
   @override
   State<ExploreScreenWidget> createState() => ExploreScreenWidgetState();
@@ -31,6 +39,85 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   bool manyFloatingwidget = false;
 
   bool extraDetails = false;
+
+  //Oauthpart of explore screen
+
+  UserProfile? _user;
+
+  late Auth0 auth0;
+  late Auth0Web auth0Web;
+  String auth_domain = 'dev-gb1zfslh4ohvjdyr.us.auth0.com';
+  String auth_client = 'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO';
+  String auth_custom_scheme = 'com.auth0.sample';
+
+  @override
+  void initState() {
+    super.initState();
+    auth0 = widget.auth0 ??
+        Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+    auth0Web =
+        Auth0Web(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+
+    if (kIsWeb) {
+      auth0Web.onLoad().then((final credentials) => setState(() {
+            _user = credentials?.user;
+          }));
+    }
+  }
+
+  //
+
+  var storage = const FlutterSecureStorage();
+
+  Future<void> login() async {
+    try {
+      if (kIsWeb) {
+        return auth0Web.loginWithRedirect(redirectUrl: 'http://localhost:3000');
+      }
+
+      var credentials = await auth0
+          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+          .login();
+      //
+      storage.write(key: 'name', value: credentials.user.givenName);
+      storage.write(key: 'email', value: credentials.user.email);
+      storage.write(key: 'phone_number', value: credentials.user.phoneNumber);
+      storage.write(
+          key: 'picture_url', value: credentials.user.pictureUrl.toString());
+      storage.write(key: 'username', value: credentials.user.preferredUsername);
+      setState(() {
+        _user = credentials.user;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      if (kIsWeb) {
+        await auth0Web.logout(returnToUrl: 'http://localhost:3000');
+      } else {
+        await auth0
+            .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+            .logout();
+
+        storage.delete(key: 'name');
+        storage.delete(key: 'email');
+        storage.delete(key: 'phone_number');
+        storage.delete(key: 'picture_url');
+        storage.delete(key: 'username');
+
+        setState(() {
+          _user = null;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //ending Oauth
 
   //login service state
   bool isProgressing = false;
@@ -49,10 +136,10 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
             Expanded(
               child: Text.rich(TextSpan(children: [
                 TextSpan(
-                    text: 'DIO',
+                    text: palette.appName,
                     style: TextStyle(color: palette.black, fontSize: 35)),
                 TextSpan(
-                    text: 'n',
+                    text: '',
                     style: TextStyle(
                         color: palette.black,
                         fontSize: 47,
@@ -66,12 +153,19 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               ])),
             ),
             isProgressing
-                ? CircleAvatar(child: CircularProgressIndicator())
+                ? const CircleAvatar(child: CircularProgressIndicator())
                 : !isLoggedIn
                     ? ElevatedButton(
-                        onPressed: () => null,
-                        child: const Text('login|signup'))
-                    : Text('welcome')
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(palette.black),
+                            shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)))),
+                        onPressed: () => login(),
+                        child: Text('login | signup',
+                            style: TextStyle(color: palette.white)))
+                    : const Text('welcome')
           ],
         ),
       );
@@ -257,43 +351,51 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       ])));
     }
 
+    void refreshToGetMoreDataFromDb() async {
+      debugPrint('refresing');
+    }
+
     return (Scaffold(
-      appBar: appbar(context),
-      floatingActionButton: CircleAvatar(
-        radius: 30,
-        backgroundColor: palette.black,
-        child: IconButton(
-            color: palette.white,
-            padding: const EdgeInsets.all(0),
-            onPressed: () => showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  useSafeArea: true,
-                  backgroundColor: Colors.white70,
-                  // anchorPoint: Offset(500, 500),
-                  isScrollControlled: true,
-                  enableDrag: true,
-                  isDismissible: true,
-                  // barrierColor: Colors.white,
-                  shape: const ContinuousRectangleBorder(
-                      // side: BorderSide(width: 5),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(70),
-                          topRight: Radius.circular(70))),
-                  //  isDismissible: bool.fromEnvironment('off'),
-                  constraints: const BoxConstraints(maxHeight: 600),
-                  builder: (BuildContext context) {
-                    return const PostUpload();
-                  },
+        appBar: appbar(context),
+        floatingActionButton: CircleAvatar(
+          radius: 30,
+          backgroundColor: palette.black,
+          child: IconButton(
+              color: palette.white,
+              padding: const EdgeInsets.all(0),
+              onPressed: () => showModalBottomSheet(
+                    context: context,
+                    showDragHandle: true,
+                    useSafeArea: true,
+                    backgroundColor: Colors.white70,
+                    // anchorPoint: Offset(500, 500),
+                    isScrollControlled: true,
+                    enableDrag: true,
+                    isDismissible: true,
+                    // barrierColor: Colors.white,
+                    shape: const ContinuousRectangleBorder(
+                        // side: BorderSide(width: 5),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(70),
+                            topRight: Radius.circular(70))),
+                    //  isDismissible: bool.fromEnvironment('off'),
+                    constraints: const BoxConstraints(maxHeight: 600),
+                    builder: (BuildContext context) {
+                      return const PostUpload();
+                    },
+                  ),
+              icon: Icon(Icons.file_upload_outlined,
+                  size: 40, color: palette.grey)),
+        ),
+        body: WillPopScope(
+            onWillPop: () async => false,
+            child: RefreshIndicator(
+                child: ListView.builder(
+                  itemBuilder: imagePod,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  itemCount: posts.length,
                 ),
-            icon: Icon(Icons.file_upload_outlined,
-                size: 40, color: palette.grey)),
-      ),
-      body: ListView.builder(
-        itemBuilder: imagePod,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        itemCount: posts.length,
-      ),
-    ));
+                onRefresh: () async => refreshToGetMoreDataFromDb()))));
   }
 }

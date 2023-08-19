@@ -3,6 +3,7 @@ import '../main.dart';
 import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
 import '../models/user_model.dart';
 import 'dart:typed_data';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -15,6 +16,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+  ///from storage
+  final storage = FlutterSecureStorage();
+
+  ///
+  ///
   bool edit = false;
   User user = User(
       coverPicture: [],
@@ -60,13 +66,18 @@ class ProfileScreenState extends State<ProfileScreen> {
             ? Container(height: 500, color: palette.grey)
             : Image.memory(Uint8List.fromList(user.coverPicture)),
         Positioned(
-            top: 5,
-            left: 5,
-            child: CircleAvatar(
-                radius: 35,
-                backgroundColor: Colors.white,
-                backgroundImage:
-                    MemoryImage(Uint8List.fromList(user.profilePicture)))),
+          top: 5,
+          left: 5,
+          child: CircleAvatar(
+              radius: 35,
+              backgroundColor: Colors.white,
+              child: FutureBuilder(
+                future: storage.read(key: 'picture_url'),
+                builder: ((context, snapshot) {
+                  return Image.network(snapshot.data.toString());
+                }),
+              )),
+        ),
       ],
     );
   }
@@ -76,14 +87,18 @@ class ProfileScreenState extends State<ProfileScreen> {
       height: 55,
       child: Row(children: [
         //name and username
-        const Expanded(
+        Expanded(
             child: Padding(
           padding: EdgeInsets.only(left: 10.0),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Row(
               children: [
-                Text('@blueishInColour',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400))
+                FutureBuilder(
+                  future: storage.read(key: 'username'),
+                  builder: (context, snapshot) {
+                    return Text(snapshot.data.toString());
+                  },
+                )
               ],
             )
           ]),

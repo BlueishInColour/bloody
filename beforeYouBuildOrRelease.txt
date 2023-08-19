@@ -1,5 +1,5 @@
 configure the name of your app
 configure app icon by running command
-configure the permissions in androidmanifest especially internet
-configure the app auth redirect scheme in android/app/build.gradle to, include something like this in defaultconfig >>  manifestPlaceholders = ['appAuthRedirectScheme': 'mj.coffee.app]
+configure the permissions in androidmanifest especially internet  <uses-permission android:name="android.permission.INTERNET"/>
+configure the app auth redirect scheme in android/app/build.gradle to, include something like this in defaultconfig >>     manifestPlaceholders += [auth0Domain: "dev-gb1zfslh4ohvjdyr.us.auth0.com", auth0Scheme: "https"]
 this is you auth0 tenant name in the USA dev-gb1zfslh4ohvjdyr

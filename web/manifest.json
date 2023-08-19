@@ -1,6 +1,6 @@
 {
-    "name": "bloody",
-    "short_name": "bloody",
+    "name": "rubic",
+    "short_name": "rubic",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
