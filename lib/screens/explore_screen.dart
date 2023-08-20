@@ -329,49 +329,51 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     }
 
     return (Scaffold(
-        appBar: appbar(context),
-        floatingActionButton: CircleAvatar(
-          radius: 30,
-          backgroundColor: palette.black,
-          child: IconButton(
-              color: palette.white,
-              padding: const EdgeInsets.all(0),
-              onPressed: () => showModalBottomSheet(
-                    context: context,
-                    showDragHandle: true,
-                    useSafeArea: true,
-                    backgroundColor: Colors.white70,
-                    // anchorPoint: Offset(500, 500),
-                    isScrollControlled: true,
-                    enableDrag: true,
-                    isDismissible: true,
-                    // barrierColor: Colors.white,
-                    shape: const ContinuousRectangleBorder(
-                        // side: BorderSide(width: 5),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(70),
-                            topRight: Radius.circular(70))),
-                    //  isDismissible: bool.fromEnvironment('off'),
-                    constraints: const BoxConstraints(maxHeight: 600),
-                    builder: (BuildContext context) {
-                      return const PostUpload();
-                    },
-                  ),
-              icon: Icon(Icons.file_upload_outlined,
-                  size: 40, color: palette.grey)),
-        ),
-        body: WillPopScope(
-            onWillPop: () async => false,
-            child: RefreshIndicator(
-                backgroundColor: palette.black,
-                color: palette.grey,
-                triggerMode: RefreshIndicatorTriggerMode.onEdge,
-                child: ListView.builder(
-                  itemBuilder: imagePod,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  itemCount: posts.length,
+      appBar: appbar(context),
+      floatingActionButton: CircleAvatar(
+        radius: 30,
+        backgroundColor: palette.black,
+        child: IconButton(
+            color: palette.white,
+            padding: const EdgeInsets.all(0),
+            onPressed: () => showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  useSafeArea: true,
+                  backgroundColor: Colors.white70,
+                  // anchorPoint: Offset(500, 500),
+                  isScrollControlled: true,
+                  enableDrag: true,
+                  isDismissible: true,
+                  // barrierColor: Colors.white,
+                  shape: const ContinuousRectangleBorder(
+                      // side: BorderSide(width: 5),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(70),
+                          topRight: Radius.circular(70))),
+                  //  isDismissible: bool.fromEnvironment('off'),
+                  constraints: const BoxConstraints(maxHeight: 600),
+                  builder: (BuildContext context) {
+                    return const PostUpload();
+                  },
                 ),
-                onRefresh: () async => refreshToGetMoreDataFromDb()))));
+            icon: Icon(Icons.file_upload_outlined,
+                size: 40, color: palette.grey)),
+      ),
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: RefreshIndicator(
+          backgroundColor: palette.black,
+          color: palette.grey,
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          child: ListView.builder(
+            itemBuilder: imagePod,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            itemCount: posts.length,
+          ),
+          onRefresh: () async => refreshToGetMoreDataFromDb(),
+        ),
+      ),
+    ));
   }
 }
