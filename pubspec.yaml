@@ -68,6 +68,7 @@ dependencies:
   run_small_dropbox: ^2.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  pull_to_refresh: ^2.0.0
  
  # flutter_dotenv: ^5.0.2
   

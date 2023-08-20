@@ -5,6 +5,7 @@ import './search_category_screen.dart';
 
 import './sign_up_in_out_screen.dart';
 import './master.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart'; //for pull up refress place
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -119,175 +120,183 @@ class SearchScreenState extends State<SearchScreen> {
               ],
             )),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3),
-        child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 300,
-                childAspectRatio: 1,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0),
-            children: [
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x sport',
-                  image:
-                      "https://source.unsplash.com/random/?sport&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x art',
-                  image:
-                      "https://source.unsplash.com/random/?art&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x cars',
-                  image:
-                      "https://source.unsplash.com/random/?cars&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x office',
-                  image:
-                      "https://source.unsplash.com/random/?businessman&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x music',
-                  image:
-                      "https://source.unsplash.com/random/?music&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x culture',
-                  image:
-                      "https://source.unsplash.com/random/?culture&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x boo',
-                  image:
-                      "https://source.unsplash.com/random/?guy&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x programmers',
-                  image:
-                      "https://source.unsplash.com/random/?programmers&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x engineer',
-                  image:
-                      "https://source.unsplash.com/random/?engineer&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x home',
-                  image:
-                      "https://source.unsplash.com/random/?home&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x party',
-                  image:
-                      "https://source.unsplash.com/random/?party&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x electronics',
-                  image:
-                      "https://source.unsplash.com/random/?electronics&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x wildlife',
-                  image:
-                      "https://source.unsplash.com/random/?wildlife&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x exortic',
-                  image:
-                      "https://source.unsplash.com/random/?exortic&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x streets',
-                  image:
-                      "https://source.unsplash.com/random/?streets&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x shoes',
-                  image:
-                      "https://source.unsplash.com/random/?shoes&width=500&height=1000"),
-              tile(
-                  onclick: () => Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                              const SearchCategoryScreen())),
-                  text: 'fashion x babe',
-                  image:
-                      "https://source.unsplash.com/random/?girl&width=500&height=1000"),
-              tile(
-                  onclick: () => null,
-                  text: 'add new category',
-                  image:
-                      "https://source.unsplash.com/random/?add&width=500&height=1000")
-            ]),
+      body: SmartRefresher(
+        controller: RefreshController(initialLoadStatus: LoadStatus.loading),
+        enablePullDown: false,
+        enablePullUp: true,
+        footer: CircleAvatar(
+          child: CircularProgressIndicator(),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3),
+          child: GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 0),
+              children: [
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x sport',
+                    image:
+                        "https://source.unsplash.com/random/?sport&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x art',
+                    image:
+                        "https://source.unsplash.com/random/?art&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x cars',
+                    image:
+                        "https://source.unsplash.com/random/?cars&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x office',
+                    image:
+                        "https://source.unsplash.com/random/?businessman&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x music',
+                    image:
+                        "https://source.unsplash.com/random/?music&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x culture',
+                    image:
+                        "https://source.unsplash.com/random/?culture&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x boo',
+                    image:
+                        "https://source.unsplash.com/random/?guy&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x programmers',
+                    image:
+                        "https://source.unsplash.com/random/?programmers&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x engineer',
+                    image:
+                        "https://source.unsplash.com/random/?engineer&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x home',
+                    image:
+                        "https://source.unsplash.com/random/?home&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x party',
+                    image:
+                        "https://source.unsplash.com/random/?party&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x electronics',
+                    image:
+                        "https://source.unsplash.com/random/?electronics&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x wildlife',
+                    image:
+                        "https://source.unsplash.com/random/?wildlife&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x exortic',
+                    image:
+                        "https://source.unsplash.com/random/?exortic&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x streets',
+                    image:
+                        "https://source.unsplash.com/random/?streets&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x shoes',
+                    image:
+                        "https://source.unsplash.com/random/?shoes&width=500&height=1000"),
+                tile(
+                    onclick: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                const SearchCategoryScreen())),
+                    text: 'fashion x babe',
+                    image:
+                        "https://source.unsplash.com/random/?girl&width=500&height=1000"),
+                tile(
+                    onclick: () => null,
+                    text: 'add new category',
+                    image:
+                        "https://source.unsplash.com/random/?add&width=500&height=1000")
+              ]),
+        ),
       ),
     ));
   }
