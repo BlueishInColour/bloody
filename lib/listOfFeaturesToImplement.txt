@@ -128,11 +128,11 @@ extension StyleUploadFormWidget on StyleUploadScreenState {
 
 
 // account and proposed expenses
->jumia order 11,500
->stool        2,000
+
+>stool        4,000
 >edo cash     5,000 
->
->
+>table      
+>rent new apartment 100,000
 
 total 18,500
 
@@ -142,7 +142,7 @@ cash at hand & bank #10,500
 >>>>>> 13th August, 2023,
 New feature to work on for this new week on blue app is 
 >>learn provider and send data accros widget without passing it down especially palette
-done  >>signup and signin screen and backend api in upstash and redis
+>>use hive a lot more to locally save and provide data all across the app
 >>explore screen rendering data from my upstash database randomly
 >> search screen category been able to render data by category and randomly
 >> search screen should have a tile that enable users to create their own category and push it us for approval
