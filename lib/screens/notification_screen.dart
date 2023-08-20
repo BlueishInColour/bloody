@@ -10,13 +10,13 @@ class NotificationScreen extends StatefulWidget {
 
 class NotificationScreenState extends State<NotificationScreen> {
 //statefor screen widget
-  String currentScreenWidget = 'notification';
+  String currentScreenWidget = 'notifications';
 
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
       appBar: appBar(context),
-      body: currentScreenWidget == 'notification'
+      body: currentScreenWidget == 'notifications'
           ? notificationPod(context)
           : currentScreenWidget == 'saved'
               ? SizedBox()

@@ -198,9 +198,95 @@ class SearchScreenState extends State<SearchScreen> {
                       PageRouteBuilder(
                           pageBuilder: (context, _, __) =>
                               const SearchCategoryScreen())),
+                  text: 'fashion x programmers',
+                  image:
+                      "https://source.unsplash.com/random/?programmers&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x engineer',
+                  image:
+                      "https://source.unsplash.com/random/?engineer&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x home',
+                  image:
+                      "https://source.unsplash.com/random/?home&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x party',
+                  image:
+                      "https://source.unsplash.com/random/?party&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x electronics',
+                  image:
+                      "https://source.unsplash.com/random/?electronics&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x wildlife',
+                  image:
+                      "https://source.unsplash.com/random/?wildlife&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x exortic',
+                  image:
+                      "https://source.unsplash.com/random/?exortic&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x streets',
+                  image:
+                      "https://source.unsplash.com/random/?streets&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
+                  text: 'fashion x shoes',
+                  image:
+                      "https://source.unsplash.com/random/?shoes&width=500&height=1000"),
+              tile(
+                  onclick: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                              const SearchCategoryScreen())),
                   text: 'fashion x babe',
                   image:
                       "https://source.unsplash.com/random/?girl&width=500&height=1000"),
+              tile(
+                  onclick: () => null,
+                  text: 'add new category',
+                  image:
+                      "https://source.unsplash.com/random/?add&width=500&height=1000")
             ]),
       ),
     ));

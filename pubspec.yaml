@@ -66,6 +66,8 @@ dependencies:
   crypto: ^3.0.3
   cloudinary: ^1.2.0
   run_small_dropbox: ^2.0.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
  
  # flutter_dotenv: ^5.0.2
   

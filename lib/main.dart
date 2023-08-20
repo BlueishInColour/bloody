@@ -6,7 +6,7 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //for dontenv variables of auth0
-
+ 
   //
   runApp(const Swagr());
 }

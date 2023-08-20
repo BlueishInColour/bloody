@@ -4,6 +4,9 @@ import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
 import '../models/user_model.dart';
 import 'dart:typed_data';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -60,26 +63,27 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget profilePictureWidget(
     BuildContext context,
   ) {
-    return Stack(
-      children: [
-        user.coverPicture.isEmpty
-            ? Container(height: 500, color: palette.grey)
-            : Image.memory(Uint8List.fromList(user.coverPicture)),
-        Positioned(
-          top: 5,
-          left: 5,
-          child: CircleAvatar(
-              radius: 35,
-              backgroundColor: Colors.white,
-              child: FutureBuilder(
-                future: storage.read(key: 'picture_url'),
-                builder: ((context, snapshot) {
-                  return Image.network(snapshot.data.toString());
-                }),
-              )),
-        ),
-      ],
-    );
+    return ValueListenableBuilder(
+        valueListenable: Hive.box('loggedInUser').listenable(),
+        builder: (context, box, widget) {
+          return Stack(
+            children: [
+              user.coverPicture.isEmpty
+                  ? Container(height: 500, color: palette.grey)
+                  : Image.memory(Uint8List.fromList(user.coverPicture)),
+              Positioned(
+                top: 5,
+                left: 5,
+                child: CircleAvatar(
+                  radius: 35,
+                  backgroundColor: Colors.white,
+                  backgroundImage: CachedNetworkImageProvider(
+                      box.get('pictureUrl').toString()),
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Widget profileNameButtonWidget(BuildContext context, {bool mine = false}) {
@@ -87,19 +91,12 @@ class ProfileScreenState extends State<ProfileScreen> {
       height: 55,
       child: Row(children: [
         //name and username
-        Expanded(
+        const Expanded(
             child: Padding(
           padding: EdgeInsets.only(left: 10.0),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Row(
-              children: [
-                FutureBuilder(
-                  future: storage.read(key: 'username'),
-                  builder: (context, snapshot) {
-                    return Text(snapshot.data.toString());
-                  },
-                )
-              ],
+              children: [Text('@louis vuitton')],
             )
           ]),
         )),

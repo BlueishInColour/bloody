@@ -8,6 +8,7 @@ import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
 //import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 
 ///
 import '../widgets/dummy_data.dart';
@@ -19,6 +20,7 @@ import 'dart:io';
 import '../widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import './post_upload_screen.dart';
 import '../widgets/explore_screen_widgets/full_screen_image.dart';
+import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
 
 //final palette = Palette();
 
@@ -41,23 +43,65 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   bool extraDetails = false;
 
   //Oauthpart of explore screen
-  Credentials? _credentials;
 
+  Credentials? _credentials;
+//login service state
+  bool isProgressing = false;
+  bool isLoggedIn = false;
+  String errorMessage = '';
+  String? name;
   late Auth0 auth0;
+  late Auth0Web auth0Web;
+  UserProfile? _user;
 
   @override
   void initState() {
     super.initState();
     auth0 = Auth0('dev-gb1zfslh4ohvjdyr.us.auth0.com',
         'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO');
+
+    auth0Web = Auth0Web('dev-gb1zfslh4ohvjdyr.us.auth0.com',
+        'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO');
+
+    if (kIsWeb) {
+      auth0Web.onLoad().then((final credentials) => setState(() {
+            _user = credentials?.user;
+          }));
+    }
+  }
+
+  Future<void> login() async {
+    try {
+      if (kIsWeb) {
+        return auth0Web.loginWithRedirect(redirectUrl: 'http://localhost:3000');
+      }
+
+      var credentials =
+          await auth0.webAuthentication(scheme: 'com.company.rubic').login();
+
+      setState(() {
+        _user = credentials.user;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      if (kIsWeb) {
+        await auth0Web.logout(returnToUrl: 'http://localhost:3000');
+      } else {
+        await auth0.webAuthentication(scheme: 'com.company.rubic').logout();
+        setState(() {
+          _user = null;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
   }
   //ending Oauth
-
-  //login service state
-  bool isProgressing = false;
-  bool isLoggedIn = false;
-  String errorMessage = '';
-  String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -90,18 +134,11 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               ])),
             ),
             _credentials == null
-                ? ElevatedButton(
-                    onPressed: () async {
-                      final credentials = await auth0
-                          .webAuthentication(scheme: 'com.company.rubic')
-                          .login();
-
-                      setState(() {
-                        _credentials = credentials;
-                      });
-                    },
-                    child: const Text("Log in"))
-                : const SizedBox()
+                ? ElevatedButton(onPressed: login, child: const Text("Log in"))
+                : CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                        _credentials!.user.pictureUrl.toString()),
+                  )
           ],
         ),
       );
@@ -326,6 +363,9 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         body: WillPopScope(
             onWillPop: () async => false,
             child: RefreshIndicator(
+                backgroundColor: palette.black,
+                color: palette.grey,
+                triggerMode: RefreshIndicatorTriggerMode.onEdge,
                 child: ListView.builder(
                   itemBuilder: imagePod,
                   padding:
