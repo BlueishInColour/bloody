@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 //import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 ///
 import '../widgets/dummy_data.dart';
@@ -25,8 +26,7 @@ import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
 //final palette = Palette();
 
 class ExploreScreenWidget extends StatefulWidget {
-  final Auth0? auth0;
-  const ExploreScreenWidget({this.auth0, final Key? key}) : super(key: key);
+  const ExploreScreenWidget({super.key});
 
   @override
   State<ExploreScreenWidget> createState() => ExploreScreenWidgetState();
@@ -329,51 +329,46 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     }
 
     return (Scaffold(
-      appBar: appbar(context),
-      floatingActionButton: CircleAvatar(
-        radius: 30,
-        backgroundColor: palette.black,
-        child: IconButton(
-            color: palette.white,
-            padding: const EdgeInsets.all(0),
-            onPressed: () => showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  useSafeArea: true,
-                  backgroundColor: Colors.white70,
-                  // anchorPoint: Offset(500, 500),
-                  isScrollControlled: true,
-                  enableDrag: true,
-                  isDismissible: true,
-                  // barrierColor: Colors.white,
-                  shape: const ContinuousRectangleBorder(
-                      // side: BorderSide(width: 5),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(70),
-                          topRight: Radius.circular(70))),
-                  //  isDismissible: bool.fromEnvironment('off'),
-                  constraints: const BoxConstraints(maxHeight: 600),
-                  builder: (BuildContext context) {
-                    return const PostUpload();
-                  },
-                ),
-            icon: Icon(Icons.file_upload_outlined,
-                size: 40, color: palette.grey)),
-      ),
-      body: WillPopScope(
-        onWillPop: () async => false,
-        child: RefreshIndicator(
+        appBar: appbar(context),
+        floatingActionButton: CircleAvatar(
+          radius: 30,
           backgroundColor: palette.black,
-          color: palette.grey,
-          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          child: IconButton(
+              color: palette.white,
+              padding: const EdgeInsets.all(0),
+              onPressed: () => showModalBottomSheet(
+                    context: context,
+                    showDragHandle: true,
+                    useSafeArea: true,
+                    backgroundColor: Colors.white70,
+                    // anchorPoint: Offset(500, 500),
+                    isScrollControlled: true,
+                    enableDrag: true,
+                    isDismissible: true,
+                    // barrierColor: Colors.white,
+                    shape: const ContinuousRectangleBorder(
+                        // side: BorderSide(width: 5),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(70),
+                            topRight: Radius.circular(70))),
+                    //  isDismissible: bool.fromEnvironment('off'),
+                    constraints: const BoxConstraints(maxHeight: 600),
+                    builder: (BuildContext context) {
+                      return const PostUpload();
+                    },
+                  ),
+              icon: Icon(Icons.file_upload_outlined,
+                  size: 40, color: palette.grey)),
+        ),
+        body: SmartRefresher(
+          enablePullDown: false,
+          enablePullUp: true,
+          controller: RefreshController(initialRefresh: false),
           child: ListView.builder(
             itemBuilder: imagePod,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             itemCount: posts.length,
           ),
-          onRefresh: () async => refreshToGetMoreDataFromDb(),
-        ),
-      ),
-    ));
+        )));
   }
 }

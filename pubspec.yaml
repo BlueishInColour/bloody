@@ -49,7 +49,7 @@ dependencies:
   #firedart: ^0.9.7
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
-  upstash_redis: ^1.4.0
+  upstash_redis: any
   #http: ^1.0.0
   cached_network_image: ^3.2.3
   image_picker: ^1.0.2
@@ -62,13 +62,14 @@ dependencies:
  # cloudinary_url_gen: ^0.10.0
  # imagekit: ^0.0.5
   #flutter_imagekit: ^0.0.6
-  http: ^0.13.5
+  #http: ^0.13.5
   crypto: ^3.0.3
-  cloudinary: ^1.2.0
-  run_small_dropbox: ^2.0.2
+  #cloudinary: ^1.2.0
+  #run_small_dropbox: ^2.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   pull_to_refresh: ^2.0.0
+  flutter_imagekit: any
  
  # flutter_dotenv: ^5.0.2
   

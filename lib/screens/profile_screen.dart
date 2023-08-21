@@ -37,6 +37,13 @@ class ProfileScreenState extends State<ProfileScreen> {
           'i was the only one here before you came into my lidfe , do you really think you can go against me in this world full of danger, hate and pain , you moust really be joking cus im already laughing, its okay i get it you are in pain and i dont really care about what you are thining about just know that i am always there for you whenever you want me to what ever you do and say is noy',
       dateOfBirth: '');
   ProfileScreenState();
+
+  @override
+  void initState() async {
+    super.initState();
+    Hive.openBox('user');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

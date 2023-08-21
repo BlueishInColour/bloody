@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import './Test/create_user_screen.dart';
 import './Test/list_users.screen.dart';
+import '../apis/imagekit.dart';
 
 class Master extends StatefulWidget {
   const Master({super.key});
@@ -50,7 +51,7 @@ class MasterState extends State<Master> {
         //  //  singleCommand('create Document', () => createDocument()),
         //  singleCommand('list document', () => listDocument()),
         //  singleCommand('get document', () => getDocument('oio')),
-        //  singleCommand('test cloudinary', () => uploadfile()),
+        singleCommand('test image kit', () => uploadToImageKit()),
 
         singleCommand(
             'go to create user screen',

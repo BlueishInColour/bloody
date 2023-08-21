@@ -7,6 +7,11 @@ import '../main.dart';
 import '../apis/upstash.dart';
 import '../models/post_model.dart';
 //import '../Apis/create_post_freakon.dart';
+import '../apis/imagekit.dart';
+import 'package:flutter_imagekit/flutter_imagekit.dart';
+import 'dart:io';
+import '../constant/configs.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PostUpload extends StatefulWidget {
   const PostUpload({super.key});
@@ -19,12 +24,12 @@ class PostUploadState extends State<PostUpload> {
   var textinfo = '';
   String flagged = '';
   Post post = Post(
-    postType: '',
-    tags: [],
-    id: 'fishyyy',
-    photos: [],
-    text: '',
-  );
+      postType: '',
+      tags: '',
+      id: 'fishyyy',
+      photosUrl: [],
+      text: '',
+      specialTag: '');
   var hashtags = <String>[];
 
   getFileImages() async {
@@ -33,22 +38,44 @@ class PostUploadState extends State<PostUpload> {
       source: ImageSource.gallery,
     );
 
-    List<int> bytes = await image!.readAsBytes();
-    print(bytes);
-    print('done converting');
-    setState(() {
-      post.photos.insert(0, bytes);
+    await ImageKit.io(
+      File(image!.path),
+      privateKey: imagekitPrivateApiKey, // (Keep Confidential)
+      onUploadProgress: (progressValue) {
+        {
+          debugPrint(progressValue.toString());
+        }
+      },
+    ).then((String url) {
+      {
+        setState(() {
+          post.photosUrl.insert(0, url);
+        });
+        debugPrint(url); // your Uploaded Image/Video Link From Imagekit
+      }
     });
-    print('done setting bytes');
   }
 
   getCameraImages() async {
     print('connected');
     var image = await ImagePicker.platform.pickImage(
         source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
-    List<int> bytes = await image!.readAsBytes();
-    setState(() {
-      post.photos.insert(0, bytes);
+
+    await ImageKit.io(
+      File(image!.path),
+      privateKey: imagekitPrivateApiKey, // (Keep Confidential)
+      onUploadProgress: (progressValue) {
+        {
+          debugPrint(progressValue.toString());
+        }
+      },
+    ).then((String url) {
+      {
+        setState(() {
+          post.photosUrl.insert(0, url);
+        });
+        debugPrint(url); // your Uploaded Image/Video Link From Imagekit
+      }
     });
   }
 
@@ -65,19 +92,24 @@ class PostUploadState extends State<PostUpload> {
     //String uuid = Uuid.NAMESPACE_DNS;
     return (AppBar(
         backgroundColor: Colors.white12,
-        foregroundColor: Colors.red,
-        leadingWidth: 40,
-        leading: IconButton(
-          icon: Icon(Icons.local_fire_department_outlined,
-              color: palette.red, size: 38),
-          onPressed: () => Navigator.pop(context),
+        foregroundColor: palette.black,
+        leadingWidth: 70,
+        leading: SizedBox(
+          height: 25,
+          child: TextButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(palette.black),
+                  shape: const MaterialStatePropertyAll(StadiumBorder()),
+                  foregroundColor: MaterialStatePropertyAll(palette.white)),
+              onPressed: () => debugPrint('draft'),
+              child: const Text('draft')),
         ),
         title: Row(
           children: [
             const Expanded(child: SizedBox()),
             TextButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(palette.red),
+                  backgroundColor: MaterialStatePropertyAll(palette.black),
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.white)),
               onPressed: () async {
@@ -85,9 +117,7 @@ class PostUploadState extends State<PostUpload> {
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('uploading post',
-                          style: TextStyle(
-                              color: Color.fromARGB(221, 209, 207, 207))),
+                      Text('uploading post'),
                       CircularProgressIndicator(
                           color: Color.fromARGB(221, 209, 207, 207))
                     ],
@@ -121,14 +151,14 @@ class PostUploadState extends State<PostUpload> {
       child: CustomScrollView(
         slivers: [
           dropDownMenu(context),
-          post.photos.isEmpty
+          post.photosUrl.isEmpty
               ? dummyMediaContentPartWidget(context)
               : mediaContentPartWidget(context),
           extrainfoPartWidget(context),
           flaggedContainer(context),
           post.tags.isEmpty
               ? const SliverToBoxAdapter(child: SizedBox())
-              : creatorPod(context, post.tags.first),
+              : creatorPod(context, post.specialTag),
           flagPartWiget(context),
           const SliverToBoxAdapter(child: SizedBox(height: 60))
         ],
@@ -181,13 +211,14 @@ class PostUploadState extends State<PostUpload> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         addAutomaticKeepAlives: true,
-        itemCount: post.photos.length,
+        itemCount: post.photosUrl.length,
         itemBuilder: (context, index) {
           return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.memory(Uint8List.fromList(post.photos[index]))));
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: CachedNetworkImage(imageUrl: post.photosUrl[index])),
+          );
         },
       ),
     ));
@@ -198,6 +229,7 @@ class PostUploadState extends State<PostUpload> {
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: Container(
+                height: 100,
                 decoration: BoxDecoration(
                   color: palette.grey,
                   borderRadius: BorderRadius.circular(15),
@@ -205,7 +237,7 @@ class PostUploadState extends State<PostUpload> {
                 ),
                 child: const Center(
                     child:
-                        Text('click camera or file at bottom to ad image')))));
+                        Text('click camera or file at bottom to add image')))));
   }
 
   Widget extrainfoPartWidget(BuildContext context) {
@@ -242,23 +274,26 @@ class PostUploadState extends State<PostUpload> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: 150,
-          decoration: BoxDecoration(
-            color: palette.grey,
-            borderRadius: BorderRadius.circular(15),
-            // border: Border.all(color: palette.black)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              """
-tagged:
-
-${post.tags.map((e) => '$e,')}
-""",
+            decoration: BoxDecoration(
+              color: palette.grey,
+              borderRadius: BorderRadius.circular(15),
+              // border: Border.all(color: palette.black)
             ),
-          ),
-        ),
+            // padding: EdgeInsets.all(8),
+            height: 300,
+            child: TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  post.tags = value;
+                });
+              },
+              decoration: InputDecoration(
+                  hoverColor: palette.grey,
+                  hintText: 'extra information',
+                  hintStyle: TextStyle(color: palette.black)),
+              minLines: 20,
+              maxLines: 21,
+            )),
       ),
     );
   }
@@ -327,44 +362,16 @@ ${post.tags.map((e) => '$e,')}
                   // labelText: 'flag',
                   hintStyle: TextStyle(color: palette.black),
                   hoverColor: palette.grey,
-                  prefixIcon: SizedBox(
-                    width: 100,
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                flag = '@';
-                              });
-                              debugPrint(flag);
-                            },
-                            icon: const Icon(Icons.alternate_email_rounded)),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                flag = '#';
-                              });
-                              debugPrint(flag);
-                            },
-                            icon: const Icon(Icons.tag)),
-                        const VerticalDivider()
-                      ],
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.tag),
                   suffixIcon: CircleAvatar(
-                    child: GestureDetector(
-                      onLongPress: () {
-                        post.tags.insert(0, flagged);
-
-                        print('the pinned tag is ${post.tags.first}');
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          post.specialTag = flagged;
+                        });
+                        print('just flagged a post, ${post.specialTag}');
                       },
-                      child: IconButton(
-                        onPressed: () {
-                          post.tags.add(flagged);
-                          print('just flagged a post, ${post.tags.last}');
-                        },
-                        icon: const Icon(Icons.outlined_flag_sharp),
-                      ),
+                      icon: const Icon(Icons.outlined_flag_sharp),
                     ),
                   )),
             )),

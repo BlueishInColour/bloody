@@ -53,4 +53,4 @@ app.*.map.json
 
 .env
 /.env
-
+lib/constant/configs.dart

@@ -10,10 +10,10 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       id: json['id'] as String,
       text: json['text'] as String,
       postType: json['postType'] as String,
-      photos: (json['photos'] as List<dynamic>)
-          .map((e) => (e as List<dynamic>).map((e) => e as int).toList())
-          .toList(),
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      photosUrl:
+          (json['photosUrl'] as List<dynamic>).map((e) => e as String).toList(),
+      tags: json['tags'] as String,
+      specialTag: json['specialTag'] as String,
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -21,5 +21,6 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'postType': instance.postType,
       'text': instance.text,
       'tags': instance.tags,
-      'photos': instance.photos,
+      'specialTag': instance.specialTag,
+      'photosUrl': instance.photosUrl,
     };

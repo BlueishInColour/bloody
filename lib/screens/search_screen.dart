@@ -121,12 +121,9 @@ class SearchScreenState extends State<SearchScreen> {
             )),
       ),
       body: SmartRefresher(
-        controller: RefreshController(initialLoadStatus: LoadStatus.loading),
+        controller: RefreshController(initialRefresh: false),
         enablePullDown: false,
         enablePullUp: true,
-        footer: CircleAvatar(
-          child: CircularProgressIndicator(),
-        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3),
           child: GridView(

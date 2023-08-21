@@ -10,18 +10,19 @@ class Post {
   String id;
   String postType;
   String text;
-  List<String> tags;
-  List<List<int>> photos;
+  String tags;
+  String specialTag;
+  List<String> photosUrl;
 
   // DateTime createdAt =DateTime.now();
 
-  Post({
-    required this.id,
-    required this.text,
-    required this.postType,
-    required this.photos,
-    required this.tags,
-  });
+  Post(
+      {required this.id,
+      required this.text,
+      required this.postType,
+      required this.photosUrl,
+      required this.tags,
+      required this.specialTag});
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
 }

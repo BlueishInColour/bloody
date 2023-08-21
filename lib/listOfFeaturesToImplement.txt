@@ -43,83 +43,7 @@ from top to botttom
 
 ///<<<<<<<<<<<<<<< style Upload Form
 
-extension StyleUploadFormWidget on StyleUploadScreenState {
-  Widget styleUploadForm(BuildContext context) {
-    return (Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        SizedBox(
-          width: 300,
-          child: TextField(
-            onChanged: (value) => setState(() {
-              styleTeleportData.styleName = value;
-            }),
-            decoration: const InputDecoration(hintText: 'unique style name'),
-          ),
-        ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: 300,
-          height: 400,
-          child: TextField(
-            onChanged: (value) => setState(() {
-              styleTeleportData.signName = value;
-              debugPrint(styleTeleportData.signName);
-            }),
-            decoration: const InputDecoration(hintText: 'signed name'),
-          ),
-        ),
-        const SizedBox(width: 20),
-        DropdownMenu(
-          onSelected: (value) {
-            setState(() {
-              styleTeleportData.styleType = value;
-            });
-          },
-          dropdownMenuEntries: const [
-            DropdownMenuEntry(value: 'single', label: 'single'),
-            DropdownMenuEntry(value: 'collection', label: 'collection'),
-            DropdownMenuEntry(value: 'album', label: 'album')
-          ],
-          hintText: 'single',
-          helperText: 'single',
-          width: 200,
-        ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: styleTeleportData.styleType == 'single' ? 0 : 300,
-          child: TextField(
-            onChanged: (value) => setState(() {
-              styleTeleportData.styleTypeDetails = value;
-            }),
-            decoration: InputDecoration(
-                suffixText: styleTeleportData.styleType == 'collection'
-                    ? 'collection'
-                    : 'album',
-                hintText: styleTeleportData.styleType == 'collection'
-                    ? 'enter collection name'
-                    : 'enter album name'),
-          ),
-        ),
-        const SizedBox(width: 20),
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('oky');
-            //  loundryUploadPainter.createImage();
-            debugPrint('oky again');
-          },
-          style: const ButtonStyle(
-            fixedSize: MaterialStatePropertyAll(Size.fromHeight(35)),
-          ),
-          child: const Text('push'),
-        ),
-      ],
-    ));
-  }
-  //
-  //
-  //>>>>>>>>>>>>>>>>> style upload form
-
+     
   //new feature
 
     a part of your profile where other
@@ -148,6 +72,7 @@ New feature to work on for this new week on blue app is
 >> search screen should have a tile that enable users to create their own category and push it us for approval
 >>notification screen, defining the tabs to each have their own screen, and which will be a future or list builder
 done  >>profile should render data from a user login or sign in data first from cached values then from net.
-
+>>today! more like status from facebook or whatsapp just that whatever is 
+posted will be deleted after 12.00 which is the end of that day
 
  
