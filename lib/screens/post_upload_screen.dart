@@ -156,7 +156,7 @@ class PostUploadState extends State<PostUpload> {
               : mediaContentPartWidget(context),
           extrainfoPartWidget(context),
           flaggedContainer(context),
-          post.tags.isEmpty
+          post.specialTag.isEmpty
               ? const SliverToBoxAdapter(child: SizedBox())
               : creatorPod(context, post.specialTag),
           flagPartWiget(context),
@@ -251,7 +251,7 @@ class PostUploadState extends State<PostUpload> {
               // border: Border.all(color: palette.black)
             ),
             // padding: EdgeInsets.all(8),
-            height: 300,
+            height: 150,
             child: TextFormField(
               onChanged: (value) {
                 setState(() {
@@ -280,7 +280,7 @@ class PostUploadState extends State<PostUpload> {
               // border: Border.all(color: palette.black)
             ),
             // padding: EdgeInsets.all(8),
-            height: 300,
+            height: 120,
             child: TextFormField(
               onChanged: (value) {
                 setState(() {
@@ -289,7 +289,7 @@ class PostUploadState extends State<PostUpload> {
               },
               decoration: InputDecoration(
                   hoverColor: palette.grey,
-                  hintText: 'extra information',
+                  hintText: '@mentions and #tags',
                   hintStyle: TextStyle(color: palette.black)),
               minLines: 20,
               maxLines: 21,
@@ -362,12 +362,12 @@ class PostUploadState extends State<PostUpload> {
                   // labelText: 'flag',
                   hintStyle: TextStyle(color: palette.black),
                   hoverColor: palette.grey,
-                  prefixIcon: Icon(Icons.tag),
+                  prefixIcon: Icon(Icons.alternate_email_outlined),
                   suffixIcon: CircleAvatar(
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          post.specialTag = flagged;
+                          post.specialTag = '@$flagged';
                         });
                         print('just flagged a post, ${post.specialTag}');
                       },

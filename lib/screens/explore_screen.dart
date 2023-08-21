@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
-//import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -26,7 +26,8 @@ import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
 //final palette = Palette();
 
 class ExploreScreenWidget extends StatefulWidget {
-  const ExploreScreenWidget({super.key});
+  final Auth0? auth0;
+  const ExploreScreenWidget({this.auth0, final Key? key}) : super(key: key);
 
   @override
   State<ExploreScreenWidget> createState() => ExploreScreenWidgetState();
@@ -46,22 +47,18 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 
   Credentials? _credentials;
 //login service state
-  bool isProgressing = false;
-  bool isLoggedIn = false;
-  String errorMessage = '';
-  String? name;
+  UserProfile? _user;
+
   late Auth0 auth0;
   late Auth0Web auth0Web;
-  UserProfile? _user;
 
   @override
   void initState() {
     super.initState();
-    auth0 = Auth0('dev-gb1zfslh4ohvjdyr.us.auth0.com',
-        'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO');
-
-    auth0Web = Auth0Web('dev-gb1zfslh4ohvjdyr.us.auth0.com',
-        'gtTMyeSeBBnY0hw03BlpDKsXFrG8OeVO');
+    auth0 = widget.auth0 ??
+        Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+    auth0Web =
+        Auth0Web(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
 
     if (kIsWeb) {
       auth0Web.onLoad().then((final credentials) => setState(() {
@@ -76,8 +73,9 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         return auth0Web.loginWithRedirect(redirectUrl: 'http://localhost:3000');
       }
 
-      var credentials =
-          await auth0.webAuthentication(scheme: 'com.company.rubic').login();
+      var credentials = await auth0
+          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+          .login();
 
       setState(() {
         _user = credentials.user;
@@ -92,7 +90,9 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       if (kIsWeb) {
         await auth0Web.logout(returnToUrl: 'http://localhost:3000');
       } else {
-        await auth0.webAuthentication(scheme: 'com.company.rubic').logout();
+        await auth0
+            .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+            .logout();
         setState(() {
           _user = null;
         });
@@ -101,7 +101,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       print(e);
     }
   }
-  //ending Oauth
+
+//ending Oauth
 
   @override
   Widget build(BuildContext context) {
