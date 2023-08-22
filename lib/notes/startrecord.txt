@@ -1,0 +1,25 @@
+//to start screen recording video
+ ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac 
+
+//to record with camera
+ffmpeg -f v4l2 -video_size 640x480 -i /dev/video0 -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac webcam.mp4
+
+//to reduce size of video without loosing data
+ffmpeg -i input -c:v libx264 -preset veryslow -qp 0 -c:a copy output
+
+//to increase the orif=ginal volume 
+ffmpeg -i input.flac -af volume=1.5 ouput.flac
+
+flutterfire configure
+
+Platform  Firebase App Id
+web       1:947879801862:web:aa9447475decf0d207ff87
+ios       1:947879801862:ios:9b3030f0d3b1faad07ff87
+
+
+start android emulator
+
+emulator  -avd pixel_5_api29_google_apis_emulator
+
+//mysql password and username
+root@localhost: YEdNt&kkR42*

@@ -616,6 +616,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  loadmore_listview:
+    dependency: "direct main"
+    description:
+      name: loadmore_listview
+      sha256: abb299d8ec515eff9fc884669fa3c93f58013636c188189a2e048a343cf17073
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.7"
   logging:
     dependency: transitive
     description:
@@ -800,14 +808,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.3"
-  pull_to_refresh:
-    dependency: "direct main"
-    description:
-      name: pull_to_refresh
-      sha256: bbadd5a931837b57739cf08736bea63167e284e71fb23b218c8c9a6e042aad12
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   riverpod:
     dependency: transitive
     description:

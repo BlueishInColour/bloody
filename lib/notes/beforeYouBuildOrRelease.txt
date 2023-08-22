@@ -1,0 +1,36 @@
+>> configure the name of your app
+>> configure app icon by running command
+>> configure the permissions in androidmanifest especially internet  <uses-permission android:name="android.permission.INTERNET"/>
+>> configure the app auth redirect scheme in android/app/build.gradle to, include something like this in defaultconfig >>     manifestPlaceholders += [auth0Domain: "dev-gb1zfslh4ohvjdyr.us.auth0.com", auth0Scheme: "https"]
+>> this is you auth0 tenant name in the USA dev-gb1zfslh4ohvjdyr
+>> add to android/app/buildgradle
+
+ minSdkVersion 21
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders['auth0Domain'] = "@string/com_auth0_domain"
+        manifestPlaceholders['auth0Scheme'] = "@string/com_auth0_scheme"
+        testOptions {
+            animationsDisabled = true
+            buildConfigField "String", "USER_EMAIL", "\"$System.env.USER_EMAIL\""
+            buildConfigField "String", "USER_PASSWORD", "\"$System.env.USER_PASSWORD\""
+        
+
+>> add to android/app/src/main/res/value/string.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="com_auth0_domain">dev-gb1zfslh4ohvjdyr.us.auth0.com</string>
+    <string name="com_auth0_scheme">com.company.rubic</string>
+</resources>
+
+>> add to android/gradle.properties to speed up production and compilation
+org.gradle.jvmargs=-Xmx1536M
+android.useAndroidX=true
+android.enableJetifier=true
+org.gradle.vfs.watch=true
+org.gradle.configureondemand=true
+org.gradle.caching=true
+org.gradle.unsafe.configuration-cache=true

@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:loadmore_listview/loadmore_listview.dart';
 
 ///
 import '../widgets/dummy_data.dart';
@@ -22,6 +22,7 @@ import '../widgets/explore_screen_widgets/pod_icon_buttons.dart';
 import './post_upload_screen.dart';
 import '../widgets/explore_screen_widgets/full_screen_image.dart';
 import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
+import '../constant/configs.dart';
 
 //final palette = Palette();
 
@@ -55,10 +56,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   @override
   void initState() {
     super.initState();
-    auth0 = widget.auth0 ??
-        Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
-    auth0Web =
-        Auth0Web(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+    auth0 = widget.auth0 ?? Auth0(AUTH0_DOMAIN, AUTH0_CLIENT_ID);
+    auth0Web = Auth0Web(AUTH0_DOMAIN, AUTH0_CLIENT_ID);
 
     if (kIsWeb) {
       auth0Web.onLoad().then((final credentials) => setState(() {
@@ -73,9 +72,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         return auth0Web.loginWithRedirect(redirectUrl: 'http://localhost:3000');
       }
 
-      var credentials = await auth0
-          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-          .login();
+      var credentials =
+          await auth0.webAuthentication(scheme: AUTH0_CUSTOM_SCHEME).login();
 
       setState(() {
         _user = credentials.user;
@@ -90,9 +88,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       if (kIsWeb) {
         await auth0Web.logout(returnToUrl: 'http://localhost:3000');
       } else {
-        await auth0
-            .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-            .logout();
+        await auth0.webAuthentication(scheme: AUTH0_CUSTOM_SCHEME).logout();
         setState(() {
           _user = null;
         });
@@ -361,15 +357,31 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               icon: Icon(Icons.file_upload_outlined,
                   size: 40, color: palette.grey)),
         ),
-        body: SmartRefresher(
-          enablePullDown: false,
-          enablePullUp: true,
-          controller: RefreshController(initialRefresh: false),
-          child: ListView.builder(
-            itemBuilder: imagePod,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            itemCount: posts.length,
-          ),
+        body: LoadMoreListView.builder(
+          //is there more data to load
+          // haveMoreItem: true,
+          //Trigger the bottom loadMore callback
+          onLoadMore: () async {
+            //wait for your api to fetch more items
+            await Future.delayed(const Duration(seconds: 1));
+          },
+          //pull down refresh callback
+          onRefresh: () async {
+            //wait for your api to update the list
+            await Future.delayed(const Duration(seconds: 1));
+          },
+          //you can set your loadMore Animation
+          loadMoreWidget: Container(
+              margin: const EdgeInsets.all(20.0),
+              alignment: Alignment.center,
+              child: CircleAvatar(
+                  backgroundColor: palette.grey,
+                  child: CircularProgressIndicator())),
+          //ListView
+          itemCount: posts.length,
+          itemBuilder: imagePod,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          //   itemCount: posts.length
         )));
   }
 }
