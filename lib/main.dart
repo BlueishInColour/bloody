@@ -31,7 +31,7 @@ class Swagr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (MaterialApp(
-      title: 'Swagr',
+      title: 'rubic',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -42,7 +42,7 @@ class Swagr extends StatelessWidget {
                 color: palette.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold)),
-        primaryColor: palette.red,
+        primaryColor: palette.grey,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 splashFactory: InkSparkle.splashFactory,
@@ -104,7 +104,7 @@ class Swagr extends StatelessWidget {
           endIndent: 12,
         ),
         splashColor: palette.lightPurple,
-        primarySwatch: Colors.amber,
+        //  primarySwatch: Colors.amber,
         // cardColor: palette.lightPurple,
         bannerTheme: MaterialBannerThemeData(
           // backgroundColor: palette.lightPurple,
@@ -214,7 +214,7 @@ class Swagr extends StatelessWidget {
         ),
         hoverColor: Colors.transparent,
         progressIndicatorTheme: ProgressIndicatorThemeData(
-            color: palette.red, refreshBackgroundColor: palette.lightPurple),
+            color: palette.black, refreshBackgroundColor: palette.grey),
         toggleButtonsTheme: ToggleButtonsThemeData(
             disabledColor: palette.lightPurple,
             borderColor: palette.red,
