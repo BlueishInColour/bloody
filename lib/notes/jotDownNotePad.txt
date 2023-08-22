@@ -6,3 +6,6 @@ can be easyly replaced from the edit screen but not really so ther is no need fo
 will built from future
 
 //was working on this (rubic:8142): CRITICAL **: 22:05:32.655
+
+how does flutter get data from redis; how will i be able to iterate through countless 
+usernames to extract data or is ther some regex expression for ButtonThemeData
