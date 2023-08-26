@@ -122,7 +122,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                       onPressed: () => debugPrint('okay'),
-                      style:  ButtonStyle(
+                      style: ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.black),
                           foregroundColor:
@@ -163,7 +163,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       children: [
         (OutlinedButton(
             onPressed: onPress,
-            style:ButtonStyle(
+            style: ButtonStyle(
                 padding: MaterialStatePropertyAll(
                     EdgeInsets.only(left: 0, right: 0)),
                 backgroundColor: MaterialStatePropertyAll(palette.white),
@@ -189,21 +189,21 @@ class ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           textDirection: TextDirection.rtl,
           children: [
-            //  pad(),
+            //  VerticalDivider(),
             Expanded(
               child: Text(user.username,
                   style: const TextStyle(
                     color: Colors.blue,
                   )),
             ),
-            pad(),
+            VerticalDivider(),
             Expanded(
               child: Text(user.fullname,
                   style: const TextStyle(
                     color: Colors.black87,
                   )),
             ),
-            pad(),
+            VerticalDivider(),
             Expanded(
               // flex: 20,
               child: Padding(
@@ -218,9 +218,5 @@ class ProfileScreenState extends State<ProfileScreen> {
         ),
       )),
     );
-  }
-
-  Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
-    return (VerticalDivider(color: color));
   }
 }

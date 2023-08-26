@@ -49,6 +49,11 @@ class MasterState extends State<Master> {
         // singleCommand('get alot of data', () async {upstash.set(api: upstash.postApi,key: post.id,,)
         //   }),
         singleCommand('test image kit', () => uploadToImageKit()),
+        singleCommand('get single data', () async {
+          final res = await upstash.postApi.json
+              .get('6ba7b810-9dad-11d1-80b4-00c04fd430c8', [r'$']);
+          print(res);
+        }),
         singleCommand(
             'test upstashing things ',
             () => upstash.set(

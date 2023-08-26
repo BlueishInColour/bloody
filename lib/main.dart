@@ -106,7 +106,7 @@ class Swagr extends StatelessWidget {
           iconColor: palette.red,
         ),
         dividerTheme: DividerThemeData(
-          color: palette.lightPurple,
+          color: palette.white,
           indent: 12,
           endIndent: 12,
         ),
@@ -257,7 +257,7 @@ class Swagr extends StatelessWidget {
         ),
         scaffoldBackgroundColor: palette.black,
         disabledColor: palette.lightPurple,
-        dividerColor: palette.lightPurple,
+        dividerColor: palette.white,
       ),
       home: const SplashScreen(),
     ));

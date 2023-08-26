@@ -7,6 +7,7 @@ part 'post_model.g.dart';
 
 @JsonSerializable()
 class Post {
+  String postedBy;
   String id;
   String postType;
   String text;
@@ -17,9 +18,10 @@ class Post {
   // DateTime createdAt =DateTime.now();
 
   Post(
-      {required this.id,
+      {required this.postedBy,
+      required this.id,
       required this.text,
-      required this.postType,
+      this.postType = '',
       required this.photosUrl,
       required this.tags,
       required this.specialTag});

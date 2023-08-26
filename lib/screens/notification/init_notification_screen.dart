@@ -117,7 +117,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                 style: const TextStyle(
                   color: Colors.black87,
                 )),
-            pad()
+            VerticalDivider()
           ],
         ),
       );
@@ -137,7 +137,7 @@ class NotificationScreenState extends State<NotificationScreen> {
             scrollDirection: Axis.horizontal,
             //  padding: const EdgeInsetsDirectional.only(top: 15),
             children: [
-              //  pad(),
+              //  VerticalDivider(),
               const SizedBox(width: 7),
               tab('notifications'),
               tab('saved'),
@@ -150,9 +150,5 @@ class NotificationScreenState extends State<NotificationScreen> {
         )),
       ),
     );
-  }
-
-  Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
-    return (VerticalDivider(color: color));
   }
 }

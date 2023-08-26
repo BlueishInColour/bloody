@@ -11,6 +11,7 @@ import 'package:hive/hive.dart';
 import 'package:loadmore_listview/loadmore_listview.dart';
 
 ///
+import './imagepod.dart';
 import '../../dummy_data.dart';
 import '../../main.dart';
 //import 'package:image_picker/image_picker.dart';
@@ -40,13 +41,6 @@ class ExploreScreenWidget extends StatefulWidget {
 
 class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   ExploreScreenWidgetState();
-  bool imagegetterclicked = false;
-  bool hasImage = false;
-  File image = File('');
-
-  bool manyFloatingwidget = false;
-
-  bool extraDetails = false;
 
   //Oauthpart of explore screen
 
@@ -138,6 +132,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 
     PreferredSizeWidget appbar(context) {
       return AppBar(
+        // toolbarHeight: 40,
+
         title: Row(
           children: [
             Expanded(
@@ -164,183 +160,6 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     //full screen image page route
 
 ///////*********User details pod  ******/////
-
-    Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
-      return (VerticalDivider(color: color));
-    }
-
-    Widget actionButtons() {
-      return (Row(children: [
-        Semantics(
-          label: 'like',
-          hint: 'like',
-          enabled: true,
-          child: Iconish(
-              re: () => debugPrint('clicked'), icony: Icons.favorite_rounded),
-        ),
-        Iconish(
-          re: () => null,
-          size: 23,
-          icony: Icons.chat_bubble,
-        ),
-      ]));
-    }
-
-    Widget userDetailsPod(BuildContext context, int index) {
-      return Container(
-        height: 40,
-        decoration: BoxDecoration(
-          // color: palette.lightPurple,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: (Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //profilepix
-            GestureDetector(
-              onDoubleTap: () {
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (BuildContext context, _, __) {
-                          return (FullScreenPage(
-                            dark: true,
-                            child: Image.network(
-                                "https://source.unsplash.com/random/?art&width=500&height=1000"),
-                          ));
-                        }));
-              },
-              child: CircleAvatar(
-                  backgroundColor: palette.grey,
-                  backgroundImage: const NetworkImage(
-                    "https://source.unsplash.com/random/?art&width=500&height=1000",
-                  )),
-            ),
-
-            pad(),
-            //name and user name container
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                //name
-                Text(posts[index].name,
-                    style: TextStyle(fontSize: 15, color: palette.white)),
-                Text(posts[index].username,
-                    style: const TextStyle(color: Colors.blue))
-              ],
-            ),
-
-            pad()
-          ],
-        )),
-      );
-    }
-
-    Widget creatorPod(context) {
-      return (Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: palette.lightPurple,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          textDirection: TextDirection.rtl,
-          children: [
-            CircleAvatar(
-              backgroundColor: palette.grey,
-              // backgroundImage: const NetworkImage(
-              //   "https://source.unsplash.com/random/?art&width=500&height=1000",
-              // ),
-            ),
-            pad(),
-            const Text('@LouisVuitton',
-                style: TextStyle(
-                  color: Colors.blue,
-                )),
-            pad(),
-            Expanded(child: actionButtons())
-          ],
-        ),
-      ));
-    }
-
-///// ****ImagePod Widget ********//////
-
-    Widget imagePod(BuildContext context, int index) {
-      return (Center(
-          child: Column(children: [
-        userDetailsPod(context, index),
-        const SizedBox(
-          height: 5,
-        ),
-        Stack(children: [
-          Container(
-            decoration: BoxDecoration(
-                color: palette.lightPurple,
-                borderRadius: const BorderRadius.all(Radius.circular(20))),
-            child:
-                //   height: 400,
-                // width: 250,
-                // fit: BoxFit.fill,
-                //posts[index].postedpix,
-                GestureDetector(
-                    onTap: () => setState(() {
-                          extraDetails = !extraDetails;
-                        }),
-                    onDoubleTap: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              opaque: false,
-                              pageBuilder: (BuildContext context, _, __) {
-                                return (FullScreenPage(
-                                  dark: true,
-                                  child: Image.network(
-                                      posts[index].userprofilepix),
-                                ));
-                              }));
-                    },
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: CachedNetworkImage(
-                          imageUrl: posts[index].postedpix,
-                          placeholder: (context, url) => Container(
-                            height: 300,
-                            color: palette.grey,
-                            child: const Center(child: Text('fetching images')),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            height: 300,
-                            color: palette.grey,
-                            child: Center(
-                                child: Text(
-                              'connect to the internet',
-                              style: TextStyle(color: palette.red),
-                            )),
-                          ),
-                        ))),
-          ),
-          Positioned(
-              bottom: 10,
-              right: 10,
-              child: Iconish(re: () => null, icony: Icons.share_rounded)),
-        ]),
-        const SizedBox(height: 5),
-        SizedBox(
-          child: extraDetails
-              ? const Text(
-                  'creates a text widget., If the [style] argument is null, the text will use the style from the closest enclosing [DefaultTextStyle].,The [data] parameter must not be null, The [overflow] property behavior is affected by the [softWrap] argument. If the [softWrap] is true or null, the glyph causing overflow, and those that follow, will not be rendered. Otherwise, it will be shown with the given overflow option.',
-                )
-              : null,
-        ),
-        const SizedBox(height: 5),
-        creatorPod(context),
-        const SizedBox(height: 30),
-        const Divider()
-      ])));
-    }
 
     void refreshToGetMoreDataFromDb() async {
       debugPrint('refresing');
@@ -400,7 +219,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                   child: CircularProgressIndicator())),
           //ListView
           itemCount: posts.length,
-          itemBuilder: imagePod,
+          itemBuilder: (context, index) => ImagePod(index: index),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           //   itemCount: posts.length
         )));

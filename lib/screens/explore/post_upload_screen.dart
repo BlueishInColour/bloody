@@ -25,7 +25,13 @@ class PostUploadState extends State<PostUpload> {
   var textinfo = '';
   String flagged = '';
   Post post = Post(
-      postType: '', tags: '', id: '', photosUrl: [], text: '', specialTag: '');
+      postType: '',
+      tags: '',
+      postedBy: 'da vinco',
+      id: '',
+      photosUrl: [],
+      text: '',
+      specialTag: '');
   var hashtags = <String>[];
 
   getFileImages() async {
@@ -322,22 +328,18 @@ class PostUploadState extends State<PostUpload> {
                 //   "https://source.unsplash.com/random/?art&width=500&height=1000",
                 // ),
               ),
-              pad(),
+              VerticalDivider(),
               Text(name,
                   style: const TextStyle(
                     color: Colors.blue,
                   )),
-              pad(),
+              VerticalDivider(),
               const Expanded(child: SizedBox())
             ],
           ),
         )),
       ),
     );
-  }
-
-  Widget pad([Color color = const Color.fromARGB(255, 72, 72, 73)]) {
-    return (VerticalDivider(color: color));
   }
 
   Widget flagPartWiget(BuildContext context) {
