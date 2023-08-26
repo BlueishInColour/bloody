@@ -26,7 +26,9 @@ class Palette {
   final Color selectedIconColor = Colors.amber;
 
   final Color linkTextColor = Colors.blue;
-  final Color textColor = Colors.black;
+  final Color errorTextColor = Colors.red;
+  final Color textColorLight = const Color.fromARGB(255, 251, 250, 250);
+  final Color textColorDark = const Color.fromARGB(255, 0, 0, 0);
 }
 
 Palette palette = const Palette();

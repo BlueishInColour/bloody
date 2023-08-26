@@ -54,6 +54,7 @@ class PostUploadState extends State<PostUpload> {
           post.photosUrl.insert(0, url);
         });
         debugPrint(url); // your Uploaded Image/Video Link From Imagekit
+        print(post.toJson());
       }
     });
   }

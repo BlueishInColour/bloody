@@ -218,7 +218,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                   backgroundColor: palette.grey,
                   child: CircularProgressIndicator())),
           //ListView
-          itemCount: posts.length,
+          itemCount: randomKeys.isEmpty ? 1 : randomKeys.length,
           itemBuilder: (context, index) => ImagePod(index: index),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           //   itemCount: posts.length

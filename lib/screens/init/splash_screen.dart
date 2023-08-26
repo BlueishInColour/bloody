@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: body(context),
       backgroundColor: palette.black,
-      bottomSheet: bottomSheet(),
+      //  bottomSheet: bottomSheet(),
     );
   }
 
@@ -48,25 +48,5 @@ class _SplashScreenState extends State<SplashScreen> {
               fontSize: 70,
               fontWeight: FontWeight.w800)),
     ])));
-  }
-
-  bottomSheet() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      // crossAxisAlignment: CrossAxisAlignment.baseline,
-      children: [
-        Text.rich(
-          TextSpan(children: [
-            TextSpan(
-                text: 'find your next dress  |  earn good money',
-                style: TextStyle(
-                    fontFamily: 'Geologica_Cursive-Bold',
-                    color: palette.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500)),
-          ]),
-        ),
-      ],
-    );
   }
 }

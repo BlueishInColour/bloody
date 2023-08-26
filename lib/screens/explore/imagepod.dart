@@ -36,94 +36,49 @@ class ImagePodState extends State<ImagePod> {
 
   bool extraDetails = false;
 
-  Post? post = Post(
+  Post? initialPost = Post(
       id: '',
-      postedBy: '@bluishcode',
+      postedBy: '@rubic',
       text: '',
-      photosUrl: [],
+      photosUrl: [
+        'https://ik.imagekit.io/bluerubic/flutter_imagekit/Logopit_1692812359977_YIjC9fthW.jpg'
+      ],
       tags: '',
-      specialTag: '');
+      specialTag: '@BlueishInColour');
 
-  getPost() async {
+  Future<Post> getPost() async {
     final res = await upstash.postApi.json.get<List<Map<String, dynamic>>>(
         '6ba7b810-9dad-11d1-80b4-00c04fd430c8', [r'$']);
     print(res);
     Post herepost = Post.fromJson(res![0]);
+    print('this is the post to json that should be displayed');
+    print(herepost.toJson());
 
     return (herepost);
   }
 
-  Widget userDetailsPod(BuildContext context, int index) {
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
-        // color: palette.lightPurple,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: (Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          //profilepix
-          GestureDetector(
-            onDoubleTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      opaque: false,
-                      pageBuilder: (BuildContext context, _, __) {
-                        return (FullScreenPage(
-                          dark: true,
-                          child: Image.network(
-                              "https://source.unsplash.com/random/?art&width=500&height=1000"),
-                        ));
-                      }));
-            },
-            child: CircleAvatar(
-                backgroundColor: palette.grey,
-                backgroundImage: const NetworkImage(
-                  "https://source.unsplash.com/random/?art&width=500&height=1000",
-                )),
-          ),
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    return (FutureBuilder(
+      future: getPost(),
+      initialData: initialPost,
+      builder: (ctx, snapshot) {
+        Post? post = snapshot.data;
 
-          VerticalDivider(),
-          //name and user name container
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              //name
-              Text(posts[index].name,
-                  style: TextStyle(fontSize: 15, color: palette.white)),
-              Text(post!.postedBy, style: const TextStyle(color: Colors.blue))
-            ],
-          ),
-
-          VerticalDivider()
-        ],
-      )),
-    );
-  }
-
-  Widget imagePod(BuildContext context, int index) {
-    return (Center(
-        child: Column(children: [
-      userDetailsPod(context, index),
-      const SizedBox(
-        height: 5,
-      ),
-      Stack(children: [
-        Container(
-          decoration: BoxDecoration(
-              color: palette.lightPurple,
-              borderRadius: const BorderRadius.all(Radius.circular(20))),
-          child:
-              //   height: 400,
-              // width: 250,
-              // fit: BoxFit.fill,
-              //posts[index].postedpix,
-              GestureDetector(
-                  onTap: () => setState(() {
-                        extraDetails = !extraDetails;
-                      }),
+        Widget userDetailsPod(BuildContext context, int index) {
+          return Container(
+            height: 40,
+            decoration: BoxDecoration(
+              // color: palette.lightPurple,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: (Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                //profilepix
+                GestureDetector(
                   onDoubleTap: () {
                     Navigator.push(
                         context,
@@ -132,116 +87,184 @@ class ImagePodState extends State<ImagePod> {
                             pageBuilder: (BuildContext context, _, __) {
                               return (FullScreenPage(
                                 dark: true,
-                                child:
-                                    Image.network(posts[index].userprofilepix),
+                                child: Image.network(
+                                    "https://source.unsplash.com/random/?art&width=500&height=1000"),
                               ));
                             }));
                   },
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: CachedNetworkImage(
-                        imageUrl: post!.photosUrl[0],
-                        placeholder: (context, url) => Container(
-                          height: 300,
-                          color: palette.grey,
-                          child: const Center(child: Text('fetching images')),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          height: 300,
-                          color: palette.grey,
-                          child: Center(
-                              child: Text(
-                            'connect to the internet',
-                            style: TextStyle(color: palette.red),
-                          )),
-                        ),
-                      ))),
-        ),
-        Positioned(
-            bottom: 10,
-            right: 10,
-            child: Iconish(re: () => null, icony: Icons.share_rounded)),
-      ]),
-      const SizedBox(height: 5),
-      SizedBox(
-        child: extraDetails ? Text(post!.text) : null,
-      ),
-      const SizedBox(height: 5),
-      creatorPod(context),
-      const SizedBox(height: 30),
-      const Divider()
-    ])));
-  }
+                  child: CircleAvatar(
+                      backgroundColor: palette.grey,
+                      backgroundImage: const NetworkImage(
+                        "https://source.unsplash.com/random/?art&width=500&height=1000",
+                      )),
+                ),
 
-  Widget creatorPod(context) {
-    Widget actionButtons() {
-      return (Row(children: [
-        Semantics(
-          label: 'like',
-          hint: 'like',
-          enabled: true,
-          child: Iconish(
-              re: () => debugPrint('clicked'), icony: Icons.favorite_rounded),
-        ),
-        Iconish(
-          re: () => null,
-          size: 23,
-          icony: Icons.chat_bubble,
-        ),
-      ]));
-    }
+                VerticalDivider(),
+                //name and user name container
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    //name
+                    Text(posts[index].name,
+                        style: TextStyle(fontSize: 15, color: palette.white)),
+                    Text(post!.postedBy,
+                        style: const TextStyle(color: Colors.blue))
+                  ],
+                ),
 
-    return (Container(
-      height: 40,
-      decoration: BoxDecoration(
-        color: palette.lightPurple,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        textDirection: TextDirection.rtl,
-        children: [
-          CircleAvatar(
-            backgroundColor: palette.grey,
-            // backgroundImage: const NetworkImage(
-            //   "https://source.unsplash.com/random/?art&width=500&height=1000",
-            // ),
-          ),
-          VerticalDivider(),
-          Text(post!.specialTag,
-              style: TextStyle(
-                color: Colors.blue,
-              )),
-          VerticalDivider(),
-          Expanded(child: actionButtons())
-        ],
-      ),
-    ));
-  }
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return (FutureBuilder(
-        future: getPost(),
-        initialData: post,
-        builder: (ctx, snapshot) {
-          final initialPost = snapshot.data;
-          setState(() {
-            post = initialPost;
-          });
-          if (post!.photosUrl.isNotEmpty) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                userDetailsPod(context, widget.index),
-                imagePod(context, widget.index),
-                creatorPod(context)
+                VerticalDivider()
               ],
+            )),
+          );
+        }
+
+        Widget creatorPod(context) {
+          Widget actionButtons() {
+            return (Row(children: [
+              Semantics(
+                label: 'like',
+                hint: 'like',
+                enabled: true,
+                child: Iconish(
+                    re: () => debugPrint('clicked'),
+                    icony: Icons.favorite_rounded),
+              ),
+              Iconish(
+                re: () => null,
+                size: 23,
+                icony: Icons.chat_bubble,
+              ),
+            ]));
+          }
+
+          return (Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: palette.lightPurple,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              textDirection: TextDirection.rtl,
+              children: [
+                CircleAvatar(
+                  backgroundColor: palette.grey,
+                  // backgroundImage: const NetworkImage(
+                  //   "https://source.unsplash.com/random/?art&width=500&height=1000",
+                  // ),
+                ),
+                VerticalDivider(),
+                Text(post!.specialTag,
+                    style: TextStyle(
+                      color: Colors.blue,
+                    )),
+                VerticalDivider(),
+                Expanded(child: actionButtons())
+              ],
+            ),
+          ));
+        }
+
+        Widget imagePod(BuildContext context, int index) {
+          return (Center(
+              child: Column(children: [
+            const SizedBox(
+              height: 5,
+            ),
+            Stack(children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: palette.lightPurple,
+                    borderRadius: const BorderRadius.all(Radius.circular(20))),
+                child:
+                    //   height: 400,
+                    // width: 250,
+                    // fit: BoxFit.fill,
+                    //posts[index].postedpix,
+                    GestureDetector(
+                        onTap: () => setState(() {
+                              extraDetails = !extraDetails;
+                            }),
+                        onDoubleTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  opaque: false,
+                                  pageBuilder: (BuildContext context, _, __) {
+                                    return (FullScreenPage(
+                                      dark: true,
+                                      child: Image.network(post.photosUrl[0]),
+                                    ));
+                                  }));
+                        },
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CachedNetworkImage(
+                              imageUrl: post!.photosUrl[0],
+                              placeholder: (context, url) => Container(
+                                height: 300,
+                                color: palette.grey,
+                                child: const Center(
+                                    child: Text('fetching images')),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                height: 300,
+                                color: palette.grey,
+                                child: Center(
+                                    child: Text(
+                                  'connect to the internet',
+                                  style: TextStyle(color: palette.red),
+                                )),
+                              ),
+                            ))),
+              ),
+              Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: Iconish(re: () => null, icony: Icons.share_rounded)),
+            ]),
+            const SizedBox(height: 5),
+            SizedBox(
+              child: extraDetails
+                  ? Text(post.text, style: TextStyle(color: palette.white))
+                  : null,
+            ),
+          ])));
+        }
+
+        // Checking if future is resolved
+        if (snapshot.connectionState == ConnectionState.done) {
+          // If we got an error
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                'come`n, connect to the internet',
+                style: TextStyle(fontSize: 18, color: palette.errorTextColor),
+              ),
+            );
+
+            // if we got our data
+          } else if (snapshot.hasData) {
+            // Extracting data from snapshot object
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  userDetailsPod(context, widget.index),
+                  imagePod(context, widget.index),
+                  creatorPod(context)
+                ],
+              ),
             );
           }
-          return Container(color: palette.grey, height: 300);
-        }));
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    ));
   }
 }

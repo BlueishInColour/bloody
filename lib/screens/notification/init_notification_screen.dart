@@ -64,8 +64,8 @@ class NotificationScreenState extends State<NotificationScreen> {
                       //icon for type of notification
                       ///
                       CircleAvatar(
-                        foregroundColor: palette.white,
-                        backgroundColor: Colors.black,
+                        foregroundColor: palette.black,
+                        backgroundColor: palette.white,
                         child: done,
                       ),
                       const Expanded(child: Text('')),
@@ -84,7 +84,8 @@ class NotificationScreenState extends State<NotificationScreen> {
                       //
                       //part
                       //message part
-                      child: const Text(
+                      child: Text(
+                        style: TextStyle(color: palette.textColorLight),
                         'pelumi just purchased a black hood and its about to be delivered enter pin to allow deivery',
                         softWrap: true,
                         maxLines: 6,
@@ -114,8 +115,8 @@ class NotificationScreenState extends State<NotificationScreen> {
         child: Row(
           children: [
             Text(text,
-                style: const TextStyle(
-                  color: Colors.black87,
+                style: TextStyle(
+                  color: palette.textColorDark,
                 )),
             VerticalDivider()
           ],
