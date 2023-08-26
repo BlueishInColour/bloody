@@ -6,6 +6,9 @@ import 'create_user_screen.dart';
 import 'list_users.screen.dart';
 import '../../apis/imagekit.dart';
 import '../../apis/upstash.dart';
+import '../../apis/upstash.dart';
+import 'package:upstash_redis/upstash_redis.dart';
+import '../../models/post_model.dart';
 
 class Master extends StatefulWidget {
   const Master({super.key});
@@ -43,11 +46,13 @@ class MasterState extends State<Master> {
         //  //  singleCommand('create Document', () => createDocument()),
         //  singleCommand('list document', () => listDocument()),
         //  singleCommand('get document', () => getDocument('oio')),
+        // singleCommand('get alot of data', () async {upstash.set(api: upstash.postApi,key: post.id,,)
+        //   }),
         singleCommand('test image kit', () => uploadToImageKit()),
         singleCommand(
             'test upstashing things ',
-            () => set(
-                api: postApi,
+            () => upstash.set(
+                api: upstash.postApi,
                 key: '@oluwapelumi',
                 path: r'$',
                 value: {'this': 'that'})),
@@ -93,7 +98,7 @@ class MasterState extends State<Master> {
         return Center(
           child: CircularProgressIndicator(
             color: palette.lightPurple,
-            // backgroundColor: palette.black,
+            // backgroundColor: palette.white,
             semanticsLabel: 'shoveling some coal in',
           ),
         );
@@ -109,7 +114,10 @@ class MasterState extends State<Master> {
     return (Row(
       children: [
         Expanded(
-          child: Text(text),
+          child: Text(
+            text,
+            style: TextStyle(color: palette.white),
+          ),
         ),
         SizedBox(
             height: 30,

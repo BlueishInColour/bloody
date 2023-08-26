@@ -26,14 +26,14 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
             text: 'DIO',
             style: TextStyle(
                 // fontFamily: 'Geologica_Cursive-Bold',
-                color: palette.black,
+                color: palette.white,
                 fontSize: 35,
                 fontWeight: FontWeight.w600)),
         TextSpan(
             text: 'n',
             style: TextStyle(
                 fontFamily: 'Geologica_Cursive-Bold',
-                color: palette.black,
+                color: palette.white,
                 fontSize: 47,
                 fontWeight: FontWeight.w500)),
         //  WidgetSpan(
@@ -108,7 +108,7 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
                 style: TextStyle(color: Color.fromARGB(221, 209, 207, 207)),
               )),
               CircleAvatar(
-                backgroundColor: palette.black,
+                backgroundColor: palette.white,
                 child: const CircularProgressIndicator(
                     color: Color.fromARGB(221, 209, 207, 207)),
               )
@@ -122,14 +122,14 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
           },
           style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(palette.grey),
-              foregroundColor: MaterialStatePropertyAll(palette.black),
+              foregroundColor: MaterialStatePropertyAll(palette.white),
               minimumSize: const MaterialStatePropertyAll(Size(200, 60))),
           child: const Text('login'),
         );
       }
 
       return (Card(
-        color: Colors.white,
+        color: palette.white,
         elevation: 0,
         child: SizedBox(
             height: 300,
@@ -230,7 +230,7 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
                 style: TextStyle(color: Color.fromARGB(221, 209, 207, 207)),
               )),
               CircleAvatar(
-                backgroundColor: palette.black,
+                backgroundColor: palette.white,
                 child: const CircularProgressIndicator(
                     color: Color.fromARGB(221, 209, 207, 207)),
               )
@@ -253,14 +253,14 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
           },
           style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(palette.grey),
-              foregroundColor: MaterialStatePropertyAll(palette.black),
+              foregroundColor: MaterialStatePropertyAll(palette.white),
               minimumSize: const MaterialStatePropertyAll(Size(200, 60))),
           child: const Text('signup'),
         );
       }
 
       return (Card(
-        color: Colors.white,
+        color: palette.white,
         elevation: 0,
         child: SizedBox(
             height: 500,

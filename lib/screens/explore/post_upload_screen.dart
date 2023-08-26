@@ -11,6 +11,8 @@ import 'package:flutter_imagekit/flutter_imagekit.dart';
 import 'dart:io';
 import '../../constant/configs.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:uuid/uuid.dart';
+import '../../apis/upstash.dart';
 
 class PostUpload extends StatefulWidget {
   const PostUpload({super.key});
@@ -23,12 +25,7 @@ class PostUploadState extends State<PostUpload> {
   var textinfo = '';
   String flagged = '';
   Post post = Post(
-      postType: '',
-      tags: '',
-      id: 'fishyyy',
-      photosUrl: [],
-      text: '',
-      specialTag: '');
+      postType: '', tags: '', id: '', photosUrl: [], text: '', specialTag: '');
   var hashtags = <String>[];
 
   getFileImages() async {
@@ -79,6 +76,14 @@ class PostUploadState extends State<PostUpload> {
   }
 
   @override
+  initState() {
+    super.initState();
+    setState(() {
+      post.id = Uuid.NAMESPACE_DNS;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
@@ -90,16 +95,15 @@ class PostUploadState extends State<PostUpload> {
   PreferredSizeWidget appBar(BuildContext context) {
     //String uuid = Uuid.NAMESPACE_DNS;
     return (AppBar(
-        backgroundColor: Colors.white12,
-        foregroundColor: palette.black,
+        backgroundColor: palette.black,
+        foregroundColor: palette.white,
         leadingWidth: 70,
         leading: SizedBox(
           height: 25,
-          child: TextButton(
+          child: ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(palette.black),
-                  shape: const MaterialStatePropertyAll(StadiumBorder()),
-                  foregroundColor: MaterialStatePropertyAll(palette.white)),
+                shape: const MaterialStatePropertyAll(StadiumBorder()),
+              ),
               onPressed: () => debugPrint('draft'),
               child: const Text('draft')),
         ),
@@ -108,10 +112,15 @@ class PostUploadState extends State<PostUpload> {
             const Expanded(child: SizedBox()),
             TextButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(palette.black),
+                  backgroundColor: MaterialStatePropertyAll(palette.white),
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
-                  foregroundColor: MaterialStatePropertyAll(palette.white)),
+                  foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
+                await upstash.set(
+                    api: upstash.postApi,
+                    key: post.id,
+                    path: r'$',
+                    value: post.toJson());
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,14 +187,14 @@ class PostUploadState extends State<PostUpload> {
                 hoverColor: palette.grey,
                 constraints:
                     const BoxConstraints(minWidth: 500, minHeight: 60)),
-            width: 300,
+            width: 350,
             menuStyle: MenuStyle(
               minimumSize: const MaterialStatePropertyAll(Size(300, 60)),
               backgroundColor: MaterialStatePropertyAll(palette.grey),
               surfaceTintColor: MaterialStatePropertyAll(palette.grey),
             ),
             label: Text('type',
-                style: TextStyle(fontSize: 12, color: palette.black)),
+                style: TextStyle(fontSize: 12, color: palette.white)),
             dropdownMenuEntries: const [
               DropdownMenuEntry(value: 'style', label: 'style'),
               DropdownMenuEntry(value: 'blog', label: 'blog'),
@@ -202,7 +211,7 @@ class PostUploadState extends State<PostUpload> {
     return SliverToBoxAdapter(
         child: Container(
       height: 400,
-      color: palette.white,
+      color: palette.black,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         addAutomaticKeepAlives: true,
@@ -228,7 +237,7 @@ class PostUploadState extends State<PostUpload> {
                 decoration: BoxDecoration(
                   color: palette.grey,
                   borderRadius: BorderRadius.circular(15),
-                  // border: Border.all(color: palette.black)
+                  // border: Border.all(color: palette.white)
                 ),
                 child: const Center(
                     child:
@@ -243,7 +252,7 @@ class PostUploadState extends State<PostUpload> {
             decoration: BoxDecoration(
               color: palette.grey,
               borderRadius: BorderRadius.circular(15),
-              // border: Border.all(color: palette.black)
+              // border: Border.all(color: palette.white)
             ),
             // padding: EdgeInsets.all(8),
             height: 150,
@@ -256,7 +265,7 @@ class PostUploadState extends State<PostUpload> {
               decoration: InputDecoration(
                   hoverColor: palette.grey,
                   hintText: 'extra information',
-                  hintStyle: TextStyle(color: palette.black)),
+                  hintStyle: TextStyle(color: palette.white)),
               minLines: 20,
               maxLines: 21,
             )),
@@ -272,7 +281,7 @@ class PostUploadState extends State<PostUpload> {
             decoration: BoxDecoration(
               color: palette.grey,
               borderRadius: BorderRadius.circular(15),
-              // border: Border.all(color: palette.black)
+              // border: Border.all(color: palette.white)
             ),
             // padding: EdgeInsets.all(8),
             height: 120,
@@ -285,7 +294,7 @@ class PostUploadState extends State<PostUpload> {
               decoration: InputDecoration(
                   hoverColor: palette.grey,
                   hintText: '@mentions and #tags',
-                  hintStyle: TextStyle(color: palette.black)),
+                  hintStyle: TextStyle(color: palette.white)),
               minLines: 20,
               maxLines: 21,
             )),
@@ -308,7 +317,7 @@ class PostUploadState extends State<PostUpload> {
             textDirection: TextDirection.rtl,
             children: [
               CircleAvatar(
-                backgroundColor: palette.black,
+                backgroundColor: palette.white,
                 // backgroundImage: const NetworkImage(
                 //   "https://source.unsplash.com/random/?art&width=500&height=1000",
                 // ),
@@ -339,7 +348,7 @@ class PostUploadState extends State<PostUpload> {
             decoration: BoxDecoration(
               color: palette.grey,
               borderRadius: BorderRadius.circular(15),
-              // border: Border.all(color: palette.black)
+              // border: Border.all(color: palette.white)
             ),
             // padding: EdgeInsets.all(8),
             height: 60,
@@ -355,7 +364,7 @@ class PostUploadState extends State<PostUpload> {
                   prefixText: flag,
                   prefixStyle: const TextStyle(fontSize: 20),
                   // labelText: 'flag',
-                  hintStyle: TextStyle(color: palette.black),
+                  hintStyle: TextStyle(color: palette.white),
                   hoverColor: palette.grey,
                   prefixIcon: Icon(Icons.alternate_email_outlined),
                   suffixIcon: CircleAvatar(
@@ -390,7 +399,7 @@ class PostUploadState extends State<PostUpload> {
 
   Widget bottomSheet(BuildContext context) {
     return SizedBox(
-      height: 60,
+      height: 45,
       child: (Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -401,22 +410,22 @@ class PostUploadState extends State<PostUpload> {
                 getCameraImages();
               },
               icon: Icon(Icons.camera_alt_outlined,
-                  size: 40, color: palette.black)),
+                  size: 35, color: palette.white)),
           IconButton(
             onPressed: () {
               debugPrint('clicked');
               getFileImages();
             },
             icon: Icon(Icons.upload_file_outlined,
-                size: 40, color: palette.black),
+                size: 35, color: palette.white),
           ),
           IconButton(
               onPressed: () => debugPrint('clicked'),
               icon: Icon(Icons.drive_file_rename_outline,
-                  size: 40, color: palette.black)),
+                  size: 35, color: palette.white)),
           IconButton(
             onPressed: () => debugPrint('clicked'),
-            icon: Icon(Icons.flag_outlined, size: 40, color: palette.black),
+            icon: Icon(Icons.flag_outlined, size: 35, color: palette.white),
           ),
         ],
       )),

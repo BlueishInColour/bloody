@@ -34,11 +34,11 @@ class SwagrHouseState extends State<SwagrHouse> {
           return Container(
             height: 200.0,
             color: Colors.green,
-            child: const Center(
+            child:  Center(
               child: Text("Persistent BottomSheet",
                   textScaleFactor: 2,
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+                      color: palette.white, fontWeight: FontWeight.bold)),
             ),
           );
         })
@@ -56,7 +56,7 @@ class SwagrHouseState extends State<SwagrHouse> {
   Widget build(BuildContext context) {
     return Scaffold(
       //  appBar: appbar(context),
-      backgroundColor: palette.white,
+      backgroundColor: palette.black,
       body: [
         const Center(child: ExploreScreenWidget()),
         const Center(child: SearchScreen()),
@@ -65,39 +65,39 @@ class SwagrHouseState extends State<SwagrHouse> {
       ][selectedPageIndex],
 
       bottomNavigationBar: NavigationBar(
-          backgroundColor: palette.white,
+          backgroundColor: palette.black,
           selectedIndex: selectedPageIndex,
           onDestinationSelected: (int index) => setState(() {
                 selectedPageIndex = index;
               }),
-          destinations: const <NavigationDestination>[
+          destinations:  <NavigationDestination>[
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
+              icon: Icon(Icons.home_outlined,color:palette.white),
               selectedIcon: Icon(
                 Icons.home_filled,
-                color: Colors.black,
+                color: palette.white,
                 fill: 1,
               ),
               label: 'home',
             ),
             NavigationDestination(
-              icon: Icon(Icons.search),
-              selectedIcon: Icon(Icons.search, size: 27),
+              icon: Icon(Icons.search,color:palette.white),
+              selectedIcon: Icon(Icons.search, size: 27,color:palette.white),
               label: 'expore',
             ),
             NavigationDestination(
-                icon: Icon(Icons.notifications_outlined),
+                icon: Icon(Icons.notifications_outlined,color:palette.white),
                 selectedIcon: Icon(
                   Icons.notifications_rounded,
-                  color: Colors.black,
+                  color: palette.white,
                   fill: 1,
                 ),
                 label: 'notify'),
             NavigationDestination(
-                icon: Icon(Icons.auto_awesome_mosaic_outlined),
+                icon: Icon(Icons.auto_awesome_mosaic_outlined,color:palette.white),
                 selectedIcon: Icon(
                   Icons.auto_awesome_mosaic_rounded,
-                  color: Colors.black,
+                  color: palette.white,
                 ),
                 label: 'profile'),
           ]),

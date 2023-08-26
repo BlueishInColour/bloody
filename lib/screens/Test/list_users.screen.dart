@@ -58,7 +58,7 @@ class ListUsers extends State<List> {
         return Center(
           child: CircularProgressIndicator(
             color: palette.lightPurple,
-            // backgroundColor: palette.black,
+            // backgroundColor: palette.white,
             semanticsLabel: 'shoveling some coal in',
           ),
         );

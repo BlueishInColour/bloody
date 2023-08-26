@@ -21,7 +21,7 @@ class SearchScreenState extends State<SearchScreen> {
     PreferredSizeWidget searchbar(BuildContext context) {
       return AppBar(
         // forceMaterialTransparency: true,
-        shadowColor: palette.white,
+        shadowColor: palette.black,
         elevation: 0,
         title: SearchBar(
           onTap: () => debugPrint('tapped'),
@@ -36,7 +36,7 @@ class SearchScreenState extends State<SearchScreen> {
                 onPressed: null,
                 icon: Icon(
                   Icons.search,
-                  color: palette.black,
+                  color: palette.white,
                 )),
           ],
         ),
@@ -66,7 +66,7 @@ class SearchScreenState extends State<SearchScreen> {
                     child: CircleAvatar(
                         backgroundColor: palette.grey,
                         child: CircularProgressIndicator(
-                          color: palette.black,
+                          color: palette.white,
                         ))),
               ),
               imageUrl: image,
@@ -103,9 +103,9 @@ class SearchScreenState extends State<SearchScreen> {
         appBar: searchbar(context),
         floatingActionButton: CircleAvatar(
           radius: 30,
-          backgroundColor: palette.black,
+          backgroundColor: palette.white,
           child: IconButton(
-              color: palette.white,
+              color: palette.black,
               padding: const EdgeInsets.all(0),
               onPressed: () => Navigator.push(
                   context,

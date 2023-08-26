@@ -36,7 +36,7 @@ class _IconState extends State<Iconish> {
       isSelected: false,
       icon: Icon(
         widget.icony,
-        color: isPressed ? palette.red : palette.black,
+        color: isPressed ? palette.red : palette.white,
         size: widget.size,
       ),
     ));

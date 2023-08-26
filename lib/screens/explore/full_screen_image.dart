@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../main.dart';
 
 class FullScreenPage extends StatefulWidget {
   FullScreenPage({
@@ -18,7 +19,7 @@ class _FullScreenPageState extends State<FullScreenPage> {
   @override
   void initState() {
     var brightness = widget.dark ? Brightness.light : Brightness.dark;
-    var color = widget.dark ? Colors.black12 : Colors.white70;
+    var color = widget.dark ? Colors.black12 : palette.white;
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: color,
@@ -41,7 +42,7 @@ class _FullScreenPageState extends State<FullScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.dark ? Colors.black : Colors.white,
+      backgroundColor: widget.dark ? Colors.black : palette.white,
       body: GestureDetector(
         onDoubleTap: () => Navigator.pop,
         child: Stack(
@@ -74,10 +75,10 @@ class _FullScreenPageState extends State<FullScreenPage> {
                     elevation: 0,
                     child: Icon(
                       Icons.cancel,
-                      color: widget.dark ? Colors.white : Colors.black,
+                      color: widget.dark ? palette.white : Colors.black,
                       size: 45,
                     ),
-                    color: widget.dark ? Colors.black12 : Colors.white70,
+                    color: widget.dark ? Colors.black12 : palette.white,
                     highlightElevation: 0,
                     minWidth: double.minPositive,
                     height: double.minPositive,

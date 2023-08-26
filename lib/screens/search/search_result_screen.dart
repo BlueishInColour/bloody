@@ -29,7 +29,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
   PreferredSizeWidget searchbar(BuildContext context) {
     return AppBar(
       // forceMaterialTransparency: true,
-      shadowColor: palette.white,
+      shadowColor: palette.black,
       elevation: 0,
       title: SearchBar(
         onTap: () => debugPrint('tapped'),
@@ -42,7 +42,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
               onPressed: null,
               icon: Icon(
                 Icons.search,
-                color: palette.black,
+                color: palette.white,
               )),
         ],
       ),
@@ -53,7 +53,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
     return SizedBox(
       height: 130,
       width: 130,
-      //  color: palette.black,
+      //  color: palette.white,
       child: (ListView.builder(
           scrollDirection: Axis.horizontal,
 
@@ -65,7 +65,7 @@ class SearchResultScreenState extends State<SearchResultScreen> {
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: palette.black,
+                          color: palette.white,
                         )),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -74,12 +74,12 @@ class SearchResultScreenState extends State<SearchResultScreen> {
                           radius: 35,
                           backgroundColor: palette.lightPurple,
                         ),
-                        Text('fulname', style: TextStyle(color: palette.black)),
+                        Text('fulname', style: TextStyle(color: palette.white)),
                         ConstrainedBox(
                             // fit: BoxFit.scaleDown,
                             constraints: const BoxConstraints(maxWidth: 100),
                             child: Text('username',
-                                style: TextStyle(color: palette.black)))
+                                style: TextStyle(color: palette.white)))
                       ]),
                     )),
               ))),
@@ -91,7 +91,7 @@ Widget creatorSearchResults(BuildContext context) {
   return SizedBox(
     height: 130,
     width: 130,
-    //  color: palette.black,
+    //  color: palette.white,
     child: (ListView.builder(
         scrollDirection: Axis.horizontal,
 
@@ -103,7 +103,7 @@ Widget creatorSearchResults(BuildContext context) {
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: palette.black,
+                        color: palette.white,
                       )),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -112,12 +112,12 @@ Widget creatorSearchResults(BuildContext context) {
                         radius: 35,
                         backgroundColor: palette.lightPurple,
                       ),
-                      Text('brandname', style: TextStyle(color: palette.black)),
+                      Text('brandname', style: TextStyle(color: palette.white)),
                       ConstrainedBox(
                           // fit: BoxFit.scaleDown,
                           constraints: const BoxConstraints(maxWidth: 100),
                           child: Text('username',
-                              style: TextStyle(color: palette.black)))
+                              style: TextStyle(color: palette.white)))
                     ]),
                   )),
             ))),
@@ -134,10 +134,10 @@ class NewWidget extends StatelessWidget {
     return ListTile(
       shape: BeveledRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
-          side: BorderSide(color: palette.black)),
+          side: BorderSide(color: palette.white)),
       leading: CircleAvatar(
         radius: 40,
-        backgroundColor: palette.white,
+        backgroundColor: palette.black,
       ),
     );
   }

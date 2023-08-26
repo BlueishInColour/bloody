@@ -95,7 +95,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
             left: 5,
             child: CircleAvatar(
                 radius: 35,
-                backgroundColor: Colors.white,
+                backgroundColor: palette.white,
                 backgroundImage:
                     MemoryImage(Uint8List.fromList(user.profilePicture)))),
         Positioned(
@@ -118,7 +118,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         user.coverPicture = value;
                       });
                     }),
-                icon: const Icon(Icons.edit_outlined, color: Colors.white))),
+                icon:  Icon(Icons.edit_outlined, color: palette.white))),
       ],
     );
   }

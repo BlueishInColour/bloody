@@ -83,7 +83,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 left: 5,
                 child: CircleAvatar(
                   radius: 35,
-                  backgroundColor: Colors.white,
+                  backgroundColor: palette.white,
                   backgroundImage: CachedNetworkImageProvider(
                       box.get('pictureUrl').toString()),
                 ),
@@ -122,11 +122,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                       onPressed: () => debugPrint('okay'),
-                      style: const ButtonStyle(
+                      style:  ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.black),
                           foregroundColor:
-                              MaterialStatePropertyAll(Colors.white),
+                              MaterialStatePropertyAll(palette.white),
                           fixedSize: MaterialStatePropertyAll(Size(70, 35))),
                       child: const Text('follow')),
                 )
@@ -146,7 +146,7 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   Widget navBarWidget(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: palette.white,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         navBarButton('posts', () => null, icon: Icons.post_add),
         navBarButton('gigs', () => null, icon: Icons.attach_money_rounded),
@@ -163,10 +163,10 @@ class ProfileScreenState extends State<ProfileScreen> {
       children: [
         (OutlinedButton(
             onPressed: onPress,
-            style: const ButtonStyle(
+            style:ButtonStyle(
                 padding: MaterialStatePropertyAll(
                     EdgeInsets.only(left: 0, right: 0)),
-                backgroundColor: MaterialStatePropertyAll(Colors.white),
+                backgroundColor: MaterialStatePropertyAll(palette.white),
                 foregroundColor: MaterialStatePropertyAll(Colors.black),
                 elevation: MaterialStatePropertyAll(0),
                 textStyle: MaterialStatePropertyAll(TextStyle(

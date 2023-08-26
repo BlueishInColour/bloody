@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 text: 'find your next dress  |  earn good money',
                 style: TextStyle(
                     fontFamily: 'Geologica_Cursive-Bold',
-                    color: palette.white,
+                    color: palette.black,
                     fontSize: 17,
                     fontWeight: FontWeight.w500)),
           ]),

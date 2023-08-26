@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 Future uploadToImageKit(
-    {String filepath = '', String folder = 'general'}) async {
+    {String saveAs = '',
+    String filepath = '',
+    String folder = 'general'}) async {
   // var image = await ImagePicker.platform.pickImage(
   //   source: ImageSource.gallery,
   // );

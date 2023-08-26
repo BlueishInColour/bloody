@@ -64,7 +64,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                       //icon for type of notification
                       ///
                       CircleAvatar(
-                        foregroundColor: Colors.white,
+                        foregroundColor: palette.white,
                         backgroundColor: Colors.black,
                         child: done,
                       ),

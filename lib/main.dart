@@ -19,8 +19,14 @@ class Palette {
   final Color red = const Color.fromARGB(255, 255, 0, 21);
 
   final Color black = Colors.black87;
-  final Color grey = const Color.fromARGB(255, 226, 231, 255);
+  final Color grey = const Color.fromARGB(187, 147, 148, 151);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
+
+  final Color iconColor = Colors.white;
+  final Color selectedIconColor = Colors.amber;
+
+  final Color linkTextColor = Colors.blue;
+  final Color textColor = Colors.black;
 }
 
 Palette palette = const Palette();
@@ -36,22 +42,22 @@ class Swagr extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(
             elevation: 0,
-            backgroundColor: palette.white,
-            foregroundColor: palette.black,
+            backgroundColor: palette.black,
+            foregroundColor: palette.white,
             titleTextStyle: TextStyle(
-                color: palette.black,
+                color: palette.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold)),
         primaryColor: palette.grey,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(palette.black),
-                foregroundColor: MaterialStatePropertyAll(palette.white),
+                backgroundColor: MaterialStatePropertyAll(palette.white),
+                foregroundColor: MaterialStatePropertyAll(palette.black),
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15))))),
         badgeTheme: BadgeThemeData(
           backgroundColor: palette.lightPurple,
-          textColor: palette.white,
+          textColor: palette.black,
           alignment: Alignment.topRight,
           textStyle: TextStyle(color: palette.white),
           smallSize: 5,
@@ -82,13 +88,13 @@ class Swagr extends StatelessWidget {
           ),
           elevation: 2,
           headerBackgroundColor: palette.lightPurple,
-          headerForegroundColor: palette.white,
+          headerForegroundColor: palette.black,
         ),
         dialogBackgroundColor: palette.lightPurple,
         dialogTheme: DialogTheme(
           elevation: 0,
           alignment: Alignment.center,
-          backgroundColor: palette.black,
+          backgroundColor: palette.white,
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
 
@@ -96,7 +102,7 @@ class Swagr extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(9),
           ),
-          contentTextStyle: TextStyle(color: palette.white, fontSize: 15),
+          contentTextStyle: TextStyle(color: palette.black, fontSize: 15),
           iconColor: palette.red,
         ),
         dividerTheme: DividerThemeData(
@@ -112,12 +118,12 @@ class Swagr extends StatelessWidget {
           dividerColor: palette.lightPurple,
           shadowColor: palette.lightPurple,
           elevation: 2,
-          contentTextStyle: TextStyle(color: palette.white),
+          contentTextStyle: TextStyle(color: palette.black),
         ),
         shadowColor: palette.lightPurple,
         buttonTheme: ButtonThemeData(
-          buttonColor: palette.black,
-          disabledColor: palette.black,
+          buttonColor: palette.white,
+          disabledColor: palette.white,
           focusColor: palette.lightPurple,
           textTheme: ButtonTextTheme.normal,
           shape: const RoundedRectangleBorder(
@@ -126,7 +132,7 @@ class Swagr extends StatelessWidget {
         fontFamily: 'Geologica',
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-            iconColor: MaterialStatePropertyAll(palette.black),
+            iconColor: MaterialStatePropertyAll(palette.white),
             shadowColor: MaterialStatePropertyAll(palette.grey),
             backgroundColor: MaterialStatePropertyAll(palette.grey),
 
@@ -136,7 +142,7 @@ class Swagr extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.transparent),
-                foregroundColor: MaterialStatePropertyAll(palette.black),
+                foregroundColor: MaterialStatePropertyAll(palette.white),
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15))))),
         inputDecorationTheme: InputDecorationTheme(
@@ -145,7 +151,7 @@ class Swagr extends StatelessWidget {
             ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
             hintStyle: TextStyle(
-              color: palette.black,
+              color: palette.white,
             ),
             filled: true,
             focusedBorder: OutlineInputBorder(
@@ -175,79 +181,81 @@ class Swagr extends StatelessWidget {
                 fillColor: palette.grey,
                 hoverColor: palette.grey,
                 focusColor: palette.grey,
-                counterStyle: TextStyle(color: palette.white),
-                floatingLabelStyle: TextStyle(color: palette.white),
+                counterStyle: TextStyle(color: palette.black),
+                floatingLabelStyle: TextStyle(color: palette.black),
                 filled: true,
-                helperStyle: TextStyle(color: palette.white),
-                hintStyle: TextStyle(color: palette.white),
+                helperStyle: TextStyle(color: palette.black),
+                hintStyle: TextStyle(color: palette.black),
                 labelStyle: TextStyle(
-                  color: palette.white,
+                  color: palette.black,
                 )),
             menuStyle: MenuStyle(
                 alignment: Alignment.center,
-                backgroundColor: MaterialStatePropertyAll(palette.white),
-                surfaceTintColor: MaterialStatePropertyAll(palette.white)),
-            textStyle: TextStyle(color: palette.black, fontSize: 14)),
+                backgroundColor: MaterialStatePropertyAll(palette.black),
+                surfaceTintColor: MaterialStatePropertyAll(palette.black)),
+            textStyle: TextStyle(color: palette.white, fontSize: 14)),
         navigationBarTheme: NavigationBarThemeData(
-          backgroundColor: palette.white,
+          backgroundColor: palette.black,
           elevation: 0,
           height: 50,
-          surfaceTintColor: palette.black,
+          surfaceTintColor: palette.white,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           indicatorColor: Colors.transparent,
         ),
         bottomSheetTheme: BottomSheetThemeData(
           modalBackgroundColor: palette.black,
+          backgroundColor: palette.black,
         ),
-        indicatorColor: palette.white,
+        indicatorColor: palette.black,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: palette.white,
+          backgroundColor: palette.black,
           elevation: 0,
           showUnselectedLabels: false,
           showSelectedLabels: true,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           type: BottomNavigationBarType.shifting,
-          selectedItemColor: palette.red,
-          unselectedItemColor: palette.black,
-          selectedIconTheme: IconThemeData(color: palette.red, size: 30),
-          unselectedIconTheme: const IconThemeData(
-            color: Color.fromRGBO(255, 255, 255, 1),
+          selectedItemColor: palette.selectedIconColor,
+          unselectedItemColor: palette.iconColor,
+          selectedIconTheme:
+              IconThemeData(color: palette.selectedIconColor, size: 30),
+          unselectedIconTheme: IconThemeData(
+            color: palette.iconColor,
           ),
         ),
         hoverColor: Colors.transparent,
         progressIndicatorTheme: ProgressIndicatorThemeData(
-            color: palette.black, refreshBackgroundColor: palette.grey),
+            color: palette.white, refreshBackgroundColor: palette.grey),
         toggleButtonsTheme: ToggleButtonsThemeData(
             disabledColor: palette.lightPurple,
             borderColor: palette.red,
             selectedBorderColor: palette.red),
         snackBarTheme: SnackBarThemeData(
-          backgroundColor: palette.black,
-          actionTextColor: palette.white,
+          backgroundColor: palette.white,
+          actionTextColor: palette.black,
 
           closeIconColor: palette.red,
           //behavior: SnackBarBehavior.fixed,
-          contentTextStyle: TextStyle(color: palette.black),
+          contentTextStyle: TextStyle(color: palette.white),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9))),
         ),
         iconTheme: IconThemeData(
-            color: palette.black,
+            color: palette.white,
             fill: 0.5,
             shadows: [Shadow(color: palette.lightPurple, blurRadius: 10)]),
         searchBarTheme: SearchBarThemeData(
-            backgroundColor: MaterialStatePropertyAll(palette.white),
+            backgroundColor: MaterialStatePropertyAll(palette.black),
             shadowColor: MaterialStatePropertyAll(palette.grey),
             elevation: const MaterialStatePropertyAll(0),
             constraints: const BoxConstraints(maxHeight: 50),
             surfaceTintColor: MaterialStatePropertyAll(palette.lightPurple),
             textStyle:
-                MaterialStatePropertyAll(TextStyle(color: palette.black))),
+                MaterialStatePropertyAll(TextStyle(color: palette.white))),
         radioTheme: RadioThemeData(
           overlayColor: MaterialStatePropertyAll(palette.red),
           fillColor: MaterialStatePropertyAll(palette.red),
         ),
-        scaffoldBackgroundColor: palette.white,
+        scaffoldBackgroundColor: palette.black,
         disabledColor: palette.lightPurple,
         dividerColor: palette.lightPurple,
       ),

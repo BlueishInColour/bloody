@@ -23,6 +23,11 @@ import 'full_screen_image.dart';
 import '../profile/edit_profile._screen.dart';
 import '../../constant/configs.dart';
 
+//to load data
+import '../../apis/upstash.dart';
+import '../../apis/imagekit.dart';
+import '../../models/post_model.dart';
+
 //final palette = Palette();
 
 class ExploreScreenWidget extends StatefulWidget {
@@ -99,6 +104,34 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 
 //ending Oauth
 
+//get list of post keys $$still working on thid
+//th list is prnting duplicate and will always rerender which i s costly
+//if i do it abiturary way so we are just testing for now
+  List<String> allKeys = [];
+  getAllKeys() async {
+    print('started to fet keys');
+    List<String> res = await upstash.postApi.keys('*');
+    print(res);
+    List<String> keys = [];
+    List unduplicatedKeys = keys.toSet().toList();
+
+    setState(() {});
+    print(keys);
+  }
+
+  //get random keys and setting them to list
+  List<String> randomKeys = [];
+  getRandomKeys() async {
+    print('started to get random keys');
+    final String? res = await upstash.postApi.randomkey();
+    print(res);
+
+    setState(() {
+      randomKeys.add(res!);
+    });
+    print(randomKeys);
+  }
+
   @override
   Widget build(BuildContext context) {
     //appbar
@@ -112,7 +145,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                 TextSpan(
                     text: '&',
                     style: TextStyle(
-                        color: palette.black,
+                        color: palette.white,
                         fontSize: 35,
                         fontFamily: 'Geologica_Cursive-Bold')),
               ])),
@@ -143,13 +176,12 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
           hint: 'like',
           enabled: true,
           child: Iconish(
-              re: () => debugPrint('clicked'),
-              icony: Icons.local_fire_department_outlined),
+              re: () => debugPrint('clicked'), icony: Icons.favorite_rounded),
         ),
         Iconish(
           re: () => null,
           size: 23,
-          icony: Icons.chat_bubble_outline_rounded,
+          icony: Icons.chat_bubble,
         ),
       ]));
     }
@@ -192,7 +224,8 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 //name
-                Text(posts[index].name, style: const TextStyle(fontSize: 15)),
+                Text(posts[index].name,
+                    style: TextStyle(fontSize: 15, color: palette.white)),
                 Text(posts[index].username,
                     style: const TextStyle(color: Colors.blue))
               ],
@@ -317,20 +350,20 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         appBar: appbar(context),
         floatingActionButton: CircleAvatar(
           radius: 30,
-          backgroundColor: palette.black,
+          backgroundColor: palette.white,
           child: IconButton(
-              color: palette.white,
+              color: palette.black,
               padding: const EdgeInsets.all(0),
               onPressed: () => showModalBottomSheet(
                     context: context,
                     showDragHandle: true,
                     useSafeArea: true,
-                    backgroundColor: Colors.white70,
+                    backgroundColor: palette.white,
                     // anchorPoint: Offset(500, 500),
                     isScrollControlled: true,
                     enableDrag: true,
                     isDismissible: true,
-                    // barrierColor: Colors.white,
+                    // barrierColor: palette.white,
                     shape: const ContinuousRectangleBorder(
                         // side: BorderSide(width: 5),
                         borderRadius: BorderRadius.only(
@@ -351,7 +384,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
           //Trigger the bottom loadMore callback
           onLoadMore: () async {
             //wait for your api to fetch more items
-            await Future.delayed(const Duration(seconds: 1));
+            await getRandomKeys();
           },
           //pull down refresh callback
           onRefresh: () async {
