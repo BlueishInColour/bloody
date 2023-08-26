@@ -3,14 +3,13 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../main.dart';
-import '../apis/upstash.dart';
-import '../models/post_model.dart';
+import '../../main.dart';
+import '../../models/post_model.dart';
 //import '../Apis/create_post_freakon.dart';
-import '../apis/imagekit.dart';
+import '../../apis/imagekit.dart';
 import 'package:flutter_imagekit/flutter_imagekit.dart';
 import 'dart:io';
-import '../constant/configs.dart';
+import '../../constant/configs.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class PostUpload extends StatefulWidget {
@@ -129,11 +128,7 @@ class PostUploadState extends State<PostUpload> {
                 ScaffoldMessenger.of(context).showSnackBar(onPost);
 
                 debugPrint('clicked');
-                await postApi.json
-                    .set('blueishincolour', r'$' '.${post.id}', post.toJson())
-                    .then((value) {
-                  print(value);
-                });
+
                 debugPrint('done');
               },
               child: const Text(

@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../main.dart';
-import './Test/create_user_screen.dart';
-import './Test/list_users.screen.dart';
-import '../apis/imagekit.dart';
+import '../../main.dart';
+import 'create_user_screen.dart';
+import 'list_users.screen.dart';
+import '../../apis/imagekit.dart';
+import '../../apis/upstash.dart';
 
 class Master extends StatefulWidget {
   const Master({super.key});
@@ -16,15 +17,6 @@ class Master extends StatefulWidget {
 class MasterState extends State<Master> {
   String ext = '';
   // Uint8List bytes = List<int>[];
-  set() async {
-    print('started getting stuff out of db');
-
-    setState(() {
-      //  bytes = byt.toString();
-    });
-
-    print('completed the setting of every strings');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +44,13 @@ class MasterState extends State<Master> {
         //  singleCommand('list document', () => listDocument()),
         //  singleCommand('get document', () => getDocument('oio')),
         singleCommand('test image kit', () => uploadToImageKit()),
-
+        singleCommand(
+            'test upstashing things ',
+            () => set(
+                api: postApi,
+                key: '@oluwapelumi',
+                path: r'$',
+                value: {'this': 'that'})),
         singleCommand(
             'go to create user screen',
             () => Navigator.push(

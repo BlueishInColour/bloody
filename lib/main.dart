@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'screens/splash_screen.dart';
+import 'screens/init/splash_screen.dart';
 //import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 main() async {
@@ -19,7 +19,7 @@ class Palette {
   final Color red = const Color.fromARGB(255, 255, 0, 21);
 
   final Color black = Colors.black87;
-  final Color grey = const Color.fromARGB(179, 238, 234, 234);
+  final Color grey = const Color.fromARGB(255, 226, 231, 255);
   final Color white = const Color.fromARGB(255, 255, 255, 255);
 }
 
@@ -45,9 +45,10 @@ class Swagr extends StatelessWidget {
         primaryColor: palette.grey,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-                splashFactory: InkSparkle.splashFactory,
-                shadowColor: MaterialStatePropertyAll(palette.lightPurple),
-                backgroundColor: MaterialStatePropertyAll(palette.grey))),
+                backgroundColor: MaterialStatePropertyAll(palette.black),
+                foregroundColor: MaterialStatePropertyAll(palette.white),
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15))))),
         badgeTheme: BadgeThemeData(
           backgroundColor: palette.lightPurple,
           textColor: palette.white,
@@ -132,11 +133,12 @@ class Swagr extends StatelessWidget {
             //  elevation: const MaterialStatePropertyAll(0)
           ),
         ),
-        textButtonTheme: const TextButtonThemeData(
+        textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(Color.fromARGB(0, 0, 0, 0)),
-          foregroundColor: MaterialStatePropertyAll(Colors.white),
-        )),
+                backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+                foregroundColor: MaterialStatePropertyAll(palette.black),
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15))))),
         inputDecorationTheme: InputDecorationTheme(
             labelStyle: const TextStyle(
               color: Colors.transparent,

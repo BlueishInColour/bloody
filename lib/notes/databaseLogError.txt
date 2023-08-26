@@ -1,0 +1,4 @@
+firebase >> couldnt use firebase because it doesnt support linux, and i find it hard to work around with,
+firedart>> a library for firebase couldnt work because it keeps returning errors that specifir=es that i use database function instead of cloud api , and the normal database doesnt support flutter or dart in such manner maybe the library is faulty to begin with.
+cosmosdb/azure >> the platform cut me off for no resean to be specific ,  amnd its taking time to register back but the platform has problems that isnt easy to get arround with which is the api doesnt support update of it documents but only replacing of the entire document provided that the document id is available.
+upstash/redis >> very accessible but i left it before for some reasons that i didnt log, so ill find out now

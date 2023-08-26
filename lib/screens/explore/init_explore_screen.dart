@@ -1,4 +1,4 @@
-import '../apis/upstash.dart';
+import '../../apis/upstash.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 //import '../services/auth_services.dart';
@@ -6,23 +6,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:loadmore_listview/loadmore_listview.dart';
 
 ///
-import '../widgets/dummy_data.dart';
-import '../main.dart';
+import '../../dummy_data.dart';
+import '../../main.dart';
 //import 'package:image_picker/image_picker.dart';
 //import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 //import 'dart:async';
 import 'dart:io';
-import '../widgets/explore_screen_widgets/pod_icon_buttons.dart';
-import './post_upload_screen.dart';
-import '../widgets/explore_screen_widgets/full_screen_image.dart';
-import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
-import '../constant/configs.dart';
+import 'pod_icon_buttons.dart';
+import 'post_upload_screen.dart';
+import 'full_screen_image.dart';
+import '../profile/edit_profile._screen.dart';
+import '../../constant/configs.dart';
 
 //final palette = Palette();
 
@@ -111,27 +110,16 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
             Expanded(
               child: Text.rich(TextSpan(children: [
                 TextSpan(
-                    text: palette.appName,
+                    text: '&',
                     style: TextStyle(
                         color: palette.black,
                         fontSize: 35,
                         fontFamily: 'Geologica_Cursive-Bold')),
-                TextSpan(
-                    text: '',
-                    style: TextStyle(
-                        color: palette.black,
-                        fontSize: 47,
-                        fontWeight: FontWeight.w500)),
-                //  WidgetSpan(
-                //      child: Icon(
-                //    Icons.local_fire_department_outlined,
-                //    color: palette.red,
-                //    size: 35,
-                //  )),
               ])),
             ),
             _credentials == null
-                ? ElevatedButton(onPressed: login, child: const Text("Log in"))
+                ? ElevatedButton(
+                    onPressed: login, child: const Text("login | signin"))
                 : CircleAvatar(
                     backgroundImage: CachedNetworkImageProvider(
                         _credentials!.user.pictureUrl.toString()),

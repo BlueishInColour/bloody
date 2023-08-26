@@ -1,11 +1,11 @@
-import '../screens/search_screen.dart';
+import '../search/init_search_screen.dart';
 
-import '../main.dart';
+import '../../main.dart';
 import 'package:flutter/material.dart';
 
-import 'notification_screen.dart';
-import 'profile_screen.dart';
-import 'explore_screen.dart';
+import '../notification/init_notification_screen.dart';
+import '../profile/init_profile_screen.dart';
+import '../explore/init_explore_screen.dart';
 
 class SwagrHouse extends StatefulWidget {
   const SwagrHouse({super.key});

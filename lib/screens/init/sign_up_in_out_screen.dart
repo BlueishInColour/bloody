@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../main.dart';
-import '../models/user_model.dart';
-import '../apis/upstash.dart';
+import '../../main.dart';
+import '../../models/user_model.dart';
+import '../../apis/upstash.dart';
 
 class SignUpInOutScreeen extends StatefulWidget {
   const SignUpInOutScreeen({super.key});
@@ -79,10 +79,10 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
 
       login() async {
         print('connecting or connected');
-        var res = await userApi.json
-            .get(user.username, [r'$.username', r'$.hashedPassword']);
-        debugPrint(res.toString());
-        print(res);
+        //   var res = await userApi.json
+        //       .get(user.username, [r'$.username', r'$.hashedPassword']);
+        //   debugPrint(res.toString());
+        //   print(res);
       }
 
       //
@@ -109,7 +109,7 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
               )),
               CircleAvatar(
                 backgroundColor: palette.black,
-                child:const  CircularProgressIndicator(
+                child: const CircularProgressIndicator(
                     color: Color.fromARGB(221, 209, 207, 207)),
               )
             ],
@@ -187,13 +187,13 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
             ),
             IconButton(
               onPressed: () => getFileImages(),
-              icon:const  Icon(Icons.file_upload_outlined),
+              icon: const Icon(Icons.file_upload_outlined),
               iconSize: 40,
             ),
             IconButton(
                 onPressed: () => getCameraImages(),
                 iconSize: 38,
-                icon:const Icon(
+                icon: const Icon(
                   Icons.camera_alt_outlined,
                 ))
           ],
@@ -240,10 +240,10 @@ class SignUpInOutScreeenState extends State<SignUpInOutScreeen> {
 
         signUp() async {
           print('connecting to sign up');
-          var res = await userApi.json.set(user.username, r'$', user.toJson());
-          var res2 = await userApi.json.get(user.username, [r'$']);
-          print(res);
-          print(res2);
+          //  var res = await userApi.json.set(user.username, r'$', user.toJson());
+          //  var res2 = await userApi.json.get(user.username, [r'$']);
+          //print(res);
+          //print(res2);
         }
 
         return ElevatedButton(

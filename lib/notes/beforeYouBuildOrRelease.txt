@@ -10,15 +10,11 @@
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders['auth0Domain'] = "@string/com_auth0_domain"
-        manifestPlaceholders['auth0Scheme'] = "@string/com_auth0_scheme"
-        testOptions {
-            animationsDisabled = true
-            buildConfigField "String", "USER_EMAIL", "\"$System.env.USER_EMAIL\""
-            buildConfigField "String", "USER_PASSWORD", "\"$System.env.USER_PASSWORD\""
+        manifestPlaceholders += [auth0Domain: "dev-gb1zfslh4ohvjdyr.us.auth0.com", auth0Scheme: "https"]
+        
         
 
->> add to android/app/src/main/res/value/string.xml
+>> add to android/app/src/main/res/value/string.xml  //depeciated and harmfull to app
 
 <?xml version="1.0" encoding="utf-8"?>
 <resources>

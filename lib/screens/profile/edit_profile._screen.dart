@@ -145,9 +145,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
         OutlinedButton(
             onPressed: () async {
               print('connecting');
-              await userApi.json
-                  .set(user.username, r'$', user.toJson())
-                  .then((value) => print(value));
+              //       await userApi.json
+              //           .set(user.username, r'$', user.toJson())
+              //           .then((value) => print(value));
               print('user details edited');
               Navigator.pop(context);
             },

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import './search_category_screen.dart';
+import 'search_category_screen.dart';
 
-import './sign_up_in_out_screen.dart';
-import './master.dart';
+import '../init/sign_up_in_out_screen.dart';
+import '../Test/master.dart';
 
 import 'package:loadmore_listview/loadmore_listview.dart'; //for pull up refress place
 

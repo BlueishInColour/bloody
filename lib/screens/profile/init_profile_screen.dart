@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../widgets/profile_screen_widgets/edit_profile._screen.dart';
-import '../models/user_model.dart';
+import '../../main.dart';
+import 'edit_profile._screen.dart';
+import '../../models/user_model.dart';
 import 'dart:typed_data';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';

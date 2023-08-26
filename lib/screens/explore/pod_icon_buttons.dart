@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import '../dummy_data.dart';
+import '../../dummy_data.dart';
 
 //final isSelected
 class Iconish extends StatefulWidget {
