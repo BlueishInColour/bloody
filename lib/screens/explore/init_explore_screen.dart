@@ -167,15 +167,15 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
         appBar: appbar(context),
         floatingActionButton: CircleAvatar(
           radius: 30,
-          backgroundColor: palette.amber,
+          backgroundColor: palette.black,
           child: IconButton(
-              color: palette.black,
+              color: palette.amber,
               padding: const EdgeInsets.all(0),
               onPressed: () => showModalBottomSheet(
                     context: context,
                     showDragHandle: true,
                     useSafeArea: true,
-                    backgroundColor: palette.white,
+                    backgroundColor: palette.amber,
                     // anchorPoint: Offset(500, 500),
                     isScrollControlled: true,
                     enableDrag: true,
@@ -193,7 +193,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                     },
                   ),
               icon: Icon(Icons.file_upload_outlined,
-                  size: 40, color: palette.grey)),
+                  size: 40, color: palette.amber)),
         ),
         body: LoadMoreListView.builder(
           //is there more data to load

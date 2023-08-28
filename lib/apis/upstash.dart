@@ -11,7 +11,10 @@ class Upstash {
       url: "https://normal-raccoon-46075.upstash.io",
       token:
           "AbP7ACQgM2JmYTkyMGUtZjhmZi00ZGVhLWJmMTEtOGJkN2Y5NmIyNzc2ZGQxNmQ4ZjgwYjczNDZkMGE2YmE4NDVmZjhmNDcxZDc=");
-
+  Redis nuggetApi = Redis(
+      url: 'https://excited-sheep-46540.upstash.io',
+      token:
+          'AbXMACQgNzBhYzZlNjktYTdiNy00ZmJkLWJkM2MtNzkwMmI4ZWMzMGNhZDQzNTg5NDkxNDZiNGUyYmFhYmExNjNkMjU4MzA1OGE=');
   Redis userApi = Redis(
     url: 'https://oriented-heron-46081.upstash.io',
     token:

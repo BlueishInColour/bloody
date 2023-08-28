@@ -46,7 +46,7 @@ class Swagr extends StatelessWidget {
         appBarTheme: AppBarTheme(
             elevation: 0,
             backgroundColor: palette.black,
-            foregroundColor: palette.white,
+            foregroundColor: palette.amber,
             titleTextStyle: TextStyle(
                 color: palette.white,
                 fontSize: 20,

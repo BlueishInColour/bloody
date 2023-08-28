@@ -98,9 +98,9 @@ class SearchScreenState extends State<SearchScreen> {
         appBar: searchbar(context),
         floatingActionButton: CircleAvatar(
           radius: 30,
-          backgroundColor: palette.white,
+          backgroundColor: palette.black,
           child: IconButton(
-              color: palette.black,
+              color: palette.amber,
               padding: const EdgeInsets.all(0),
               onPressed: () => Navigator.push(
                   context,
@@ -108,11 +108,11 @@ class SearchScreenState extends State<SearchScreen> {
                       pageBuilder: (context, _, __) => const Master())),
               icon: Stack(
                 children: [
-                  Icon(Icons.category_outlined, size: 40, color: palette.grey),
+                  Icon(Icons.category_outlined, size: 40, color: palette.amber),
                   Positioned(
                       top: 0,
                       right: 0,
-                      child: Icon(Icons.add, size: 17, color: palette.grey))
+                      child: Icon(Icons.add, size: 17, color: palette.amber))
                 ],
               )),
         ),

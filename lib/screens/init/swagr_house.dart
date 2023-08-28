@@ -3,9 +3,10 @@ import '../search/init_search_screen.dart';
 import '../../main.dart';
 import 'package:flutter/material.dart';
 
-import '../notification/init_notification_screen.dart';
+import '../tabs/init_tabs_screen.dart';
 import '../explore/profile_screen/init_profile_screen.dart';
 import '../explore/init_explore_screen.dart';
+import '../nugget/init_nuggets_screen.dart';
 
 class SwagrHouse extends StatefulWidget {
   const SwagrHouse({super.key});
@@ -59,8 +60,9 @@ class SwagrHouseState extends State<SwagrHouse> {
       backgroundColor: palette.black,
       body: [
         const Center(child: ExploreScreenWidget()),
+        const Center(child: NuggetScreen()),
         const Center(child: SearchScreen()),
-        const Center(child: NotificationScreen()),
+        const Center(child: TabsScreen()),
       ][selectedPageIndex],
 
       bottomNavigationBar: NavigationBar(
@@ -79,6 +81,14 @@ class SwagrHouseState extends State<SwagrHouse> {
               ),
               label: 'home',
             ),
+            NavigationDestination(
+                icon: Icon(Icons.apps, color: palette.white),
+                selectedIcon: Icon(
+                  Icons.apps_rounded,
+                  color: palette.amber,
+                  fill: 1,
+                ),
+                label: 'nuggets'),
             NavigationDestination(
               icon: Icon(Icons.search, color: palette.white),
               selectedIcon: Icon(Icons.search, size: 27, color: palette.amber),

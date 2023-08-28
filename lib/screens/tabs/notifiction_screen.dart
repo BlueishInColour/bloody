@@ -9,31 +9,6 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
-//statefor screen widget
-  String currentScreenWidget = 'notifications';
-
-  @override
-  Widget build(BuildContext context) {
-    return (Scaffold(
-      appBar: appBar(context),
-      body: currentScreenWidget == 'notifications'
-          ? notificationPod(context)
-          : currentScreenWidget == 'saved'
-              ? const SizedBox()
-              : currentScreenWidget == 'followers'
-                  ? const SizedBox()
-                  : currentScreenWidget == 'following'
-                      ? const SizedBox()
-                      : currentScreenWidget == 'posts'
-                          ? const SizedBox()
-                          : currentScreenWidget == 'gigs'
-                              ? const SizedBox()
-                              : currentScreenWidget == 'saved'
-                                  ? const SizedBox()
-                                  : null,
-    ));
-  }
-
   final Icon done = const Icon(
       Icons.done_all); //notify icon to confirm pull or pushed actions
   final Icon notify = const Icon(Icons
@@ -41,7 +16,8 @@ class NotificationScreenState extends State<NotificationScreen> {
   final Icon promotion =
       const Icon(Icons.lightbulb_rounded); //notify icon for promotions and ads
 
-  Widget? notificationPod(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (context, index) => const Divider(),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -64,8 +40,8 @@ class NotificationScreenState extends State<NotificationScreen> {
                       //icon for type of notification
                       ///
                       CircleAvatar(
-                        foregroundColor: palette.black,
-                        backgroundColor: palette.white,
+                        foregroundColor: Colors.white,
+                        backgroundColor: Color.fromARGB(255, 207, 4, 4),
                         child: done,
                       ),
                       const Expanded(child: Text('')),
@@ -73,7 +49,8 @@ class NotificationScreenState extends State<NotificationScreen> {
                       //part
                       //how may days, time ago
                       //
-                      const Text('1d')
+                      Text('1d',
+                          style: TextStyle(color: palette.textColorLight))
                     ],
                   ),
                 ),
@@ -85,10 +62,12 @@ class NotificationScreenState extends State<NotificationScreen> {
                       //part
                       //message part
                       child: Text(
-                        style: TextStyle(color: palette.textColorLight),
                         'pelumi just purchased a black hood and its about to be delivered enter pin to allow deivery',
                         softWrap: true,
                         maxLines: 6,
+                        style: TextStyle(
+                            color: palette.textColorLight,
+                            overflow: TextOverflow.ellipsis),
                       ),
                     ),
                   ),
@@ -98,57 +77,6 @@ class NotificationScreenState extends State<NotificationScreen> {
           )),
           const SizedBox(height: 20),
         ],
-      ),
-    );
-  }
-
-  AppBar appBar(
-    BuildContext context,
-  ) {
-    Widget tab(String text, {String changeToScreen = ''}) {
-      return TextButton(
-        onPressed: () {
-          setState(() {
-            currentScreenWidget = changeToScreen;
-          });
-        },
-        child: Row(
-          children: [
-            Text(text,
-                style: TextStyle(
-                  color: palette.textColorDark,
-                )),
-            const VerticalDivider()
-          ],
-        ),
-      );
-    }
-
-    return AppBar(
-      titleTextStyle: const TextStyle(fontSize: 15),
-      title: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: (Container(
-          height: 40,
-          decoration: BoxDecoration(
-            color: palette.amber,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            //  padding: const EdgeInsetsDirectional.only(top: 15),
-            children: [
-              //  VerticalDivider(),
-              const SizedBox(width: 7),
-              tab('notifications'),
-              tab('saved'),
-              tab('posts'),
-              tab('followers'),
-              tab('following'),
-              tab('gigs')
-            ],
-          ),
-        )),
       ),
     );
   }
