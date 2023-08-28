@@ -9,7 +9,8 @@ part 'post_model.g.dart';
 class Post {
   String postedBy;
   String id;
-  String postType;
+  String category;
+  String subCategory;
   String text;
   String tags;
   String specialTag;
@@ -21,7 +22,8 @@ class Post {
       {required this.postedBy,
       required this.id,
       required this.text,
-      this.postType = '',
+      this.category = '',
+      this.subCategory = '',
       required this.photosUrl,
       required this.tags,
       required this.specialTag});

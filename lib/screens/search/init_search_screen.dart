@@ -3,10 +3,7 @@ import '../../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'search_category_screen.dart';
 
-import '../init/sign_up_in_out_screen.dart';
-import '../Test/master.dart';
-
-import 'package:loadmore_listview/loadmore_listview.dart'; //for pull up refress place
+import '../Test/master.dart'; //for pull up refress place
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -25,18 +22,16 @@ class SearchScreenState extends State<SearchScreen> {
         elevation: 0,
         title: SearchBar(
           onTap: () => debugPrint('tapped'),
-          backgroundColor: MaterialStatePropertyAll(palette.grey),
+          //   backgroundColor: MaterialStatePropertyAll(palette.grey),
           hintText: 'explore',
-          hintStyle: const MaterialStatePropertyAll(TextStyle(
-              fontStyle: FontStyle.italic,
-              fontSize: 14,
-              color: Colors.black87)),
+          hintStyle: MaterialStatePropertyAll(TextStyle(
+              fontStyle: FontStyle.italic, fontSize: 14, color: palette.black)),
           trailing: [
             IconButton.outlined(
                 onPressed: null,
                 icon: Icon(
                   Icons.search,
-                  color: palette.white,
+                  color: palette.black,
                 )),
           ],
         ),
@@ -55,7 +50,7 @@ class SearchScreenState extends State<SearchScreen> {
             child: CachedNetworkImage(
               errorWidget: (context, url, error) => Container(
                 height: 400,
-                color: palette.grey,
+                color: palette.amber,
                 child: const Center(
                   child: Text('connect to internet'),
                 ),
@@ -64,7 +59,7 @@ class SearchScreenState extends State<SearchScreen> {
                 height: 400,
                 child: Center(
                     child: CircleAvatar(
-                        backgroundColor: palette.grey,
+                        backgroundColor: palette.amber,
                         child: CircularProgressIndicator(
                           color: palette.white,
                         ))),

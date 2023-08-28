@@ -6,28 +6,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hive/hive.dart';
 import 'package:loadmore_listview/loadmore_listview.dart';
+import 'dart:async';
 
 ///
 import './imagepod.dart';
-import '../../dummy_data.dart';
 import '../../main.dart';
-//import 'package:image_picker/image_picker.dart';
-//import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
-//import 'dart:async';
-import 'dart:io';
-import 'pod_icon_buttons.dart';
-import 'post_upload_screen.dart';
-import 'full_screen_image.dart';
-import '../profile/edit_profile._screen.dart';
 import '../../constant/configs.dart';
-
-//to load data
-import '../../apis/upstash.dart';
-import '../../apis/imagekit.dart';
-import '../../models/post_model.dart';
+import './profile_screen/init_profile_screen.dart';
+import './post_upload_screen.dart';
 
 //final palette = Palette();
 
@@ -107,7 +94,6 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
     List<String> res = await upstash.postApi.keys('*');
     print(res);
     List<String> keys = [];
-    List unduplicatedKeys = keys.toSet().toList();
 
     setState(() {});
     print(keys);
@@ -117,6 +103,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   List<String> randomKeys = [];
   getRandomKeys() async {
     print('started to get random keys');
+
     final String? res = await upstash.postApi.randomkey();
     print(res);
 
@@ -124,6 +111,14 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
       randomKeys.add(res!);
     });
     print(randomKeys);
+  }
+
+  getTenRandomKeys() async {
+    int max = 10;
+    for (int i = 0; i < max; i++) {
+      print(i);
+      getRandomKeys();
+    }
   }
 
   @override
@@ -141,17 +136,24 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
                 TextSpan(
                     text: '&',
                     style: TextStyle(
-                        color: palette.white,
+                        color: palette.amber,
                         fontSize: 35,
                         fontFamily: 'Geologica_Cursive-Bold')),
               ])),
             ),
-            _credentials == null
+            _user == null
                 ? ElevatedButton(
                     onPressed: login, child: const Text("login | signin"))
-                : CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(
-                        _credentials!.user.pictureUrl.toString()),
+                : GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (context, _, __) =>
+                                ProfileScreen(user: _user, mine: true))),
+                    child: CircleAvatar(
+                      backgroundImage: CachedNetworkImageProvider(
+                          _user!.pictureUrl.toString()),
+                    ),
                   )
           ],
         ),
@@ -161,15 +163,11 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 
 ///////*********User details pod  ******/////
 
-    void refreshToGetMoreDataFromDb() async {
-      debugPrint('refresing');
-    }
-
     return (Scaffold(
         appBar: appbar(context),
         floatingActionButton: CircleAvatar(
           radius: 30,
-          backgroundColor: palette.white,
+          backgroundColor: palette.amber,
           child: IconButton(
               color: palette.black,
               padding: const EdgeInsets.all(0),
@@ -203,7 +201,7 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
           //Trigger the bottom loadMore callback
           onLoadMore: () async {
             //wait for your api to fetch more items
-            await getRandomKeys();
+            await getTenRandomKeys();
           },
           //pull down refresh callback
           onRefresh: () async {
@@ -211,15 +209,26 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
             await Future.delayed(const Duration(seconds: 1));
           },
           //you can set your loadMore Animation
+          hasMoreItem: true,
+
           loadMoreWidget: Container(
               margin: const EdgeInsets.all(20.0),
               alignment: Alignment.center,
-              child: CircleAvatar(
-                  backgroundColor: palette.grey,
-                  child: CircularProgressIndicator())),
+              child: Container(
+                height: 300,
+                color: palette.grey,
+                child: CircleAvatar(
+                    backgroundColor: palette.grey,
+                    child: const CircularProgressIndicator()),
+              )),
           //ListView
-          itemCount: randomKeys.isEmpty ? 1 : randomKeys.length,
-          itemBuilder: (context, index) => ImagePod(index: index),
+          itemCount: randomKeys.isEmpty ? 2 : randomKeys.length,
+          itemBuilder: (context, index) => ImagePod(
+            index: index,
+            singlePostKey: randomKeys.isNotEmpty
+                ? randomKeys[index]
+                : '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           //   itemCount: posts.length
         )));

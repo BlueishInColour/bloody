@@ -14,6 +14,7 @@ main() async {
 class Palette {
   const Palette();
   final String appName = 'rubic';
+  final Color amber = Colors.amber;
 
   final Color lightPurple = const Color.fromARGB(41, 129, 50, 219);
   final Color red = const Color.fromARGB(255, 255, 0, 21);
@@ -53,7 +54,7 @@ class Swagr extends StatelessWidget {
         primaryColor: palette.grey,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(palette.white),
+                backgroundColor: MaterialStatePropertyAll(palette.amber),
                 foregroundColor: MaterialStatePropertyAll(palette.black),
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15))))),
@@ -143,39 +144,41 @@ class Swagr extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+                backgroundColor:
+                    const MaterialStatePropertyAll(Colors.transparent),
                 foregroundColor: MaterialStatePropertyAll(palette.white),
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15))))),
         inputDecorationTheme: InputDecorationTheme(
-            labelStyle: const TextStyle(
-              color: Colors.transparent,
-            ),
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            hintStyle: TextStyle(
-              color: palette.white,
-            ),
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(9),
-                borderSide: const BorderSide(
-                  color: Colors.transparent,
-                )),
-            counterStyle: TextStyle(
-              color: palette.lightPurple,
-            ),
-            enabledBorder: OutlineInputBorder(
+          labelStyle: const TextStyle(
+            color: Colors.transparent,
+          ),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          hintStyle: TextStyle(
+            color: palette.white,
+          ),
+          filled: true,
+          focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(9),
               borderSide: const BorderSide(
-                color: Colors.white,
-                style: BorderStyle.none,
-                strokeAlign: BorderSide.strokeAlignCenter,
-                // width: BorderSide.strokeAlignInside,
-              ),
+                color: Colors.transparent,
+              )),
+          counterStyle: TextStyle(
+            color: palette.lightPurple,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(9),
+            borderSide: const BorderSide(
+              color: Colors.white,
+              style: BorderStyle.none,
+              strokeAlign: BorderSide.strokeAlignCenter,
+              // width: BorderSide.strokeAlignInside,
             ),
-            focusColor: palette.grey,
-            fillColor: palette.grey,
-            hoverColor: palette.grey),
+          ),
+          //focusColor: palette.grey,
+          //fillColor: palette.grey,
+          //hoverColor: palette.grey,
+        ),
 
         dropdownMenuTheme: DropdownMenuThemeData(
             inputDecorationTheme: InputDecorationTheme(
@@ -246,8 +249,8 @@ class Swagr extends StatelessWidget {
             fill: 0.5,
             shadows: [Shadow(color: palette.lightPurple, blurRadius: 10)]),
         searchBarTheme: SearchBarThemeData(
-            backgroundColor: MaterialStatePropertyAll(palette.black),
-            shadowColor: MaterialStatePropertyAll(palette.grey),
+            backgroundColor: MaterialStatePropertyAll(palette.amber),
+            shadowColor: MaterialStatePropertyAll(palette.amber),
             elevation: const MaterialStatePropertyAll(0),
             constraints: const BoxConstraints(maxHeight: 50),
             surfaceTintColor: MaterialStatePropertyAll(palette.lightPurple),

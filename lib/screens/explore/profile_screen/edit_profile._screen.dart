@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 
-import '../../main.dart';
-import '../../models/user_model.dart';
-import '../../apis/upstash.dart';
+import '../../../main.dart';
+import '../../../models/user_model.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({
@@ -118,7 +117,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         user.coverPicture = value;
                       });
                     }),
-                icon:  Icon(Icons.edit_outlined, color: palette.white))),
+                icon: Icon(Icons.edit_outlined, color: palette.white))),
       ],
     );
   }

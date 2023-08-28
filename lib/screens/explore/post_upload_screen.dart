@@ -1,12 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../main.dart';
 import '../../models/post_model.dart';
-//import '../Apis/create_post_freakon.dart';
-import '../../apis/imagekit.dart';
 import 'package:flutter_imagekit/flutter_imagekit.dart';
 import 'dart:io';
 import '../../constant/configs.dart';
@@ -25,10 +21,10 @@ class PostUploadState extends State<PostUpload> {
   var textinfo = '';
   String flagged = '';
   Post post = Post(
-      postType: '',
+      category: '',
       tags: '',
       postedBy: 'da vinco',
-      id: '',
+      id: Uuid.NAMESPACE_DNS,
       photosUrl: [],
       text: '',
       specialTag: '');
@@ -82,12 +78,26 @@ class PostUploadState extends State<PostUpload> {
     });
   }
 
+  late FocusNode descriptionFocusNode;
+  late FocusNode tagFocusNode;
+  late FocusNode mentionFocusNode;
   @override
   initState() {
     super.initState();
     setState(() {
       post.id = Uuid.NAMESPACE_DNS;
     });
+    descriptionFocusNode = FocusNode();
+    tagFocusNode = FocusNode();
+    mentionFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    descriptionFocusNode.dispose();
+    tagFocusNode.dispose();
+    mentionFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -108,8 +118,8 @@ class PostUploadState extends State<PostUpload> {
         leading: SizedBox(
           height: 25,
           child: ElevatedButton(
-              style: ButtonStyle(
-                shape: const MaterialStatePropertyAll(StadiumBorder()),
+              style: const ButtonStyle(
+                shape: MaterialStatePropertyAll(StadiumBorder()),
               ),
               onPressed: () => debugPrint('draft'),
               child: const Text('draft')),
@@ -165,8 +175,8 @@ class PostUploadState extends State<PostUpload> {
           post.photosUrl.isEmpty
               ? dummyMediaContentPartWidget(context)
               : mediaContentPartWidget(context),
-          extrainfoPartWidget(context),
-          flaggedContainer(context),
+          descriptionWidget(context),
+          tagWidget(context),
           post.specialTag.isEmpty
               ? const SliverToBoxAdapter(child: SizedBox())
               : creatorPod(context, post.specialTag),
@@ -184,7 +194,7 @@ class PostUploadState extends State<PostUpload> {
         child: DropdownMenu(
             onSelected: (value) {
               setState(() {
-                post.postType = value!;
+                post.category = value!;
               });
             },
             inputDecorationTheme: InputDecorationTheme(
@@ -203,10 +213,16 @@ class PostUploadState extends State<PostUpload> {
             label: Text('type',
                 style: TextStyle(fontSize: 12, color: palette.white)),
             dropdownMenuEntries: const [
-              DropdownMenuEntry(value: 'style', label: 'style'),
-              DropdownMenuEntry(value: 'blog', label: 'blog'),
-              DropdownMenuEntry(value: 'loundry', label: 'loundry'),
-              DropdownMenuEntry(value: 'exhibition', label: 'exhibition'),
+              DropdownMenuEntry(value: 'general', label: 'general'),
+              DropdownMenuEntry(value: 'cars', label: 'cars'),
+              DropdownMenuEntry(value: 'sport', label: 'sport'),
+              DropdownMenuEntry(value: 'shoes', label: 'shoes'),
+              DropdownMenuEntry(value: 'boo', label: 'babe'),
+              DropdownMenuEntry(value: 'wildlife', label: 'wildlife'),
+              DropdownMenuEntry(value: 'work', label: 'work'),
+              DropdownMenuEntry(value: 'lifestyle', label: 'lifestyle'),
+              DropdownMenuEntry(value: 'children', label: 'children'),
+              DropdownMenuEntry(value: 'streets', label: 'streets'),
 
               //   DropdownMenuEntry(value: 'none', label: 'none'),
             ]),
@@ -251,7 +267,7 @@ class PostUploadState extends State<PostUpload> {
                         Text('click camera or file at bottom to add image')))));
   }
 
-  Widget extrainfoPartWidget(BuildContext context) {
+  Widget descriptionWidget(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -264,6 +280,7 @@ class PostUploadState extends State<PostUpload> {
             // padding: EdgeInsets.all(8),
             height: 150,
             child: TextFormField(
+              focusNode: descriptionFocusNode,
               onChanged: (value) {
                 setState(() {
                   post.text = value;
@@ -271,7 +288,8 @@ class PostUploadState extends State<PostUpload> {
               },
               decoration: InputDecoration(
                   hoverColor: palette.grey,
-                  hintText: 'extra information',
+                  hintText:
+                      'description helps fashionistas to find your styles easily',
                   hintStyle: TextStyle(color: palette.white)),
               minLines: 20,
               maxLines: 21,
@@ -280,7 +298,7 @@ class PostUploadState extends State<PostUpload> {
     );
   }
 
-  Widget flaggedContainer(BuildContext context) {
+  Widget tagWidget(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -293,6 +311,7 @@ class PostUploadState extends State<PostUpload> {
             // padding: EdgeInsets.all(8),
             height: 120,
             child: TextFormField(
+              focusNode: tagFocusNode,
               onChanged: (value) {
                 setState(() {
                   post.tags = value;
@@ -300,7 +319,8 @@ class PostUploadState extends State<PostUpload> {
               },
               decoration: InputDecoration(
                   hoverColor: palette.grey,
-                  hintText: '@mentions and #tags',
+                  hintText:
+                      '@mention people and #tag topic seperate with a comma',
                   hintStyle: TextStyle(color: palette.white)),
               minLines: 20,
               maxLines: 21,
@@ -329,12 +349,12 @@ class PostUploadState extends State<PostUpload> {
                 //   "https://source.unsplash.com/random/?art&width=500&height=1000",
                 // ),
               ),
-              VerticalDivider(),
+              const VerticalDivider(),
               Text(name,
                   style: const TextStyle(
                     color: Colors.blue,
                   )),
-              VerticalDivider(),
+              const VerticalDivider(),
               const Expanded(child: SizedBox())
             ],
           ),
@@ -369,7 +389,7 @@ class PostUploadState extends State<PostUpload> {
                   // labelText: 'flag',
                   hintStyle: TextStyle(color: palette.white),
                   hoverColor: palette.grey,
-                  prefixIcon: Icon(Icons.alternate_email_outlined),
+                  prefixIcon: const Icon(Icons.alternate_email_outlined),
                   suffixIcon: CircleAvatar(
                     child: IconButton(
                       onPressed: () {
@@ -387,18 +407,6 @@ class PostUploadState extends State<PostUpload> {
   }
 
 // mainBody >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-  Widget filePickScreen(BuildContext context) {
-    return (const Text('pickfile'));
-  }
-
-  Widget textInputScreen(BuildContext context) {
-    return (const Text('textInput'));
-  }
-
-  Widget tagInputScreen(BuildContext context) {
-    return (const Text('TagInput'));
-  }
 
   Widget bottomSheet(BuildContext context) {
     return SizedBox(
@@ -423,12 +431,17 @@ class PostUploadState extends State<PostUpload> {
                 size: 35, color: palette.white),
           ),
           IconButton(
-              onPressed: () => debugPrint('clicked'),
+              onPressed: () => descriptionFocusNode.requestFocus(),
               icon: Icon(Icons.drive_file_rename_outline,
                   size: 35, color: palette.white)),
           IconButton(
-            onPressed: () => debugPrint('clicked'),
-            icon: Icon(Icons.flag_outlined, size: 35, color: palette.white),
+            onPressed: () => tagFocusNode.requestFocus(),
+            icon: Icon(Icons.tag, size: 35, color: palette.white),
+          ),
+          IconButton(
+            onPressed: () => mentionFocusNode.requestFocus(),
+            icon: Icon(Icons.alternate_email_rounded,
+                size: 35, color: palette.white),
           ),
         ],
       )),

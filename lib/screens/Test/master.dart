@@ -6,9 +6,6 @@ import 'create_user_screen.dart';
 import 'list_users.screen.dart';
 import '../../apis/imagekit.dart';
 import '../../apis/upstash.dart';
-import '../../apis/upstash.dart';
-import 'package:upstash_redis/upstash_redis.dart';
-import '../../models/post_model.dart';
 
 class Master extends StatefulWidget {
   const Master({super.key});

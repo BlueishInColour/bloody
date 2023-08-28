@@ -14,14 +14,17 @@ import 'full_screen_image.dart';
 
 //to load data
 import '../../apis/upstash.dart';
-import '../../apis/imagekit.dart';
 import '../../models/post_model.dart';
-import 'dart:convert';
 
 class ImagePod extends StatefulWidget {
-  ImagePod({List<String> listOfPost = const [], int index = 0, super.key});
+  ImagePod(
+      {this.singlePostKey = '',
+      List<String> listOfPost = const [],
+      int index = 0,
+      super.key});
   final index = 0;
   final listOfPost = [];
+  String singlePostKey = '';
 
   @override
   State<ImagePod> createState() => ImagePodState();
@@ -47,8 +50,8 @@ class ImagePodState extends State<ImagePod> {
       specialTag: '@BlueishInColour');
 
   Future<Post> getPost() async {
-    final res = await upstash.postApi.json.get<List<Map<String, dynamic>>>(
-        '6ba7b810-9dad-11d1-80b4-00c04fd430c8', [r'$']);
+    final res = await upstash.postApi.json
+        .get<List<Map<String, dynamic>>>(widget.singlePostKey, [r'$']);
     print(res);
     Post herepost = Post.fromJson(res![0]);
     print('this is the post to json that should be displayed');
@@ -99,7 +102,7 @@ class ImagePodState extends State<ImagePod> {
                       )),
                 ),
 
-                VerticalDivider(),
+                const VerticalDivider(),
                 //name and user name container
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -112,7 +115,7 @@ class ImagePodState extends State<ImagePod> {
                   ],
                 ),
 
-                VerticalDivider()
+                const VerticalDivider()
               ],
             )),
           );
@@ -153,12 +156,12 @@ class ImagePodState extends State<ImagePod> {
                   //   "https://source.unsplash.com/random/?art&width=500&height=1000",
                   // ),
                 ),
-                VerticalDivider(),
+                const VerticalDivider(),
                 Text(post!.specialTag,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.blue,
                     )),
-                VerticalDivider(),
+                const VerticalDivider(),
                 Expanded(child: actionButtons())
               ],
             ),
@@ -224,27 +227,57 @@ class ImagePodState extends State<ImagePod> {
                   child: Iconish(re: () => null, icony: Icons.share_rounded)),
             ]),
             const SizedBox(height: 5),
-            SizedBox(
-              child: extraDetails
-                  ? Text(post.text, style: TextStyle(color: palette.white))
-                  : null,
-            ),
           ])));
+        }
+
+        Widget descriptionPod(contex) {
+          return SizedBox(
+            child: extraDetails
+                ? Text(post!.text,
+                    style: TextStyle(
+                      color: palette.white,
+                      overflow: TextOverflow.ellipsis,
+                    ))
+                : null,
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.none) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                height: 250,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.amber,
+                ),
+                child: Center(
+                  child: Text('come`n connect to the internet',
+                      style: TextStyle(color: palette.errorTextColor)),
+                )),
+          );
         }
 
         // Checking if future is resolved
         if (snapshot.connectionState == ConnectionState.done) {
           // If we got an error
           if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                'come`n, connect to the internet',
-                style: TextStyle(fontSize: 18, color: palette.errorTextColor),
-              ),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.amber,
+                  ),
+                  child: Center(
+                    child: Text('come`n connect to the internet',
+                        style: TextStyle(color: palette.errorTextColor)),
+                  )),
             );
 
             // if we got our data
-          } else if (snapshot.hasData) {
+          } else if (snapshot.hasData && post!.photosUrl.isNotEmpty) {
             // Extracting data from snapshot object
 
             return Padding(
@@ -254,15 +287,40 @@ class ImagePodState extends State<ImagePod> {
                 children: [
                   userDetailsPod(context, widget.index),
                   imagePod(context, widget.index),
+                  descriptionPod(context),
                   creatorPod(context)
                 ],
               ),
             );
+          } else {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.amber,
+                  ),
+                  child: Center(
+                    child: Text('something went wrong somewhere',
+                        style: TextStyle(color: palette.errorTextColor)),
+                  )),
+            );
           }
         }
 
-        return const Center(
-          child: CircularProgressIndicator(),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 250,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.amber,
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
         );
       },
     ));

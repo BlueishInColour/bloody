@@ -19,17 +19,17 @@ class NotificationScreenState extends State<NotificationScreen> {
       body: currentScreenWidget == 'notifications'
           ? notificationPod(context)
           : currentScreenWidget == 'saved'
-              ? SizedBox()
+              ? const SizedBox()
               : currentScreenWidget == 'followers'
-                  ? SizedBox()
+                  ? const SizedBox()
                   : currentScreenWidget == 'following'
-                      ? SizedBox()
+                      ? const SizedBox()
                       : currentScreenWidget == 'posts'
-                          ? SizedBox()
+                          ? const SizedBox()
                           : currentScreenWidget == 'gigs'
-                              ? SizedBox()
+                              ? const SizedBox()
                               : currentScreenWidget == 'saved'
-                                  ? SizedBox()
+                                  ? const SizedBox()
                                   : null,
     ));
   }
@@ -118,7 +118,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                 style: TextStyle(
                   color: palette.textColorDark,
                 )),
-            VerticalDivider()
+            const VerticalDivider()
           ],
         ),
       );
@@ -131,7 +131,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         child: (Container(
           height: 40,
           decoration: BoxDecoration(
-            color: palette.grey,
+            color: palette.amber,
             borderRadius: BorderRadius.circular(12),
           ),
           child: ListView(

@@ -1,5 +1,4 @@
 import 'package:upstash_redis/upstash_redis.dart';
-import '../models/post_model.dart';
 
 class Upstash {
   Upstash();

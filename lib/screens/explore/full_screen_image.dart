@@ -3,19 +3,16 @@ import 'package:flutter/services.dart';
 import '../../main.dart';
 
 class FullScreenPage extends StatefulWidget {
-  FullScreenPage({
-    required this.child,
-    required this.dark,
-  });
+  const FullScreenPage({required this.child, required this.dark, super.key});
 
   final bool dark;
 
   final Image child;
   @override
-  _FullScreenPageState createState() => _FullScreenPageState();
+  FullScreenPageState createState() => FullScreenPageState();
 }
 
-class _FullScreenPageState extends State<FullScreenPage> {
+class FullScreenPageState extends State<FullScreenPage> {
   @override
   void initState() {
     var brightness = widget.dark ? Brightness.light : Brightness.dark;
@@ -33,7 +30,7 @@ class _FullScreenPageState extends State<FullScreenPage> {
 
   @override
   void dispose() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         // Restore your settings here...
         ));
     super.dispose();
@@ -50,7 +47,7 @@ class _FullScreenPageState extends State<FullScreenPage> {
             Stack(
               children: [
                 AnimatedPositioned(
-                  duration: Duration(milliseconds: 333),
+                  duration: const Duration(milliseconds: 333),
                   curve: Curves.fastOutSlowIn,
                   top: 0,
                   bottom: 0,
@@ -73,11 +70,6 @@ class _FullScreenPageState extends State<FullScreenPage> {
                   child: MaterialButton(
                     padding: const EdgeInsets.all(35),
                     elevation: 0,
-                    child: Icon(
-                      Icons.cancel,
-                      color: widget.dark ? palette.white : Colors.black,
-                      size: 45,
-                    ),
                     color: widget.dark ? Colors.black12 : palette.white,
                     highlightElevation: 0,
                     minWidth: double.minPositive,
@@ -86,6 +78,11 @@ class _FullScreenPageState extends State<FullScreenPage> {
                       borderRadius: BorderRadius.circular(100),
                     ),
                     onPressed: () => Navigator.of(context).pop(),
+                    child: Icon(
+                      Icons.cancel,
+                      color: widget.dark ? palette.white : Colors.black,
+                      size: 45,
+                    ),
                   ),
                 ),
               ),
