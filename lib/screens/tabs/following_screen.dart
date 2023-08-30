@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './floating_search_button.dart';
 import '../../main.dart';
 
 class FollowingScreen extends StatefulWidget {
@@ -27,10 +28,13 @@ class FollowingScreenState extends State<FollowingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return (ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, _) {
-          return oneFollowing(context);
-        }));
+    return Scaffold(
+      floatingActionButton: const TabsFloatingSearchButton(),
+      body: (ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, _) {
+            return oneFollowing(context);
+          })),
+    );
   }
 }

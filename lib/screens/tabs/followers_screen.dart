@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import 'floating_search_button.dart';
 
 class FollowersScreen extends StatefulWidget {
   const FollowersScreen({super.key});
@@ -26,10 +27,13 @@ class FollowersScreenState extends State<FollowersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return (ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, _) {
-          return oneFollower(context);
-        }));
+    return Scaffold(
+      floatingActionButton: const TabsFloatingSearchButton(),
+      body: (ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, _) {
+            return oneFollower(context);
+          })),
+    );
   }
 }

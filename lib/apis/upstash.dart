@@ -25,6 +25,10 @@ class Upstash {
       url: 'https://causal-bear-46070.upstash.io',
       token:
           'AbP2ACQgYWYwYTA5ZDctYTU0My00MzYzLTkyY2UtNWRlMjdlYTY4MDRkNDliNTlmNmI5OWI5NDA2YWI4Yjg4ZThmNWE2MzM2MDI=');
+  Redis categoriesApi = Redis(
+      url: 'https://liberal-hagfish-31904.upstash.io',
+      token:
+          'AXygACQgMGYyZTFlMDgtZTM3Zi00YmVmLTkzMzktYzFhYzAyYzE2ZmI3NzhmYjU4NDkxMmNhNGFlY2E3M2Y2NDZiMzY2NzNjNDQ=');
 // print(await redis.json.set('json', $, {'counter': 1, 'hello': '', 'name': 're'}));
 //  print(await redis.json.numincrby('json', r'$.counter', 1));
 //  print(await redis.json.set('json', r'$.hello', '"world"'));

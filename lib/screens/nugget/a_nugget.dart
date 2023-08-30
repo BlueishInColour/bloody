@@ -19,61 +19,58 @@ class NuggetState extends State<Nugget> {
 
     Widget firstColumn(context) {
       return Padding(
-        padding: const EdgeInsets.only(right: 3.0),
-        child: SizedBox(
-          width: 40,
-          child: (Column(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: palette.amber,
+        padding: const EdgeInsets.only(left: 8.0),
+        child: (Container(
+            decoration: BoxDecoration(
+                color: palette.amber, borderRadius: BorderRadius.circular(15)),
+            width: 150,
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) => Container(
+                width: 150,
+                decoration: BoxDecoration(
+                    color: palette.amber,
+                    borderRadius: BorderRadius.circular(15)),
               ),
-              const Expanded(
-                child: SizedBox(),
-              ),
-              IconButton(
-                  onPressed: () => debugPrint('clicked'),
-                  icon: const Icon(Icons.favorite_rounded))
-            ],
-          )),
-        ),
+              imageUrl:
+                  'https://ik.imagekit.io/bluerubic/flutter_imagekit/Logopit_1692812359977_YIjC9fthW.jpg',
+              placeholder: (context, _) =>
+                  Container(width: 150, color: palette.amber),
+            ))),
+      );
+    }
+
+    Widget rowInSeconColumn(context) {
+      return Row(
+        children: [
+          Text('@oluwapelumide',
+              style: TextStyle(fontSize: 12, color: palette.linkTextColor)),
+          const Expanded(child: SizedBox()),
+          Text('1d',
+              style: TextStyle(fontSize: 12, color: palette.textColorLight))
+        ],
       );
     }
 
     Widget secondColumn(context) {
-      return (Container(
-          decoration: BoxDecoration(
-              color: palette.amber, borderRadius: BorderRadius.circular(15)),
-          width: 150,
-          child: CachedNetworkImage(
-            fit: BoxFit.cover,
-            errorWidget: (context, url, error) => Container(
-              width: 150,
-              decoration: BoxDecoration(
-                  color: palette.amber,
-                  borderRadius: BorderRadius.circular(15)),
-            ),
-            imageUrl:
-                'https://ik.imagekit.io/bluerubic/flutter_imagekit/Logopit_1692812359977_YIjC9fthW.jpg',
-            placeholder: (context, _) =>
-                Container(width: 150, color: palette.amber),
-          )));
-    }
-
-    Widget thirdColumn(context) {
       return Expanded(
         child: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: SizedBox(
-            width: 40,
-            child: (Text(
-              'this is the  firs time ill spend so much time coding stuff that is barely posible all i want to do is render widgets from the net as in thi is my deram since day one',
-              maxLines: 5,
-              style: TextStyle(
-                overflow: TextOverflow.ellipsis,
-                color: palette.textColorLight,
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              rowInSeconColumn(context),
+              Expanded(
+                child: (Text(
+                  'this is the  firs time ill spend so much time coding stuff that is barely posible all i want to do is render widgets from the net as in thi is my deram since day one',
+                  maxLines: 5,
+                  style: TextStyle(
+                    fontSize: 12,
+                    overflow: TextOverflow.ellipsis,
+                    color: palette.textColorLight,
+                  ),
+                )),
               ),
-            )),
+            ],
           ),
         ),
       );
@@ -84,11 +81,7 @@ class NuggetState extends State<Nugget> {
       child: SizedBox(
         height: 100,
         child: (Row(
-          children: [
-            firstColumn(context),
-            secondColumn(context),
-            thirdColumn(context)
-          ],
+          children: [firstColumn(context), secondColumn(context)],
         )),
       ),
     );

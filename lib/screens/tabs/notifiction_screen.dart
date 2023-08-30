@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import './floating_search_button.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -18,65 +19,68 @@ class NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) => const Divider(),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      itemCount: 20,
-      itemBuilder: (context, index) => Column(
-        children: [
-          const SizedBox(height: 5),
-          (SizedBox(
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      //                //part
-                      //icon for type of notification
-                      ///
-                      CircleAvatar(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color.fromARGB(255, 207, 4, 4),
-                        child: done,
-                      ),
-                      const Expanded(child: Text('')),
+    return Scaffold(
+      floatingActionButton: const TabsFloatingSearchButton(),
+      body: ListView.separated(
+        separatorBuilder: (context, index) => const Divider(),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        itemCount: 20,
+        itemBuilder: (context, index) => Column(
+          children: [
+            const SizedBox(height: 5),
+            (SizedBox(
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        //                //part
+                        //icon for type of notification
+                        ///
+                        CircleAvatar(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Color.fromARGB(255, 207, 4, 4),
+                          child: done,
+                        ),
+                        const Expanded(child: Text('')),
 
-                      //part
-                      //how may days, time ago
-                      //
-                      Text('1d',
-                          style: TextStyle(color: palette.textColorLight))
-                    ],
+                        //part
+                        //how may days, time ago
+                        //
+                        Text('1d',
+                            style: TextStyle(color: palette.textColorLight))
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      //
-                      //part
-                      //message part
-                      child: Text(
-                        'pelumi just purchased a black hood and its about to be delivered enter pin to allow deivery',
-                        softWrap: true,
-                        maxLines: 6,
-                        style: TextStyle(
-                            color: palette.textColorLight,
-                            overflow: TextOverflow.ellipsis),
+                  Expanded(
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        //
+                        //part
+                        //message part
+                        child: Text(
+                          'pelumi just purchased a black hood and its about to be delivered enter pin to allow deivery',
+                          softWrap: true,
+                          maxLines: 6,
+                          style: TextStyle(
+                              color: palette.textColorLight,
+                              overflow: TextOverflow.ellipsis),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )),
-          const SizedBox(height: 20),
-        ],
+                ],
+              ),
+            )),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

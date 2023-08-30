@@ -58,41 +58,66 @@ class OneLoundry extends StatelessWidget {
           child: Column(
             children: [
               ///first Row
-              Row(
+              Column(
                 children: [
-                  const CircleAvatar(
-                    backgroundColor: Colors.blue,
+                  Row(
+                    children: [
+                      const Icon(Icons.done_all, color: Colors.blue),
+                      Expanded(
+                          child: Text(
+                        'oluwapelumi',
+                        //  maxLines: 1,
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: palette.white,
+                            overflow: TextOverflow.ellipsis),
+                      )),
+                      Expanded(
+                        child: Text('oawie4 2onoi4 2n3i3',
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: palette.linkTextColor,
+                                overflow: TextOverflow.ellipsis)),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text('id number: oawie4 2onoi4 2n3i3',
-                            style: TextStyle(color: palette.linkTextColor)),
-                        Text(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
                           'your request for service is accepted and courreir is on the way',
-                          maxLines: 2,
                           style: TextStyle(
                               color: palette.white,
+                              fontSize: 11,
                               overflow: TextOverflow.ellipsis),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 ],
+                //2310941521 funmilayo oluwa uba
               ),
               const SizedBox(height: 4),
               SizedBox(
                 height: 100,
+                width: 500,
                 child: CachedNetworkImage(
+                  fit: BoxFit.fill,
                   imageUrl: 'https://source.unsplash.com/random/?loundry',
                   placeholder: (context, url) => Container(
+                      height: 100,
+                      width: 500,
                       color: palette.amber,
                       child: const CircleAvatar(
+                        radius: 15,
                         child: CircularProgressIndicator(),
                       )),
                   errorWidget: (context, url, error) {
                     return Container(
+                        height: 100,
+                        width: 500,
                         color: palette.amber,
                         child: const Center(
                             child: Text('error occured getting image')));
