@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'screens/init/splash_screen.dart';
+
 //import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 main() async {
@@ -169,7 +170,7 @@ class Swagr extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(9),
             borderSide: const BorderSide(
-              color: Colors.white,
+              color: Colors.black,
               style: BorderStyle.none,
               strokeAlign: BorderSide.strokeAlignCenter,
               // width: BorderSide.strokeAlignInside,
@@ -202,10 +203,10 @@ class Swagr extends StatelessWidget {
         navigationBarTheme: NavigationBarThemeData(
           backgroundColor: palette.black,
           elevation: 0,
-          height: 50,
-          surfaceTintColor: palette.white,
+          height: 40,
+          surfaceTintColor: palette.black,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          indicatorColor: Colors.transparent,
+          indicatorColor: palette.black,
         ),
         bottomSheetTheme: BottomSheetThemeData(
           modalBackgroundColor: palette.black,
@@ -266,5 +267,23 @@ class Swagr extends StatelessWidget {
       ),
       home: const SplashScreen(),
     ));
+  }
+}
+
+class LoadOrPresent extends StatelessWidget {
+  const LoadOrPresent({super.key, required this.child, required this.isEmpty});
+
+  final Widget child;
+  final bool isEmpty;
+
+  @override
+  build(BuildContext context) {
+    return (isEmpty
+        ? const Center(
+            child: CircleAvatar(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : child);
   }
 }

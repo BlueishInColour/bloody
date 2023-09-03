@@ -5,7 +5,8 @@ import '../../main.dart';
 import 'create_user_screen.dart';
 import 'list_users.screen.dart';
 import '../../apis/imagekit.dart';
-import '../../apis/upstash.dart';
+import '../../apis/deta_a.dart';
+
 
 class Master extends StatefulWidget {
   const Master({super.key});
@@ -45,32 +46,11 @@ class MasterState extends State<Master> {
         //  singleCommand('get document', () => getDocument('oio')),
         // singleCommand('get alot of data', () async {upstash.set(api: upstash.postApi,key: post.id,,)
         //   }),
-        singleCommand('test image kit', () => uploadToImageKit()),
-        singleCommand('get single data', () async {
-          final res = await upstash.postApi.json
-              .get('6ba7b810-9dad-11d1-80b4-00c04fd430c8', [r'$']);
-          print(res);
-        }),
-        singleCommand(
-            'test upstashing things ',
-            () => upstash.set(
-                api: upstash.postApi,
-                key: '@oluwapelumi',
-                path: r'$',
-                value: {'this': 'that'})),
-        singleCommand(
-            'go to create user screen',
-            () => Navigator.push(
-                context,
-                PageRouteBuilder(
-                    pageBuilder: (context, _, __) => const CreateUser()))),
-        singleCommand(
-            'go to create get user screen',
-            () => Navigator.push(
-                context,
-                PageRouteBuilder(
-                    pageBuilder: (context, _, __) => const List())))
-      ],
+        singleCommand('test deta platform ', () => put()),
+        singleCommand('get deta from somewhere', ()async{var res = await postApi.fetch();
+        print(res);}),
+  
+       ],
     ));
   }
 

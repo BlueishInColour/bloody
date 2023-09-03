@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './a_nugget.dart';
 import './floating_button.dart';
 import '../../main.dart';
+import '../../models/nugget_model.dart';
+import '../../apis/deta_a.dart';
 
 class NuggetScreen extends StatefulWidget {
   const NuggetScreen({super.key});
@@ -10,9 +12,37 @@ class NuggetScreen extends StatefulWidget {
   State<NuggetScreen> createState() => NuggetScreenState();
 }
 
-class NuggetScreenState extends State<NuggetScreen> {
+class NuggetScreenState extends State<NuggetScreen>
+    with AutomaticKeepAliveClientMixin {
+  List<Nugget> gottennuggets = <Nugget>[];
+  get20nuggets() async {
+    print('trying to get stuff out');
+    Map<String, dynamic> res = await nuggetApi.fetch(limit: 20);
+    print(res);
+    List nuggets = (res['items']);
+    print('this is nuggets');
+    print(nuggets);
+    nuggets.map((e) {
+      setState(() {
+        gottennuggets.add(Nugget.fromJson(e));
+      });
+    }).toList();
+
+    print('gottennuggets');
+    print(gottennuggets.toString());
+  }
+
+  @override
+  initState() {
+    super.initState();
+    get20nuggets();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     PreferredSizeWidget nuggetAppBar(context) {
       return AppBar(
         title: Text('nuggets',
@@ -23,15 +53,26 @@ class NuggetScreenState extends State<NuggetScreen> {
     }
 
     return (Scaffold(
-      appBar: nuggetAppBar(context),
-      floatingActionButton: const FloatingButton(),
-      body: ListView.separated(
-        separatorBuilder: (context, index) {
-          return (const Divider());
-        },
-        itemCount: 20,
-        itemBuilder: (context, _) => const Nugget(),
-      ),
-    ));
+        appBar: nuggetAppBar(context),
+        floatingActionButton: const FloatingButton(),
+        body: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scrollInfo) {
+              (scrollInfo.metrics.pixels ==
+                      scrollInfo.metrics.maxScrollExtent - 10)
+                  ? get20nuggets()
+                  : null;
+
+              return true;
+            },
+            child: LoadOrPresent(
+              isEmpty: gottennuggets.isEmpty,
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return (const Divider());
+                },
+                itemCount: 20,
+                itemBuilder: (context, _) => const ANugget(),
+              ),
+            ))));
   }
 }

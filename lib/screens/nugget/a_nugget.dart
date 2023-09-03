@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../main.dart';
 
-class Nugget extends StatefulWidget {
-  const Nugget({super.key});
+class ANugget extends StatefulWidget {
+  const ANugget({super.key});
 
   @override
-  State<Nugget> createState() => NuggetState();
+  State<ANugget> createState() => ANuggetState();
 }
 
-class NuggetState extends State<Nugget> {
+class ANuggetState extends State<ANugget> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
-//nugget will be enclosed in a row with three column
+    super.build(context);
+//ANugget will be enclosed in a row with three column
 //1st column will have profilepix of poster, likebutton, and time posted
 //2nd column will have the picture for the post
 //3rd will have short text for the post

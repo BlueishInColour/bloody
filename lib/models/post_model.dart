@@ -20,7 +20,7 @@ class Post {
 
   Post(
       {required this.postedBy,
-      required this.id,
+       this.id = '',
       required this.text,
       this.category = '',
       this.subCategory = '',

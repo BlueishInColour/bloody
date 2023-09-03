@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'search_category_screen.dart';
-
+import './floating_button.dart';
 import '../Test/master.dart'; //for pull up refress place
 
 class SearchScreen extends StatefulWidget {
@@ -12,9 +12,13 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => SearchScreenState();
 }
 
-class SearchScreenState extends State<SearchScreen> {
+class SearchScreenState extends State<SearchScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     PreferredSizeWidget searchbar(BuildContext context) {
       return AppBar(
         // forceMaterialTransparency: true,
@@ -99,23 +103,7 @@ class SearchScreenState extends State<SearchScreen> {
         floatingActionButton: CircleAvatar(
           radius: 30,
           backgroundColor: palette.black,
-          child: IconButton(
-              color: palette.amber,
-              padding: const EdgeInsets.all(0),
-              onPressed: () => Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      pageBuilder: (context, _, __) => const Master())),
-              icon: Stack(
-                children: [
-                  Icon(Icons.category_outlined, size: 40, color: palette.amber),
-                  Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Icon(Icons.add, size: 17, color: palette.amber))
-                ],
-              )),
-        ),
+          child:SearchFloatingButton(),
         body: GridView(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

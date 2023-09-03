@@ -7,7 +7,9 @@ import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:loadmore_listview/loadmore_listview.dart';
+
 import 'dart:async';
+import 'dart:convert';
 
 ///
 import './imagepod.dart';
@@ -15,8 +17,13 @@ import '../../main.dart';
 import '../../constant/configs.dart';
 import './profile_screen/init_profile_screen.dart';
 import './post_upload_screen.dart';
+import '../../apis/deta_a.dart';
+import '../../models/post_model.dart';
+import './floating_action_button.dart';
+import './listview.dart';
 
 //final palette = Palette();
+class Fetched {}
 
 class ExploreScreenWidget extends StatefulWidget {
   final Auth0? auth0;
@@ -26,8 +33,14 @@ class ExploreScreenWidget extends StatefulWidget {
   State<ExploreScreenWidget> createState() => ExploreScreenWidgetState();
 }
 
-class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
+class ExploreScreenWidgetState extends State<ExploreScreenWidget>
+    with AutomaticKeepAliveClientMixin {
   ExploreScreenWidgetState();
+//loadmore
+  List<String> originalItems = List<String>.generate(10000, (i) => "Item $i");
+  List<Post> items = [];
+  int perPage = 1;
+  int present = 0;
 
   //Oauthpart of explore screen
 
@@ -38,9 +51,32 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
   late Auth0 auth0;
   late Auth0Web auth0Web;
 
+  List<Post> gottenPosts = <Post>[];
+  get20Posts() async {
+    print('trying to get stuff out');
+    Map<String, dynamic> res = await postApi.fetch(limit: 20);
+    print(res);
+    List posts = (res['items']);
+    print('this is posts');
+    print(posts);
+    posts.map((e) {
+      setState(() {
+        gottenPosts.add(Post.fromJson(e));
+      });
+    }).toList();
+
+    print('gottenposts');
+    print(gottenPosts.toString());
+  }
+
   @override
   void initState() {
     super.initState();
+
+    //get posts
+    get20Posts();
+
+    //authentication
     auth0 = widget.auth0 ?? Auth0(AUTH0_DOMAIN, AUTH0_CLIENT_ID);
     auth0Web = Auth0Web(AUTH0_DOMAIN, AUTH0_CLIENT_ID);
 
@@ -88,41 +124,13 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 //get list of post keys $$still working on thid
 //th list is prnting duplicate and will always rerender which i s costly
 //if i do it abiturary way so we are just testing for now
-  List<String> allKeys = [];
-  getAllKeys() async {
-    print('started to fet keys');
-    List<String> res = await upstash.postApi.keys('*');
-    print(res);
-    List<String> keys = [];
-
-    setState(() {});
-    print(keys);
-  }
 
   //get random keys and setting them to list
-  List<String> randomKeys = [];
-  getRandomKeys() async {
-    print('started to get random keys');
-
-    final String? res = await upstash.postApi.randomkey();
-    print(res);
-
-    setState(() {
-      randomKeys.add(res!);
-    });
-    print(randomKeys);
-  }
-
-  getTenRandomKeys() async {
-    int max = 10;
-    for (int i = 0; i < max; i++) {
-      print(i);
-      getRandomKeys();
-    }
-  }
-
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     //appbar
 
     PreferredSizeWidget appbar(context) {
@@ -165,72 +173,21 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget> {
 
     return (Scaffold(
         appBar: appbar(context),
-        floatingActionButton: CircleAvatar(
-          radius: 30,
-          backgroundColor: palette.black,
-          child: IconButton(
-              color: palette.amber,
-              padding: const EdgeInsets.all(0),
-              onPressed: () => showModalBottomSheet(
-                    context: context,
-                    showDragHandle: true,
-                    useSafeArea: true,
-                    backgroundColor: palette.amber,
-                    // anchorPoint: Offset(500, 500),
-                    isScrollControlled: true,
-                    enableDrag: true,
-                    isDismissible: true,
-                    // barrierColor: palette.white,
-                    shape: const ContinuousRectangleBorder(
-                        // side: BorderSide(width: 5),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(70),
-                            topRight: Radius.circular(70))),
-                    //  isDismissible: bool.fromEnvironment('off'),
-                    constraints: const BoxConstraints(maxHeight: 600),
-                    builder: (BuildContext context) {
-                      return const PostUpload();
-                    },
-                  ),
-              icon: Icon(Icons.file_upload_outlined,
-                  size: 40, color: palette.amber)),
-        ),
-        body: LoadMoreListView.builder(
-          //is there more data to load
-          // haveMoreItem: true,
-          //Trigger the bottom loadMore callback
-          onLoadMore: () async {
-            //wait for your api to fetch more items
-            await getTenRandomKeys();
-          },
-          //pull down refresh callback
-          onRefresh: () async {
-            //wait for your api to update the list
-            await Future.delayed(const Duration(seconds: 1));
-          },
-          //you can set your loadMore Animation
-          hasMoreItem: true,
+        floatingActionButton: const ExploreFloatingActionButton(),
+        body: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scrollInfo) {
+              (scrollInfo.metrics.pixels ==
+                      scrollInfo.metrics.maxScrollExtent - 10)
+                  ? get20Posts()
+                  : null;
 
-          loadMoreWidget: Container(
-              margin: const EdgeInsets.all(20.0),
-              alignment: Alignment.center,
-              child: Container(
-                height: 300,
-                color: palette.grey,
-                child: CircleAvatar(
-                    backgroundColor: palette.grey,
-                    child: const CircularProgressIndicator()),
-              )),
-          //ListView
-          itemCount: randomKeys.isEmpty ? 2 : randomKeys.length,
-          itemBuilder: (context, index) => ImagePod(
-            index: index,
-            singlePostKey: randomKeys.isNotEmpty
-                ? randomKeys[index]
-                : '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          //   itemCount: posts.length
-        )));
+              return true;
+            },
+            child: LoadOrPresent(
+              isEmpty: gottenPosts.isEmpty,
+              child: ExploreListView(
+                gottenPosts: gottenPosts,
+              ),
+            ))));
   }
 }

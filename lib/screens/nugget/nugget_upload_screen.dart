@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:flutter_imagekit/flutter_imagekit.dart';
-import '../../apis/upstash.dart';
+import '../../apis/deta_a.dart';
 import '../../constant/configs.dart';
 
 class NuggetUploadScreen extends StatefulWidget {
@@ -100,11 +100,8 @@ class NuggetUploadScreenState extends State<NuggetUploadScreen> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
-                await upstash.set(
-                    api: upstash.nuggetApi,
-                    key: nugget.id,
-                    path: r'$',
-                    value: nugget.toJson());
+               var res = await nuggetApi.put(nugget.toJson());
+               print(res);
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

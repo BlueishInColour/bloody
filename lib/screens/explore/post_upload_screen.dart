@@ -8,7 +8,8 @@ import 'dart:io';
 import '../../constant/configs.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:uuid/uuid.dart';
-import '../../apis/upstash.dart';
+//import '../../apis/upstash.dart';
+import '../../apis/deta_a.dart';
 
 class PostUpload extends StatefulWidget {
   const PostUpload({super.key});
@@ -24,7 +25,7 @@ class PostUploadState extends State<PostUpload> {
       category: '',
       tags: '',
       postedBy: 'da vinco',
-      id: Uuid.NAMESPACE_DNS,
+     // id: Uuid.NAMESPACE_DNS,
       photosUrl: [],
       text: '',
       specialTag: '');
@@ -133,11 +134,8 @@ class PostUploadState extends State<PostUpload> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
-                await upstash.set(
-                    api: upstash.postApi,
-                    key: post.id,
-                    path: r'$',
-                    value: post.toJson());
+              var res =   await postApi.put(post.toJson());
+              print(res);
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -73,6 +73,9 @@ dependencies:
   flutter_dotenv: ^5.1.0
   loadmore_listview: ^1.0.7
   camera: ^0.10.5+3
+  deta: ^0.0.3
+  dio: ^4.0.4
+  dio_client_deta_api: ^0.0.1
  
  # flutter_dotenv: ^5.0.2
   

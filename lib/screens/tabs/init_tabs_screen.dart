@@ -43,8 +43,7 @@ class TabsScreenState extends State<TabsScreen>
   Widget build(BuildContext context) {
     PreferredSizeWidget tabsAppBar(context) {
       return AppBar(
-        title: Text('tabs', style: TextStyle(color: palette.amber)),
-        bottom: TabBar(
+        title: TabBar(
           controller: _tabController,
           isScrollable: true,
           labelColor: palette.amber,

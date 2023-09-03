@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import './nugget_upload_screen.dart';
 
+import '../Test/master.dart';
+
 class FloatingButton extends StatelessWidget {
   const FloatingButton({super.key});
 
@@ -13,7 +15,8 @@ class FloatingButton extends StatelessWidget {
         child: IconButton(
             onPressed: () {
               debugPrint('clicked');
-              showNuggetUploadScreen(context);
+            //  showNuggetUploadScreen(context);
+            Navigator.push(context, PageRouteBuilder(pageBuilder: (context,_,__)=>Master()));
               debugPrint('stopclicked');
             },
             icon: Icon(Icons.edit, color: palette.amber))));

@@ -14,7 +14,7 @@ class Iconish extends StatefulWidget {
   State<Iconish> createState() => _IconState();
 }
 
-class _IconState extends State<Iconish> {
+class _IconState extends State<Iconish> with AutomaticKeepAliveClientMixin {
   // const _iconState({ , Iconish});
 //  final Function() re;
   //final IconData Iconish ;
@@ -22,7 +22,10 @@ class _IconState extends State<Iconish> {
   var pulledstyle = <String>[];
 
   @override
+  bool get wantKeepAlive => true;
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return (IconButton(
       onPressed: () {
         widget.re;

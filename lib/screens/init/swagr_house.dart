@@ -15,10 +15,14 @@ class SwagrHouse extends StatefulWidget {
   State<SwagrHouse> createState() => SwagrHouseState();
 }
 
-class SwagrHouseState extends State<SwagrHouse> {
+class SwagrHouseState extends State<SwagrHouse>
+    with AutomaticKeepAliveClientMixin {
   int selectedPageIndex = 0;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late VoidCallback _showPersBottomSheetCallBack;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -53,56 +57,66 @@ class SwagrHouseState extends State<SwagrHouse> {
         });
   }
 
+  //persist data after switched
+  final PageController _controller = PageController();
+
+  void onTap(int index) {
+    if (selectedPageIndex != index) {
+      _controller.jumpToPage(index);
+      setState(() {
+        selectedPageIndex = index;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      //  appBar: appbar(context),
-      backgroundColor: palette.black,
-      body: [
-        const Center(child: ExploreScreenWidget()),
-        const Center(child: NuggetScreen()),
-        const Center(child: SearchScreen()),
-        const Center(child: TabsScreen()),
-      ][selectedPageIndex],
-
-      bottomNavigationBar: NavigationBar(
-          backgroundColor: palette.black,
-          selectedIndex: selectedPageIndex,
-          onDestinationSelected: (int index) => setState(() {
-                selectedPageIndex = index;
-              }),
-          destinations: <NavigationDestination>[
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined, color: palette.white),
-              selectedIcon: Icon(
-                Icons.home_filled,
-                color: palette.amber,
-                fill: 1,
-              ),
-              label: 'home',
-            ),
-            NavigationDestination(
-                icon: Icon(Icons.apps, color: palette.white),
-                selectedIcon: Icon(
-                  Icons.apps_rounded,
-                  color: palette.amber,
-                  fill: 1,
-                ),
-                label: 'nuggets'),
-            NavigationDestination(
-              icon: Icon(Icons.search, color: palette.white),
-              selectedIcon: Icon(Icons.search, size: 27, color: palette.amber),
-              label: 'expore',
-            ),
-            NavigationDestination(
-                icon: Icon(Icons.notifications_outlined, color: palette.white),
-                selectedIcon: Icon(
-                  Icons.notifications_rounded,
-                  color: palette.amber,
-                  fill: 1,
-                ),
-                label: 'notify'),
-          ]),
-    );
+        //  appBar: appbar(context),
+        backgroundColor: palette.black,
+        body: PageView(
+          controller: _controller,
+          onPageChanged: onTap,
+          children: const [
+            Center(child: ExploreScreenWidget()),
+            Center(child: NuggetScreen()),
+            Center(child: SearchScreen()),
+            Center(child: TabsScreen()),
+          ],
+        ),
+        bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(canvasColor: palette.black),
+            child: BottomNavigationBar(
+                backgroundColor: palette.black,
+                currentIndex: selectedPageIndex,
+                onTap: onTap,
+                items: [
+                  BottomNavigationBarItem(
+                      label: 'home',
+                      icon: Icon(Icons.home_outlined),
+                      activeIcon: Icon(Icons.home)),
+                  BottomNavigationBarItem(
+                    label: 'nuggets',
+                    icon: Icon(Icons.apps),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'search',
+                    icon: Icon(Icons.search, color: palette.white),
+                    activeIcon: Icon(
+                      Icons.search,
+                      size: 27,
+                    ),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'tabs',
+                    icon: Icon(Icons.notifications_outlined,
+                        color: palette.white),
+                    activeIcon: Icon(
+                      Icons.notifications_rounded,
+                      color: palette.amber,
+                    ),
+                  )
+                ])));
   }
 }
