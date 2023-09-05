@@ -44,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
           text: '&',
           style: TextStyle(
               fontFamily: 'Geologica_Auto-Black',
-              color: palette.white,
-              fontSize: 70,
+              color: palette.amber,
+              fontSize: 150,
               fontWeight: FontWeight.w800)),
     ])));
   }

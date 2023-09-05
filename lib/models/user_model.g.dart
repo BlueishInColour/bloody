@@ -8,20 +8,14 @@ part of 'user_model.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
       username: json['username'] as String? ?? '',
-      coverPicture: (json['coverPicture'] as List<dynamic>?)
-              ?.map((e) => e as int)
-              .toList() ??
-          const [],
+      coverPicture: json['coverPicture'] as String? ?? '',
       dateOfBirth: json['dateOfBirth'] as String? ?? '',
       email: json['email'] as String? ?? '',
       typeOfUser: json['typeOfUser'] as String? ?? '',
       extraInfo: json['extraInfo'] as String? ?? '',
       phoneNumber: json['phoneNumber'] as String? ?? '',
       fullname: json['fullname'] as String? ?? '',
-      profilePicture: (json['profilePicture'] as List<dynamic>?)
-              ?.map((e) => e as int)
-              .toList() ??
-          const [],
+      profilePicture: json['profilePicture'] as String? ?? '',
     )..createdAt = DateTime.parse(json['createdAt'] as String);
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{

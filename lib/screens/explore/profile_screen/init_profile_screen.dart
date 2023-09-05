@@ -26,9 +26,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User uuser = User(
-        coverPicture: [],
-        profilePicture: [],
+    final User user = User(
+        coverPicture: '',
+        profilePicture: '',
         email: '',
         fullname: "Leonart D'Vinci",
         username: '@LouisVuiton',
@@ -46,17 +46,17 @@ class ProfileScreen extends StatelessWidget {
           builder: (context, box, widget) {
             return Stack(
               children: [
-                uuser.coverPicture.isEmpty
+                user.coverPicture.isEmpty
                     ? Container(height: 500, color: palette.grey)
-                    : Image.memory(Uint8List.fromList(uuser.coverPicture)),
+                    : CachedNetworkImage(imageUrl: user.coverPicture),
                 Positioned(
                   top: 5,
                   left: 5,
                   child: CircleAvatar(
                       radius: 35,
                       backgroundColor: palette.white,
-                      backgroundImage: CachedNetworkImageProvider(
-                          user!.pictureUrl.toString())),
+                      backgroundImage:
+                          CachedNetworkImageProvider(user.profilePicture)),
                 ),
               ],
             );
@@ -112,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: (ConstrainedBox(
             constraints: BoxConstraints.loose(const Size(300, 90)),
-            child: Text(uuser.extraInfo))),
+            child: Text(user.extraInfo))),
       );
     }
 
@@ -163,15 +163,10 @@ class ProfileScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             children: [
               //  VerticalDivider(),
-              Expanded(
-                child: Text(user!.preferredUsername.toString(),
-                    style: const TextStyle(
-                      color: Colors.blue,
-                    )),
-              ),
+
               const VerticalDivider(),
               Expanded(
-                child: Text(user!.givenName.toString(),
+                child: Text(user.fullname,
                     style: const TextStyle(
                       color: Colors.black87,
                     )),
@@ -181,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
                 // flex: 20,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 7.0),
-                  child: Text(uuser.typeOfUser,
+                  child: Text(user.typeOfUser,
                       style: const TextStyle(
                         color: Colors.black87,
                       )),

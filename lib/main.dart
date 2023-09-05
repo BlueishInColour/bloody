@@ -52,7 +52,7 @@ class Swagr extends StatelessWidget {
                 color: palette.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold)),
-        primaryColor: palette.grey,
+        primaryColor: palette.amber,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(palette.amber),

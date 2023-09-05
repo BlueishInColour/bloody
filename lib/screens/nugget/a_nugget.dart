@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../main.dart';
+import '../../models/nugget_model.dart';
 
 class ANugget extends StatefulWidget {
-  const ANugget({super.key});
+  const ANugget({super.key, required this.gottenNuggets, required this.index});
 
+  final List<Nugget> gottenNuggets;
+  final int index;
   @override
   State<ANugget> createState() => ANuggetState();
 }
@@ -19,6 +22,8 @@ class ANuggetState extends State<ANugget> with AutomaticKeepAliveClientMixin {
 //1st column will have profilepix of poster, likebutton, and time posted
 //2nd column will have the picture for the post
 //3rd will have short text for the post
+    List<Nugget> gottenNuggets = widget.gottenNuggets;
+    int index = widget.index;
 
     Widget firstColumn(context) {
       return Padding(
@@ -35,8 +40,7 @@ class ANuggetState extends State<ANugget> with AutomaticKeepAliveClientMixin {
                     color: palette.amber,
                     borderRadius: BorderRadius.circular(15)),
               ),
-              imageUrl:
-                  'https://ik.imagekit.io/bluerubic/flutter_imagekit/Logopit_1692812359977_YIjC9fthW.jpg',
+              imageUrl: gottenNuggets[index].photosUrl,
               placeholder: (context, _) =>
                   Container(width: 150, color: palette.amber),
             ))),
@@ -46,10 +50,10 @@ class ANuggetState extends State<ANugget> with AutomaticKeepAliveClientMixin {
     Widget rowInSeconColumn(context) {
       return Row(
         children: [
-          Text('@oluwapelumide',
+          Text(gottenNuggets[index].postedBy,
               style: TextStyle(fontSize: 12, color: palette.linkTextColor)),
           const Expanded(child: SizedBox()),
-          Text('1d',
+          Text(gottenNuggets[index].tags,
               style: TextStyle(fontSize: 12, color: palette.textColorLight))
         ],
       );
@@ -64,7 +68,7 @@ class ANuggetState extends State<ANugget> with AutomaticKeepAliveClientMixin {
               rowInSeconColumn(context),
               Expanded(
                 child: (Text(
-                  'this is the  firs time ill spend so much time coding stuff that is barely posible all i want to do is render widgets from the net as in thi is my deram since day one',
+                  gottenNuggets[index].text,
                   maxLines: 5,
                   style: TextStyle(
                     fontSize: 12,

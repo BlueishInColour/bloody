@@ -6,6 +6,11 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../main.dart';
 import '../../../models/user_model.dart';
+import '../../../apis/imagekit.dart';
+import 'dart:io';
+import '../../../constant/configs.dart';
+import 'package:flutter_imagekit/flutter_imagekit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({
@@ -22,36 +27,59 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   EditProfileScreenState();
 
   User user = User(
-      coverPicture: [],
-      profilePicture: [],
+      coverPicture: '',
+      profilePicture: '',
       email: '',
       fullname: '',
       username: '',
       phoneNumber: '',
       dateOfBirth: '');
 
-  Future<List<int>> getFileImages(
-      {bool profilepix = false, bool coverpix = false}) async {
+  getFileImages() async {
     print('connected');
     var image = await ImagePicker.platform.pickImage(
       source: ImageSource.gallery,
     );
 
-    List<int> bytes = await image!.readAsBytes();
-    print(bytes);
-    print('done converting');
-
-    print('done setting bytes');
-    return bytes;
+    await ImageKit.io(
+      File(image!.path),
+      privateKey: imagekitPrivateApiKey, // (Keep Confidential)
+      onUploadProgress: (progressValue) {
+        {
+          debugPrint(progressValue.toString());
+        }
+      },
+    ).then((String url) {
+      {
+        setState(() {
+          user.profilePicture = url;
+        });
+        debugPrint(url); // your Uploaded Image/Video Link From Imagekit
+        print(user.toJson());
+      }
+    });
   }
 
-  getCameraImages({bool profilepix = false, bool coverpix = false}) async {
+  getCameraImages() async {
     print('connected');
     var image = await ImagePicker.platform.pickImage(
         source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
-    List<int> bytes = await image!.readAsBytes();
-    setState(() {
-      profilepix ? user.profilePicture = bytes : user.coverPicture = bytes;
+
+    await ImageKit.io(
+      File(image!.path),
+      privateKey: imagekitPrivateApiKey, // (Keep Confidential)
+      onUploadProgress: (progressValue) {
+        {
+          debugPrint(progressValue.toString());
+        }
+      },
+    ).then((String url) {
+      {
+        setState(() {
+          user.profilePicture = url;
+        });
+        debugPrint(url); // your Uploaded Image/Video Link From Imagekit
+      }
     });
   }
 
@@ -88,7 +116,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       children: [
         user.coverPicture.isEmpty
             ? Container(height: 500, color: Colors.blueGrey)
-            : Image.memory(Uint8List.fromList(user.coverPicture)),
+            : CachedNetworkImage(imageUrl: user.coverPicture),
         Positioned(
             top: 5,
             left: 5,
@@ -96,7 +124,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 radius: 35,
                 backgroundColor: palette.white,
                 backgroundImage:
-                    MemoryImage(Uint8List.fromList(user.profilePicture)))),
+                    CachedNetworkImageProvider(user.profilePicture))),
         Positioned(
             left: 70,
             top: 1,

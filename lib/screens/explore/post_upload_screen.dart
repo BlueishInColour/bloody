@@ -25,7 +25,7 @@ class PostUploadState extends State<PostUpload> {
       category: '',
       tags: '',
       postedBy: 'da vinco',
-     // id: Uuid.NAMESPACE_DNS,
+      // id: Uuid.NAMESPACE_DNS,
       photosUrl: [],
       text: '',
       specialTag: '');
@@ -134,8 +134,8 @@ class PostUploadState extends State<PostUpload> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
-              var res =   await postApi.put(post.toJson());
-              print(res);
+                var res = await postApi.put(post.toJson());
+                print(res);
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

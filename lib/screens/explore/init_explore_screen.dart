@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
-import 'package:loadmore_listview/loadmore_listview.dart';
 
 import 'dart:async';
 import 'dart:convert';
@@ -172,22 +171,23 @@ class ExploreScreenWidgetState extends State<ExploreScreenWidget>
 ///////*********User details pod  ******/////
 
     return (Scaffold(
-        appBar: appbar(context),
-        floatingActionButton: const ExploreFloatingActionButton(),
-        body: NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification scrollInfo) {
-              (scrollInfo.metrics.pixels ==
-                      scrollInfo.metrics.maxScrollExtent - 10)
-                  ? get20Posts()
-                  : null;
+      appBar: appbar(context),
+      floatingActionButton: const ExploreFloatingActionButton(),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollInfo) {
+          (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent - 10)
+              ? get20Posts()
+              : null;
 
-              return true;
-            },
-            child: LoadOrPresent(
-              isEmpty: gottenPosts.isEmpty,
-              child: ExploreListView(
-                gottenPosts: gottenPosts,
-              ),
-            ))));
+          return true;
+        },
+        child: LoadOrPresent(
+          isEmpty: gottenPosts.isEmpty,
+          child: ExploreListView(
+            gottenPosts: gottenPosts,
+          ),
+        ),
+      ),
+    ));
   }
 }

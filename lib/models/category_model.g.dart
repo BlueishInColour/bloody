@@ -12,10 +12,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: json['id'] as String? ?? Uuid.NAMESPACE_DNS,
       categoryPhotoUrl: json['categoryPhotoUrl'] as String? ?? '',
       createdFor: json['createdFor'] as String? ?? '',
-      subCategories: (json['subCategories'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
+      subCategories: json['subCategories'] as String? ?? '',
     )..createdAt = DateTime.parse(json['createdAt'] as String);
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{

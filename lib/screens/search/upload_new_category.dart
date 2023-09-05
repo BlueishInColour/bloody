@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter_imagekit/flutter_imagekit.dart';
 import '../../apis/upstash.dart';
 import '../../constant/configs.dart';
+import '../../apis/deta_a.dart';
 
 class NewCategoryUploadScreen extends StatefulWidget {
   const NewCategoryUploadScreen({super.key});
@@ -101,11 +102,7 @@ class NewCategoryUploadScreenState extends State<NewCategoryUploadScreen> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
-                await upstash.set(
-                    api: upstash.categoriesApi,
-                    key: NewCategory.id,
-                    path: r'$',
-                    value: NewCategory.toJson());
+                await categoryApi.put(NewCategory.toJson());
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,8 +123,8 @@ class NewCategoryUploadScreenState extends State<NewCategoryUploadScreen> {
                 debugPrint('done');
               },
               child: const Text(
-                'nudge',
-                style: TextStyle(fontSize: 20),
+                'add category',
+                style: TextStyle(fontSize: 14),
               ),
             )
           ],
@@ -218,7 +215,7 @@ class NewCategoryUploadScreenState extends State<NewCategoryUploadScreen> {
               focusNode: tagFocusNode,
               onChanged: (value) {
                 setState(() {
-                  NewCategory.subCategories.add(value);
+                  NewCategory.subCategories = value;
                 });
               },
               decoration: InputDecoration(

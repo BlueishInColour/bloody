@@ -15,8 +15,12 @@ class FloatingButton extends StatelessWidget {
         child: IconButton(
             onPressed: () {
               debugPrint('clicked');
-            //  showNuggetUploadScreen(context);
-            Navigator.push(context, PageRouteBuilder(pageBuilder: (context,_,__)=>Master()));
+              //  showNuggetUploadScreen(context);
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      pageBuilder: (context, _, __) =>
+                          const NuggetUploadScreen()));
               debugPrint('stopclicked');
             },
             icon: Icon(Icons.edit, color: palette.amber))));

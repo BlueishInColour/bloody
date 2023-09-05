@@ -14,20 +14,20 @@ class User {
   String extraInfo;
   String phoneNumber;
   String email;
-  List<int> profilePicture;
-  List<int> coverPicture;
+  String profilePicture;
+  String coverPicture;
   String dateOfBirth;
   DateTime createdAt = DateTime.now();
   User({
     this.username = '',
-    this.coverPicture = const [],
+    this.coverPicture = '',
     this.dateOfBirth = '',
     this.email = '',
     this.typeOfUser = '',
     this.extraInfo = '',
     this.phoneNumber = '',
     this.fullname = '',
-    this.profilePicture = const [],
+    this.profilePicture = '',
   });
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);

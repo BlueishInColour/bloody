@@ -14,7 +14,7 @@ class NuggetScreen extends StatefulWidget {
 
 class NuggetScreenState extends State<NuggetScreen>
     with AutomaticKeepAliveClientMixin {
-  List<Nugget> gottennuggets = <Nugget>[];
+  List<Nugget> gottenNuggets = [];
   get20nuggets() async {
     print('trying to get stuff out');
     Map<String, dynamic> res = await nuggetApi.fetch(limit: 20);
@@ -24,12 +24,12 @@ class NuggetScreenState extends State<NuggetScreen>
     print(nuggets);
     nuggets.map((e) {
       setState(() {
-        gottennuggets.add(Nugget.fromJson(e));
+        gottenNuggets.add(Nugget.fromJson(e));
       });
     }).toList();
 
-    print('gottennuggets');
-    print(gottennuggets.toString());
+    print('gottenNuggets ');
+    print(gottenNuggets.toString());
   }
 
   @override
@@ -65,13 +65,14 @@ class NuggetScreenState extends State<NuggetScreen>
               return true;
             },
             child: LoadOrPresent(
-              isEmpty: gottennuggets.isEmpty,
+              isEmpty: gottenNuggets.isEmpty,
               child: ListView.separated(
                 separatorBuilder: (context, index) {
                   return (const Divider());
                 },
-                itemCount: 20,
-                itemBuilder: (context, _) => const ANugget(),
+                itemCount: gottenNuggets.length,
+                itemBuilder: (context, index) =>
+                    ANugget(gottenNuggets: gottenNuggets, index: index),
               ),
             ))));
   }

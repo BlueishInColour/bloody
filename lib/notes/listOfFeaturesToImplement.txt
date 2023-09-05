@@ -26,12 +26,22 @@ cash at hand & bank #10,500
 New feature to work on for this new week on blue app is 
 >>learn provider and send data accros widget without passing it down especially palette
 >>use hive a lot more to locally save and provide data all across the app
->>explore screen rendering data from my upstash database randomly
->> search screen category been able to render data by category and randomly
->> search screen should have a tile that enable users to create their own category and push it us for approval
->>notification screen, defining the tabs to each have their own screen, and which will be a future or list builder
+done  >>explore screen rendering data from my upstash database randomly
+done  >> search screen category been able to render data by category and randomly
+done  >> search screen should have a tile that enable users to create their own category and push it us for approval
+done  >>notification screen, defining the tabs to each have their own screen, and which will be a future or list builder
 done  >>profile should render data from a user login or sign in data first from cached values then from net.
 >>today! more like status from facebook or whatsapp just that whatever is 
 posted will be deleted after 12.00 which is the end of that day
 
- 
+ 5th september,2023
+ >> loundry screen should be more fulfilling
+ >> add cut and sew to the tabs 
+ >> work on notification screen let it really notify
+ >> work on today! and the exclamation mark should be the icon
+ >> rearange the tabs so money stuff like loundry is seen forst
+ >> add delete and edit function for the posts
+ >> define more of the user personality ie the main user of the app in each phone should have a strong Reference point 
+ >>material selling should have a space possibly in tabs
+ >> assesory should have a space possibly in tabs
+ >>search buttons tabs and search screen should work so work on it
