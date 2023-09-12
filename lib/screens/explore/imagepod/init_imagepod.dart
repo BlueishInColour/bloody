@@ -3,18 +3,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 //import '../services/auth_services.dart';
 ///
 ///
-import '../../dummy_data.dart';
-import '../../main.dart';
+import '../../../dummy_data.dart';
+import '../../../main.dart';
 //import 'package:image_picker/image_picker.dart';
 //import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 //import 'dart:async';
 import 'dart:io';
-import 'pod_icon_buttons.dart';
-import 'full_screen_image.dart';
+import '../full_screen_image.dart';
 
 //to load data
-import '../../apis/upstash.dart';
-import '../../models/post_model.dart';
+import '../../../apis/upstash.dart';
+import '../../../models/post_model.dart';
+import 'imagepod_menu_button.dart';
+import 'user_pod.dart';
+import 'creator_pod.dart';
+import 'like_button.dart';
+import 'share_button.dart';
+import 'comment_button.dart';
 
 class ImagePod extends StatefulWidget {
   ImagePod(
@@ -44,104 +49,13 @@ class ImagePodState extends State<ImagePod> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    Widget userDetailsPod(BuildContext context, int index) {
-      return Container(
-        height: 40,
-        decoration: BoxDecoration(
-          // color: palette.lightPurple,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: (Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //profilepix
-            GestureDetector(
-              onDoubleTap: () {
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (BuildContext context, _, __) {
-                          return (FullScreenPage(
-                            dark: true,
-                            child: Image.network(
-                                "https://source.unsplash.com/random/?art&width=500&height=1000"),
-                          ));
-                        }));
-              },
-              child: CircleAvatar(
-                  backgroundColor: palette.grey,
-                  backgroundImage: const NetworkImage(
-                    "https://source.unsplash.com/random/?art&width=500&height=1000",
-                  )),
-            ),
-
-            const VerticalDivider(),
-            //name and user name container
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                //name
-                Text(posts[index].name,
-                    style: TextStyle(fontSize: 15, color: palette.white)),
-                Text(widget.gottenPosts[index].postedBy,
-                    style: const TextStyle(color: Colors.blue))
-              ],
-            ),
-
-            const VerticalDivider()
-          ],
-        )),
-      );
-    }
-
-    Widget creatorPod(context, int index) {
-      Widget actionButtons() {
-        return (Row(children: [
-          Semantics(
-            label: 'like',
-            hint: 'like',
-            enabled: true,
-            child: Iconish(
-                re: () => debugPrint('clicked'), icony: Icons.favorite_rounded),
-          ),
-          Iconish(
-            re: () => null,
-            size: 23,
-            icony: Icons.chat_bubble,
-          ),
-        ]));
-      }
-
-      return (Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: palette.lightPurple,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          textDirection: TextDirection.rtl,
-          children: [
-            CircleAvatar(
-              backgroundColor: palette.grey,
-              // backgroundImage: const NetworkImage(
-              //   "https://source.unsplash.com/random/?art&width=500&height=1000",
-              // ),
-            ),
-            const VerticalDivider(),
-            Text(widget.gottenPosts[index].specialTag,
-                style: const TextStyle(
-                  color: Colors.blue,
-                )),
-            const VerticalDivider(),
-            Expanded(child: actionButtons())
-          ],
-        ),
-      ));
-    }
 
     Widget imagePod(BuildContext context, int index) {
+      Post post = widget.gottenPosts[index];
+      Widget actionButtons(context) {
+        return (Row(children: [LikeButton(post: post), const CommentButton()]));
+      }
+
       return (Center(
           child: Column(children: [
         const SizedBox(
@@ -194,10 +108,8 @@ class ImagePodState extends State<ImagePod> with AutomaticKeepAliveClientMixin {
                           ),
                         ))),
           ),
-          Positioned(
-              bottom: 10,
-              right: 10,
-              child: Iconish(re: () => null, icony: Icons.share_rounded)),
+          const Positioned(bottom: 10, right: 10, child: ShareButton()),
+          Positioned(bottom: 10, left: 10, child: actionButtons(context))
         ]),
         const SizedBox(height: 5),
       ])));
@@ -220,10 +132,10 @@ class ImagePodState extends State<ImagePod> with AutomaticKeepAliveClientMixin {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          userDetailsPod(context, widget.index),
+          UserPod(gottenPosts: widget.gottenPosts, index: widget.index),
           imagePod(context, widget.index),
           descriptionPod(context, widget.index),
-          creatorPod(context, widget.index)
+          CreatorPod(gottenPosts: widget.gottenPosts, index: widget.index)
         ],
       ),
     );

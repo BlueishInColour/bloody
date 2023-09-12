@@ -8,6 +8,8 @@ import 'loundry_screen.dart';
 import './notifiction_screen.dart';
 import './posts_screen.dart';
 import './saved_screen.dart';
+import './cut_and_sew_screen.dart';
+import './purse_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -28,7 +30,7 @@ class TabsScreenState extends State<TabsScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 8, vsync: this);
     _tabController.addListener(_handleTabChange);
   }
 
@@ -51,11 +53,13 @@ class TabsScreenState extends State<TabsScreen>
           unselectedLabelColor: palette.white,
           tabs: const [
             Tab(text: 'notifications'),
+            Tab(text: 'cut & sew'),
+            Tab(text: 'loundry'),
+            Tab(text: 'purse'),
             Tab(text: 'saved'),
             Tab(text: 'posts'),
             Tab(text: 'followers'),
             Tab(text: 'following'),
-            Tab(text: 'loundry')
           ],
         ),
       );
@@ -65,11 +69,13 @@ class TabsScreenState extends State<TabsScreen>
       appBar: tabsAppBar(context),
       body: TabBarView(controller: _tabController, children: const [
         NotificationScreen(),
+        CutAndSewScreen(),
+        LoundryScreen(),
+        PurseScreen(),
         SavedScreen(),
         PostScreen(),
         FollowersScreen(),
         FollowingScreen(),
-        LoundryScreen()
       ]),
     ));
   }

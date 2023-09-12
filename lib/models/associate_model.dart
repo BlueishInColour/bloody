@@ -13,14 +13,12 @@ part 'associate_model.g.dart';
 ///
 @JsonSerializable()
 class Associate {
-  String sourceId = ''; //userid for follow,postid for share,like
+  String sourceId = ''; //userid for follow,share,like
   String destinationId = ''; //userid for follow, postid for share,like
   String associationType = ''; //follow, like , share
   DateTime createdAt = DateTime.now();
   Associate(
-      {required this.sourceId,
-      required this.associationType,
-      required this.destinationId});
+      {this.sourceId = '', this.associationType = '', this.destinationId = ''});
   factory Associate.fromJson(Map<String, dynamic> json) =>
       _$AssociateFromJson(json);
   Map<String, dynamic> toJson() => _$AssociateToJson(this);

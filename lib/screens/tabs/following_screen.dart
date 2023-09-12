@@ -45,29 +45,28 @@ class FollowingScreenState extends State<FollowingScreen> {
       required String username,
       required String pictureUrl}) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 60,
-        child: Row(children: [
-          CircleAvatar(
-            backgroundColor: palette.amber,
-            radius: 30,
-            child: CachedNetworkImage(imageUrl: pictureUrl),
-          ),
-          const SizedBox(width: 10),
-          Text(username, style: TextStyle(color: palette.linkTextColor)),
-          const SizedBox(width: 10),
-          Text(name, style: TextStyle(color: palette.linkTextColor)),
-          const Expanded(child: SizedBox())
-        ]),
-      ),
-    );
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 60,
+          child: Row(children: [
+            CircleAvatar(
+              backgroundColor: palette.amber,
+              radius: 30,
+              child: CachedNetworkImage(imageUrl: pictureUrl),
+            ),
+            const SizedBox(width: 10),
+            Text(username, style: TextStyle(color: palette.linkTextColor)),
+            const SizedBox(width: 10),
+            Text(name, style: TextStyle(color: palette.linkTextColor)),
+            const Expanded(child: SizedBox())
+          ]),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const TabsFloatingSearchButton(),
+      floatingActionButton: const TabsFloatingButton(),
       body: NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification scrollInfo) {
             (scrollInfo.metrics.pixels ==

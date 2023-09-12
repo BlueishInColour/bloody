@@ -20,7 +20,7 @@ class NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const TabsFloatingSearchButton(),
+      floatingActionButton: const TabsFloatingButton(),
       body: ListView.separated(
         separatorBuilder: (context, index) => const Divider(),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),

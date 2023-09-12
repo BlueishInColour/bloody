@@ -8,7 +8,7 @@ part 'post_model.g.dart';
 @JsonSerializable()
 class Post {
   String postedBy;
-  String id;
+  String key;
   String category;
   String subCategory;
   String text;
@@ -19,14 +19,14 @@ class Post {
   // DateTime createdAt =DateTime.now();
 
   Post(
-      {required this.postedBy,
-       this.id = '',
-      required this.text,
+      {this.postedBy = '',
+      this.key = '',
+      this.text = '',
       this.category = '',
       this.subCategory = '',
-      required this.photosUrl,
-      required this.tags,
-      required this.specialTag});
+      this.photosUrl = const [],
+      this.tags = '',
+      this.specialTag = ''});
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
 }

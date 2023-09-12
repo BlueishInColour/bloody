@@ -102,7 +102,7 @@ class NewCategoryUploadScreenState extends State<NewCategoryUploadScreen> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
-                await categoryApi.put(NewCategory.toJson());
+                await tagApi.put(NewCategory.toJson());
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

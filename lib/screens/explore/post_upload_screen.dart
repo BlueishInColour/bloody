@@ -85,9 +85,7 @@ class PostUploadState extends State<PostUpload> {
   @override
   initState() {
     super.initState();
-    setState(() {
-      post.id = Uuid.NAMESPACE_DNS;
-    });
+
     descriptionFocusNode = FocusNode();
     tagFocusNode = FocusNode();
     mentionFocusNode = FocusNode();
@@ -116,15 +114,9 @@ class PostUploadState extends State<PostUpload> {
         backgroundColor: palette.black,
         foregroundColor: palette.white,
         leadingWidth: 70,
-        leading: SizedBox(
-          height: 25,
-          child: ElevatedButton(
-              style: const ButtonStyle(
-                shape: MaterialStatePropertyAll(StadiumBorder()),
-              ),
-              onPressed: () => debugPrint('draft'),
-              child: const Text('draft')),
-        ),
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Text('&', style: TextStyle(fontSize: 30))),
         title: Row(
           children: [
             const Expanded(child: SizedBox()),

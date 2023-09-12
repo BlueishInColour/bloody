@@ -79,7 +79,7 @@ class SwagrHouseState extends State<SwagrHouse>
           controller: _controller,
           onPageChanged: onTap,
           children: const [
-            Center(child: ExploreScreenWidget()),
+            Center(child: ExploreScreen()),
             Center(child: NuggetScreen()),
             Center(child: SearchScreen()),
             Center(child: TabsScreen()),

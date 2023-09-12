@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
 
-class TabsFloatingSearchButton extends StatelessWidget {
-  const TabsFloatingSearchButton({super.key});
-
+class TabsFloatingButton extends StatelessWidget {
+  const TabsFloatingButton({super.key, this.iconData = Icons.search});
+  final IconData iconData;
   @override
   Widget build(BuildContext context) {
     return (CircleAvatar(
@@ -11,7 +11,7 @@ class TabsFloatingSearchButton extends StatelessWidget {
         radius: 30,
         child: IconButton(
           onPressed: () => debugPrint('search button clicked'),
-          icon: Icon(Icons.search, color: palette.amber),
+          icon: Icon(iconData, color: palette.amber),
         )));
   }
 }

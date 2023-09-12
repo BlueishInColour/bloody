@@ -39,9 +39,10 @@ posted will be deleted after 12.00 which is the end of that day
  >> add cut and sew to the tabs 
  >> work on notification screen let it really notify
  >> work on today! and the exclamation mark should be the icon
- >> rearange the tabs so money stuff like loundry is seen forst
+ done >> rearange the tabs so money stuff like loundry is seen forst
  >> add delete and edit function for the posts
  >> define more of the user personality ie the main user of the app in each phone should have a strong Reference point 
  >>material selling should have a space possibly in tabs
  >> assesory should have a space possibly in tabs
  >>search buttons tabs and search screen should work so work on it
+ >> work on the like and comment button  to really do the needed and nit just for show

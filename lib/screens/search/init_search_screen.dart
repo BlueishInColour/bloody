@@ -5,6 +5,7 @@ import 'search_category_screen.dart';
 import './floating_button.dart';
 import '../Test/master.dart'; //for pull up refress place
 import '../../models/category_model.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../apis/deta_a.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class SearchScreenState extends State<SearchScreen>
 
   get20categories() async {
     print('trying to get stuff out');
-    Map<String, dynamic> res = await categoryApi.fetch(limit: 20);
+    Map<String, dynamic> res = await tagApi.fetch(limit: 20);
     print(res);
     List posts = (res['items']);
     print('this is posts');
@@ -130,22 +131,28 @@ class SearchScreenState extends State<SearchScreen>
         appBar: searchbar(context),
         floatingActionButton: const SearchFloatingButton(),
         body: LoadOrPresent(
-          isEmpty: gottenCategory.isEmpty,
-          child: GridView.builder(
-            itemCount: gottenCategory.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 300,
-                childAspectRatio: 1,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0),
-            itemBuilder: (context, index) {
-              return tile(
-                  onclick: () => debugPrint('clicked'),
-                  image: gottenCategory[index].categoryPhotoUrl,
-                  text: gottenCategory[index].categoryName);
-            },
-          ),
-        )));
+            isEmpty: gottenCategory.isEmpty,
+            child: MasonryGridView.builder(
+              itemCount: gottenCategory.length,
+              gridDelegate:
+                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: palette.amber,
+                      child: CachedNetworkImage(
+                          errorWidget: (context, _, __) {
+                            return Container(height: 70, color: Colors.red);
+                          },
+                          placeholder: (context, _) {
+                            return Container(
+                                height: 70, color: Colors.yellowAccent);
+                          },
+                          imageUrl: gottenCategory[index].categoryPhotoUrl),
+                    ));
+              },
+            ))));
   }
 }

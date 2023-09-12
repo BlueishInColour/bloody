@@ -41,7 +41,7 @@ final commentApi = deta.base('comments');
 final associationApi = deta.base('association');
 
 //
-final categoryApi = deta.base('categories');
+final tagApi = deta.base('categories');
 
 //
 final userApi = deta.base('users');

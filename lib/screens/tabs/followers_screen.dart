@@ -67,7 +67,7 @@ class FollowersScreenState extends State<FollowersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const TabsFloatingSearchButton(),
+      floatingActionButton: const TabsFloatingButton(),
       body: NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification scrollInfo) {
             (scrollInfo.metrics.pixels ==
