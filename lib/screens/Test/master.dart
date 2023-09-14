@@ -6,6 +6,7 @@ import 'create_user_screen.dart';
 import 'list_users.screen.dart';
 import '../../apis/imagekit.dart';
 import '../../apis/deta_a.dart';
+import '../../apis/rubicous.dart'; 
 
 
 class Master extends StatefulWidget {
@@ -46,7 +47,7 @@ class MasterState extends State<Master> {
         //  singleCommand('get document', () => getDocument('oio')),
         // singleCommand('get alot of data', () async {upstash.set(api: upstash.postApi,key: post.id,,)
         //   }),
-        singleCommand('test deta platform ', () => put()),
+        singleCommand('test deta platform ', () => upload()),
         singleCommand('get deta from somewhere', ()async{var res = await postApi.fetch();
         print(res);}),
   

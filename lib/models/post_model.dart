@@ -7,8 +7,8 @@ part 'post_model.g.dart';
 
 @JsonSerializable()
 class Post {
+  String id;
   String postedBy;
-  String key;
   String category;
   String subCategory;
   String text;
@@ -20,7 +20,7 @@ class Post {
 
   Post(
       {this.postedBy = '',
-      this.key = '',
+      this.id = '',
       this.text = '',
       this.category = '',
       this.subCategory = '',

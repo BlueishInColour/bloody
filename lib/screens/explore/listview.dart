@@ -12,8 +12,12 @@ class ExploreListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: scrollController,
-      itemCount: gottenPosts.length,
+      itemCount: gottenPosts.length + 1,
       itemBuilder: (context, index) {
+        if (index == gottenPosts.length) {
+          return (const CircleAvatar(
+              child: CircularProgressIndicator.adaptive()));
+        }
         return gottenPosts[index].photosUrl.isNotEmpty
             ? ImagePod(index: index, gottenPosts: gottenPosts)
             : const SizedBox();

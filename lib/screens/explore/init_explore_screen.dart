@@ -22,6 +22,7 @@ import './floating_action_button.dart';
 import './listview.dart';
 import './login_signup_button.dart';
 import './appbar.dart';
+import '../tabs/init_tabs_screen.dart';
 
 //final palette = Palette();
 class Fetched {}
@@ -89,6 +90,17 @@ class ExploreScreenState extends State<ExploreScreen>
     //full screen image page route
     PreferredSizeWidget appBar(context) {
       return AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(context,
+                  PageRouteBuilder(pageBuilder: (context, _, __) {
+                return const TabsScreen();
+              }));
+            },
+          )
+        ],
         backgroundColor: palette.black,
         toolbarHeight: iconClicked ? 450 : null,
         // toolbarHeight: 40,

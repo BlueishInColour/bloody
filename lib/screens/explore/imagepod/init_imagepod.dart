@@ -128,14 +128,15 @@ class ImagePodState extends State<ImagePod> with AutomaticKeepAliveClientMixin {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           UserPod(gottenPosts: widget.gottenPosts, index: widget.index),
           imagePod(context, widget.index),
           descriptionPod(context, widget.index),
-          CreatorPod(gottenPosts: widget.gottenPosts, index: widget.index)
+          CreatorPod(gottenPosts: widget.gottenPosts, index: widget.index),
+          const Divider()
         ],
       ),
     );

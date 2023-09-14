@@ -22,7 +22,7 @@ class ImagepodMenuButtonState extends State<ImagepodMenuButton> {
     return IconButton(
         onPressed: () {
           showImagepodMenuScreen(context,
-              postKey: widget.gottenPosts[widget.index].key);
+              postKey: widget.gottenPosts[widget.index].id);
         },
         icon: Icon(
           Icons.more_vert_rounded,

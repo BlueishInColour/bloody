@@ -21,11 +21,11 @@ class LikebuttonState extends State<LikeButton> {
     Associate likeAssociate = Associate(
         associationType: 'like',
         sourceId: '@oluwapelumi',
-        destinationId: post.key);
+        destinationId: post.id);
     Associate unlikeAssociate = Associate();
     likeit() async {
       debugPrint('about to like it ');
-      var res = await associationApi.put(likeAssociate.toJson(), key: post.key);
+      var res = await associationApi.put(likeAssociate.toJson(), key: post.id);
       print(res);
       setState(() {
         savedKey = res['key'].toString();

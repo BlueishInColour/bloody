@@ -32,10 +32,18 @@ class NuggetScreenState extends State<NuggetScreen>
     print(gottenNuggets.toString());
   }
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   initState() {
     super.initState();
     get20nuggets();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        get20nuggets();
+      }
+    });
   }
 
   @override
@@ -55,25 +63,21 @@ class NuggetScreenState extends State<NuggetScreen>
     return (Scaffold(
         appBar: nuggetAppBar(context),
         floatingActionButton: const FloatingButton(),
-        body: NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification scrollInfo) {
-              (scrollInfo.metrics.pixels ==
-                      scrollInfo.metrics.maxScrollExtent - 10)
-                  ? get20nuggets()
-                  : null;
-
-              return true;
+        body: LoadOrPresent(
+          isEmpty: gottenNuggets.isEmpty,
+          child: ListView.separated(
+            controller: _scrollController,
+            separatorBuilder: (context, index) {
+              return (const Divider());
             },
-            child: LoadOrPresent(
-              isEmpty: gottenNuggets.isEmpty,
-              child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return (const Divider());
-                },
-                itemCount: gottenNuggets.length,
-                itemBuilder: (context, index) =>
-                    ANugget(gottenNuggets: gottenNuggets, index: index),
-              ),
-            ))));
+            itemCount: gottenNuggets.length + 1,
+            itemBuilder: (context, index) {
+              if (index == gottenNuggets.length) {
+                return (const CircleAvatar(child: CircularProgressIndicator()));
+              }
+              return ANugget(gottenNuggets: gottenNuggets, index: index);
+            },
+          ),
+        )));
   }
 }

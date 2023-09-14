@@ -24,7 +24,7 @@ class PostUploadState extends State<PostUpload> {
   Post post = Post(
       category: '',
       tags: '',
-      postedBy: 'da vinco',
+      postedBy: 'da vino',
       // id: Uuid.NAMESPACE_DNS,
       photosUrl: [],
       text: '',
@@ -126,6 +126,7 @@ class PostUploadState extends State<PostUpload> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
+                print('clicked');
                 var res = await postApi.put(post.toJson());
                 print(res);
                 SnackBar onPost = const SnackBar(

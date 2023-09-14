@@ -22,7 +22,7 @@ class CreatorPodState extends State<CreatorPod> {
     username: '@babablue',
   );
   getUser() async {
-    var res = await userApi.get(widget.gottenPosts[widget.index].postedBy);
+    var res = await userApi.get(widget.gottenPosts[widget.index].specialTag);
     setState(
       () {
         user = User.fromJson(res['items']);

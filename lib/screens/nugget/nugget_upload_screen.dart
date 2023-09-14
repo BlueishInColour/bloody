@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter_imagekit/flutter_imagekit.dart';
 import '../../apis/deta_a.dart';
 import '../../constant/configs.dart';
+import '../Test/master.dart';
 
 class NuggetUploadScreen extends StatefulWidget {
   const NuggetUploadScreen({super.key});
@@ -100,8 +101,8 @@ class NuggetUploadScreenState extends State<NuggetUploadScreen> {
                   shape: const MaterialStatePropertyAll(StadiumBorder()),
                   foregroundColor: MaterialStatePropertyAll(palette.black)),
               onPressed: () async {
-               var res = await nuggetApi.put(nugget.toJson());
-               print(res);
+                var res = await nuggetApi.put(nugget.toJson());
+                print(res);
                 SnackBar onPost = const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

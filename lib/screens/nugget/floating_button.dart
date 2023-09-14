@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
 import './nugget_upload_screen.dart';
+import '../Test/post_screen.dart';
 
 import '../Test/master.dart';
 
@@ -19,8 +20,7 @@ class FloatingButton extends StatelessWidget {
               Navigator.push(
                   context,
                   PageRouteBuilder(
-                      pageBuilder: (context, _, __) =>
-                          const NuggetUploadScreen()));
+                      pageBuilder: (context, _, __) => const PostScreen()));
               debugPrint('stopclicked');
             },
             icon: Icon(Icons.edit, color: palette.amber))));

@@ -7,6 +7,7 @@ import '../tabs/init_tabs_screen.dart';
 import '../explore/profile_screen/init_profile_screen.dart';
 import '../explore/init_explore_screen.dart';
 import '../nugget/init_nuggets_screen.dart';
+import '../runway/init_runway.dart';
 
 class SwagrHouse extends StatefulWidget {
   const SwagrHouse({super.key});
@@ -79,10 +80,10 @@ class SwagrHouseState extends State<SwagrHouse>
           controller: _controller,
           onPageChanged: onTap,
           children: const [
-            Center(child: ExploreScreen()),
-            Center(child: NuggetScreen()),
             Center(child: SearchScreen()),
-            Center(child: TabsScreen()),
+            Center(child: ExploreScreen()),
+            Center(child: RunwayScreen()),
+            Center(child: NuggetScreen()),
           ],
         ),
         bottomNavigationBar: Theme(
@@ -92,30 +93,26 @@ class SwagrHouseState extends State<SwagrHouse>
                 currentIndex: selectedPageIndex,
                 onTap: onTap,
                 items: [
-                  BottomNavigationBarItem(
-                      label: 'home',
-                      icon: Icon(Icons.home_outlined),
-                      activeIcon: Icon(Icons.home)),
-                  BottomNavigationBarItem(
-                    label: 'nuggets',
-                    icon: Icon(Icons.apps),
+                  const BottomNavigationBarItem(
+                      label: 'explore',
+                      icon: Icon(Icons.explore),
+                      activeIcon: Icon(Icons.explore)),
+                  const BottomNavigationBarItem(
+                    label: 'styles',
+                    icon: Icon(Icons.photo),
                   ),
                   BottomNavigationBarItem(
-                    label: 'search',
-                    icon: Icon(Icons.search, color: palette.white),
-                    activeIcon: Icon(
-                      Icons.search,
+                    label: 'runway',
+                    icon: Icon(Icons.videocam_sharp, color: palette.white),
+                    activeIcon: const Icon(
+                      Icons.videocam_sharp,
                       size: 27,
                     ),
                   ),
                   BottomNavigationBarItem(
-                    label: 'tabs',
-                    icon: Icon(Icons.notifications_outlined,
-                        color: palette.white),
-                    activeIcon: Icon(
-                      Icons.notifications_rounded,
-                      color: palette.amber,
-                    ),
+                    label: 'nuggets',
+                    icon: Icon(Icons.apps, color: palette.white),
+                    activeIcon: Icon(Icons.apps, color: palette.amber),
                   )
                 ])));
   }

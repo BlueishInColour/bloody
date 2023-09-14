@@ -18,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 class SearchScreenState extends State<SearchScreen>
     with AutomaticKeepAliveClientMixin {
   List<Category> gottenCategory = [];
+  ScrollController _scrollController = ScrollController();
 
   get20categories() async {
     print('trying to get stuff out');
@@ -41,6 +42,12 @@ class SearchScreenState extends State<SearchScreen>
     // TODO: implement initState
     super.initState();
     get20categories();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print('get more data');
+      }
+    });
   }
 
   @override
@@ -133,22 +140,32 @@ class SearchScreenState extends State<SearchScreen>
         body: LoadOrPresent(
             isEmpty: gottenCategory.isEmpty,
             child: MasonryGridView.builder(
-              itemCount: gottenCategory.length,
+              controller: _scrollController,
+              addAutomaticKeepAlives: true,
+              crossAxisSpacing: 0,
+              itemCount: gottenCategory.length + 1,
               gridDelegate:
                   const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
               itemBuilder: (context, index) {
+                if (index == gottenCategory.length) {
+                  return (const CircleAvatar(
+                      child: CircularProgressIndicator()));
+                }
                 return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      color: palette.amber,
+                      decoration: BoxDecoration(
+                          color: palette.amber,
+                          borderRadius: BorderRadius.circular(15)),
                       child: CachedNetworkImage(
+                          fit: BoxFit.fill,
                           errorWidget: (context, _, __) {
-                            return Container(height: 70, color: Colors.red);
+                            return Container(height: 150, color: Colors.red);
                           },
                           placeholder: (context, _) {
                             return Container(
-                                height: 70, color: Colors.yellowAccent);
+                                height: 150, color: Colors.yellowAccent);
                           },
                           imageUrl: gottenCategory[index].categoryPhotoUrl),
                     ));
