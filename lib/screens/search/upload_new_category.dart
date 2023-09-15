@@ -9,6 +9,7 @@ import 'package:flutter_imagekit/flutter_imagekit.dart';
 import '../../apis/upstash.dart';
 import '../../constant/configs.dart';
 import '../../apis/deta_a.dart';
+import '../Test/master.dart';
 
 class NewCategoryUploadScreen extends StatefulWidget {
   const NewCategoryUploadScreen({super.key});
@@ -303,6 +304,7 @@ showNewCategoryUploadScreen(context) {
       //  isDismissible: bool.fromEnvironment('off'),
       constraints: const BoxConstraints(maxHeight: 600),
       builder: (BuildContext context) {
-        return const NewCategoryUploadScreen();
+        return //const NewCategoryUploadScreen();
+            Master();
       });
 }

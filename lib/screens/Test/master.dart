@@ -6,8 +6,10 @@ import 'create_user_screen.dart';
 import 'list_users.screen.dart';
 import '../../apis/imagekit.dart';
 import '../../apis/deta_a.dart';
-import '../../apis/rubicous.dart'; 
-
+import '../../apis/rubicous.dart';
+import 'package:http_multi_server/http_multi_server.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 
 class Master extends StatefulWidget {
   const Master({super.key});
@@ -48,10 +50,12 @@ class MasterState extends State<Master> {
         // singleCommand('get alot of data', () async {upstash.set(api: upstash.postApi,key: post.id,,)
         //   }),
         singleCommand('test deta platform ', () => upload()),
-        singleCommand('get deta from somewhere', ()async{var res = await postApi.fetch();
-        print(res);}),
-  
-       ],
+        singleCommand('test upload feature', () => button()),
+        singleCommand('get deta from somewhere', () async {
+          var res = await postApi.fetch();
+          print(res);
+        }),
+      ],
     ));
   }
 
@@ -116,4 +120,21 @@ class MasterState extends State<Master> {
       ],
     ));
   }
+}
+
+void button() async {
+  var url = Uri.parse('localhost:8000/upload_video_dropbox');
+  var request = http.MultipartRequest('POST', url)
+    ..files.add(await http.MultipartFile.fromPath(
+        'test_file', '/home/blue/Downloads/testing.txt',
+        filename: 'test_file.txt'));
+  request.send().then((response) {
+    http.Response.fromStream(response).then((value) {
+      try {
+        print(response);
+      } catch (e) {
+        print('exceptions');
+      }
+    });
+  });
 }
